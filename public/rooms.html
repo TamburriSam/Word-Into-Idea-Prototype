@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+<!--     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <title>Rooms</title>
+</head>
+<body>
+    <div id="user"></div>
+
+    <h1>Rooms</h1>
+    <h1 id="waiting">Waiting for users to join</h1>
+    <div id="rooms">
+        <form id="create-room">
+          <input type="text" id="room-name" placeholder="Room Name" />
+          <input type="text" id="room-count" placeholder="Room Count" />
+          <button class="create">Create Room</button>
+        </form>
+        <ul class="rooms"></ul>
+      </div>
+
+      <div class="user-box">
+        <h4>Class List</h4>
+        <ul id="user-list"></ul>
+
+      </div>
+
+      <script src="/firebase.js"></script>
+      <script src="/rooms.js"></script>
+</body>
+</html>
