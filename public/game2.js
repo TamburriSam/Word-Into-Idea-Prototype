@@ -1,3 +1,4 @@
+//const { default: firebase } = require("firebase");
 
 const db = firebase.firestore();
 
@@ -23,6 +24,7 @@ function startGame(room){
     room = db.collection('users').doc(auth.currentUser.uid)
     let docRef = ''
     let id=''
+    let wantedList=''
     return db.runTransaction((transaction) => {
       return transaction.get(room).then((doc) => {
 
@@ -44,9 +46,9 @@ function startGame(room){
 
               console.log(`random int`,randomInt)
 
-              let wantedList = propertyValues[randomInt]
+               wantedList = propertyValues[randomInt]
 
-              console.log(wantedList)
+              console.log(`wanted list`,wantedList)
 
              let html = ''
               wantedList.forEach((word) => {
@@ -54,8 +56,21 @@ function startGame(room){
               })
               inputList.innerHTML = html 
 
+              //upload wanted list into list_one_received
+
 
           }).then((doc) => {
+            let userRef = db.collection('users').doc(auth.currentUser.uid)
+            wantedList.forEach((word) => {
+                userRef.update({
+                    list_one_received: firebase.firestore.FieldValue.arrayUnion(word)
+                }).then(() => {
+                    console.log('list received added')
+                }).catch((err) => {
+                    console.log(err)
+                })
+            })
+            //upload wanted list into list_one_received
 
             console.log(`docref`, docRef)
             //docRef = doc.data().rooms_joined
@@ -213,3 +228,59 @@ console.log(huhArray)
 }
 
 console.log(algorithm(34))
+
+document.body.addEventListener('click', function(e){
+    e.preventDefault()
+    if(e.target.dataset.id === 'next-2'){
+        let targetId = e.target.id
+        let inputList = document.querySelectorAll('.word-cell')
+
+        console.log('here')
+
+        let cells = [];
+
+      let docRef = db.collection('rooms').doc(targetId)
+      updateUserInputList()
+      inputList.forEach((cell) => {
+          console.log(cell.value)
+
+          cells.push(cell.value)
+      })
+      console.log(cells)
+      let randomInt = Math.floor(Math.random() * 200);
+
+      let list_two = {
+          [randomInt]: cells
+      }
+
+      return docRef.set({
+          list_two
+      }, {merge: true}).then(() => {
+            window.location='game3.html'
+            inputForm.reset()
+      })
+    }
+})
+
+function updateUserInputList(){
+    let userRef = db.collection('users').doc(auth.currentUser.uid)
+
+    let inputList = document.querySelectorAll('.word-cell')
+    inputList.forEach((cell) => {
+        userRef.update({
+            list_two_input: firebase.firestore.FieldValue.arrayUnion(cell.value)
+        }).then(() => {
+            console.log("User successfully updated!");
+        })
+        .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+    })
+}
+
+function noDuplicates(){
+  room.get().then((doc) => {
+    console.log(`roomroom`,doc.data().list_two)
+  })
+}
