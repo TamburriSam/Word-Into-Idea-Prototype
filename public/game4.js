@@ -1,4 +1,5 @@
 const db = firebase.firestore();
+const userName = document.querySelector('#userNameContainer')
 
 const auth = firebase.auth();
 
@@ -12,8 +13,8 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
 
     if(user){
-        console.log(333)
-        startGame()
+      userName.innerHTML = `Hello ` + user.displayName
+      startGame()
     }
 })
 
@@ -33,6 +34,8 @@ function startGame(room){
       }).then(() => {
           //get words first
           db.collection('rooms').doc(docRef).get().then((doc) => {
+            let usersRef = db.collection('rooms').doc(docRef)
+            getUsers(usersRef)
               let data = doc.data().list_three
                 let inputList = document.querySelector('#word-list3')
               const propertyValues = Object.values(data);
@@ -101,6 +104,28 @@ console.log('fetched from list three')
     }) 
   }
 
+  function getUsers(room) {
+    let inputList = document.querySelector("#user-list");
+     let html;
+     console.log("HAR");
+     //display the usernames
+     //but we want to set up a listener
+   
+     room.onSnapshot((snapshot) => {
+       //IF THERE IS NOW A LISTENER HERE FOR USERS
+       //CAN WE SET UP A LISTETNER FOR THE COUNT AS WELL
+       //ANOTHER PARAMETER FOR THE DOCREF WITH A TWEAK FOR USERS FIELD INSTEAD
+       let html = "";
+       snapshot.data().users.forEach((user) => {
+         html += `<li> ${user} </li>`;
+         console.log(user);
+       });
+       inputList.innerHTML = html;
+     }); 
+ 
+     console.log(room)
+   }  
+
   function getReceivedListOne(){
     let wordList2 = document.querySelector('#word-list')
   let userRef = db.collection('users').doc(auth.currentUser.uid)
@@ -111,6 +136,8 @@ list_one_received.forEach((word) => {
 html += `<li>${word}</li>`
 })
 wordList2.innerHTML = html
+  }).catch((err) => {
+    console.log(err)
   })
 }
 
@@ -170,7 +197,7 @@ function getRoomCountForInput(room){
       return docRef.set({
           list_four
       }, {merge: true}).then(() => {
-            //window.location='game4.html'
+            window.location='finalPage.html'
             inputForm.reset()
       })
     }

@@ -10,6 +10,7 @@ auth.onAuthStateChanged((user) => {
 
     if(user){
         startGame()
+        userName.innerHTML = `Hello ` + user.displayName
     }
 })
 
@@ -86,26 +87,6 @@ function getUsers(room) {
         inputList.forEach((cell) => {
 
             cells.push(cell.value)
-
-
-
-
-          /*   docRef.update({
-                words: firebase.firestore.FieldValue.arrayUnion(cell.value)
-            }).then(() => {
-                let inputForm = document.querySelector('#inputForm')
-
-                //just to test but this will be where it brings us to our next page
-                //localtion.rload will go here
-                //window.location='game2.html'
-                inputForm.reset()
-                //save into user database list_one_input
-                console.log("Document successfully updated!");
-            })
-            .catch((error) => {
-                // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
-            }); */
         })
         console.log(cells)
         let randomInt = Math.floor(Math.random() * 200);

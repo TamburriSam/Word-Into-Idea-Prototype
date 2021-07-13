@@ -7,6 +7,38 @@ const roomList = document.querySelector(".rooms");
 const db = firebase.firestore();
 
 const auth = firebase.auth();
+
+const createForm = document.querySelector(".create-room");
+
+let roomName = document.querySelector('#room-name')
+let roomCount = document.querySelector('#room-count')
+
+
+createForm.addEventListener("click", () => {
+
+  console.log('booyah')
+
+  //create new record in firestore database
+  db.collection("rooms")
+    .add({
+      name: roomName.value,
+      total_count: roomCount.value,
+      active_count: 0,
+      users: [],
+      list_one: [],
+      list_two: [],
+      list_three: [],
+      list_four: []
+    })
+    .then(() => {
+      //close modal and reset form
+      //8createForm.reset();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 auth.onAuthStateChanged((user) => {
 
 
@@ -15,6 +47,9 @@ if(user){
      db.collection("rooms").onSnapshot((snapshot) => {
         setUpRooms(snapshot.docs);
       });
+
+      console.log(firebase.auth().currentUser)
+
 }
   });
 
@@ -27,7 +62,7 @@ if(user){
   
         console.log(doc.id);
         //console.log("Iterated snapshot", room);
-        const li = `<li><button data-id="btn" class="room-select" id="${doc.id}">${room.name}</button>${room.total_count} Students</li>`;
+        const li = `<li><button data-id="btn" class="room-select" id="${doc.id}">${room.name}</button> ${room.active_count}/${room.total_count} Active</li>`;
   
         html += li;
   
@@ -68,6 +103,7 @@ if(user){
       }
   })
 
+
   function watchForCount(room){
       let docref = db.collection('rooms').doc(room)
       return db.runTransaction((transaction) => {
@@ -78,7 +114,7 @@ if(user){
                 let newCount = doc.data().active_count + 1;
                 transaction.update(docref, { active_count: newCount },
                     );
-                    transaction.update(docref, {users: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.email)})
+                    transaction.update(docref, {users: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.displayName)})
 
               }
           })

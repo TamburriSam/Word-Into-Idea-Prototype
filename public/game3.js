@@ -1,4 +1,5 @@
 const db = firebase.firestore();
+const userName = document.querySelector('#userNameContainer')
 
 const auth = firebase.auth();
 
@@ -12,8 +13,8 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
 
     if(user){
-        console.log(333)
-        startGame()
+      userName.innerHTML = `Hello ` + user.displayName
+      startGame()
     }
 })
 
@@ -47,6 +48,8 @@ function startGame(room){
       }).then(() => {
           //get words first
           db.collection('rooms').doc(docRef).get().then((doc) => {
+            let usersRef = db.collection('rooms').doc(docRef)
+            getUsers(usersRef)
               let data = doc.data().list_two
 
          //get user reference of list_two
@@ -126,6 +129,28 @@ function startGame(room){
       })
     }) 
   }
+
+  function getUsers(room) {
+    let inputList = document.querySelector("#user-list");
+     let html;
+     console.log("HAR");
+     //display the usernames
+     //but we want to set up a listener
+   
+     room.onSnapshot((snapshot) => {
+       //IF THERE IS NOW A LISTENER HERE FOR USERS
+       //CAN WE SET UP A LISTETNER FOR THE COUNT AS WELL
+       //ANOTHER PARAMETER FOR THE DOCREF WITH A TWEAK FOR USERS FIELD INSTEAD
+       let html = "";
+       snapshot.data().users.forEach((user) => {
+         html += `<li> ${user} </li>`;
+         console.log(user);
+       });
+       inputList.innerHTML = html;
+     }); 
+ 
+     console.log(room)
+   }  
 
   function getRoomCountForInput(room){
     db.collection('rooms').doc(room).get().then((doc) => {
@@ -232,22 +257,23 @@ function noDuplicates(list){
 
               if(arraysEqual(list, doc.data().list_two_input) == true){
                 console.log('trueeeeee')
+
+                //has to be stored
+                //look at like 86
+                //maybe nows a time to use the algorithm function
+                //have the main thing function on randos but if its the same one
+                //then get the number from the db and store it in
+                //usersReference.get().then((querySnapshot) => {
+    //querySnapshot is "iteratable" itself
+   /*  console.log(querySnapshot.docs[0].data())
+    console.log(querySnapshot.docs[1].data())
+    console.log(querySnapshot.docs[2].data())
+    console.log(querySnapshot.docs[3].data()) */
+//})
                 noDuplicates(['me','so','fat'])
               }
 
               console.log(arraysEqual(list, doc.data().list_two_input))
-
- /*    if(!(arraysEqual(list, doc.data().list_two_input))){
-       let html = ''
-              list.forEach((word) => {
-                html += `<li>${word}</li>`
-              })
-              inputList.innerHTML = html  
-              console.log('good')
-    }else{
-      console.log('bad')
-      noDuplicates(list)
-    } */
   })
 }
 

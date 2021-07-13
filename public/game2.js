@@ -1,6 +1,7 @@
 //const { default: firebase } = require("firebase");
 
 const db = firebase.firestore();
+const userName = document.querySelector('#userNameContainer')
 
 const auth = firebase.auth();
 
@@ -14,7 +15,8 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
 
     if(user){
-        console.log(333)
+        userName.innerHTML = `Hello ` + user.displayName
+
         startGame()
     }
 })
@@ -34,7 +36,11 @@ function startGame(room){
         id = doc.id
       }).then(() => {
           //get words first
+         
+
           db.collection('rooms').doc(docRef).get().then((doc) => {
+            let usersRef = db.collection('rooms').doc(docRef)
+            getUsers(usersRef)
               let data = doc.data().list_one
                 let inputList = document.querySelector('#input-list')
               const propertyValues = Object.values(data);
@@ -196,6 +202,12 @@ console.log('hje')
 var usersReference = db.collection("users");
 
 //Get them
+//nope bc users is all users not just users in room
+//nope bc users is all users not just users in room
+//nope bc users is all users not just users in room
+
+//nope bc users is all users not just users in room
+
 usersReference.get().then((querySnapshot) => {
 
     //querySnapshot is "iteratable" itself
@@ -279,8 +291,3 @@ function updateUserInputList(){
     })
 }
 
-function noDuplicates(){
-  room.get().then((doc) => {
-    console.log(`roomroom`,doc.data().list_two)
-  })
-}
