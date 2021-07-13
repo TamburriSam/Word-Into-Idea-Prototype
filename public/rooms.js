@@ -22,7 +22,7 @@ createForm.addEventListener("click", () => {
   db.collection("rooms")
     .add({
       name: roomName.value,
-      total_count: roomCount.value,
+      total_count: parseInt(roomCount.value),
       active_count: 0,
       users: [],
       list_one: [],

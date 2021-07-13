@@ -23,10 +23,6 @@ function arraysEqual(a, b) {
   if (a == null || b == null) return false;
   if (a.length !== b.length) return false;
 
-  // If you don't care about the order of the elements inside
-  // the array, you should sort both arrays here.
-  // Please note that calling sort on an array will modify that array.
-  // you might want to clone your array first.
 
   for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
@@ -68,64 +64,19 @@ function startGame(room){
 
               console.log(`random int`,randomInt)
 
-              //secondaryList=propertyValues[0]
+
                wantedList = propertyValues[randomInt]
 
-              //console.log(`wanted list`,wantedList)
-
-
-
-            /*  let html = ''
-              wantedList.forEach((word) => {
-                html += `<li>${word}</li>`
-              })
-              inputList.innerHTML = html  */
-
-              //upload wanted list into list_one_received
 
 
           }).then((doc) => {
 
-            let userRef = db.collection('users').doc(auth.currentUser.uid)
-            wantedList.forEach((word) => {
-                userRef.update({
-                    list_two_received: firebase.firestore.FieldValue.arrayUnion(word)
-                }).then(() => {
-
-                    console.log('list two received added')
-                }).catch((err) => {
-                    console.log(err)
-                }) 
-                console.log('fetched from list_two')
-            })
-            //upload wanted list into list_one_received
-
-            //console.log(`docref`, docRef)
-            //docRef = doc.data().rooms_joined
-
-            //get the input cells
-
-
-            noDuplicates(wantedList, secondaryList);
+           noDuplicates(wantedList, secondaryList);
 
             getReceivedListOne()
             getRoomCountForInput(docRef)
         })
-     
-       /*  db.collection('rooms').doc(docRef).get().then((doc) => {
-            let usersRef = db.collection('rooms').doc(docRef)
-            getUsers(usersRef)
-            
-            let listofInp = document.querySelector("#input-list");
-            let html = "";
-        
-            for (let i = 0; i < doc.data().total_count; i++) {
-              html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
-            }
 
-            html += `<button data-id="next-1"class="next-1"id='${doc.id}'>Next</button>`;
-            listofInp.innerHTML = html;
-        }) */
       })
     }) 
   }
@@ -234,6 +185,7 @@ function updateUserInputList(){
 function noDuplicates(list){
   let inputList = document.querySelector('#word-list2')
 
+  let wantedArray = ['me', 'so', 'pale']
 
   let room = db.collection('users').doc(auth.currentUser.uid)
 
@@ -270,7 +222,30 @@ function noDuplicates(list){
     console.log(querySnapshot.docs[2].data())
     console.log(querySnapshot.docs[3].data()) */
 //})
-                noDuplicates(['me','so','fat'])
+
+//something better that it collects is needed
+                noDuplicates(wantedArray)
+                wantedArray.forEach((word) => {
+                  room.update({
+                      list_two_received: firebase.firestore.FieldValue.arrayUnion(word)
+                  }).then(() => {
+                      console.log('list two received added')
+                  }).catch((err) => {
+                      console.log(err)
+                  }) 
+                  console.log('fetched from list_two')
+              }) 
+              }else{
+                list.forEach((word) => {
+                  room.update({
+                      list_two_received: firebase.firestore.FieldValue.arrayUnion(word)
+                  }).then(() => {
+                      console.log('list two received added')
+                  }).catch((err) => {
+                      console.log(err)
+                  }) 
+                  console.log('fetched from list_two')
+              }) 
               }
 
               console.log(arraysEqual(list, doc.data().list_two_input))

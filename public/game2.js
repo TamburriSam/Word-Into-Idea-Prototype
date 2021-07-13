@@ -1,4 +1,3 @@
-//const { default: firebase } = require("firebase");
 
 const db = firebase.firestore();
 const userName = document.querySelector('#userNameContainer')
@@ -22,7 +21,6 @@ auth.onAuthStateChanged((user) => {
 })
 
 function startGame(room){
-    //getUsers()
     room = db.collection('users').doc(auth.currentUser.uid)
     let docRef = ''
     let id=''
@@ -56,73 +54,106 @@ function startGame(room){
 
               console.log(`wanted list`,wantedList)
 
-             let html = ''
-              wantedList.forEach((word) => {
-                html += `<li>${word}</li>`
-              })
-              inputList.innerHTML = html 
-
-              //upload wanted list into list_one_received
-
-
           }).then((doc) => {
-            let userRef = db.collection('users').doc(auth.currentUser.uid)
-            wantedList.forEach((word) => {
-                userRef.update({
-                    list_one_received: firebase.firestore.FieldValue.arrayUnion(word)
-                }).then(() => {
-                    console.log('list received added')
-                }).catch((err) => {
-                    console.log(err)
-                })
-            })
-            //upload wanted list into list_one_received
+
 
             console.log(`docref`, docRef)
             //docRef = doc.data().rooms_joined
 
             //get the input cells
+            noDuplicates(wantedList)
             getRoomCountForInput(docRef)
         })
-     
-       /*  db.collection('rooms').doc(docRef).get().then((doc) => {
-            let usersRef = db.collection('rooms').doc(docRef)
-            getUsers(usersRef)
-            
-            let listofInp = document.querySelector("#input-list");
-            let html = "";
-        
-            for (let i = 0; i < doc.data().total_count; i++) {
-              html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
-            }
-
-            html += `<button data-id="next-1"class="next-1"id='${doc.id}'>Next</button>`;
-            listofInp.innerHTML = html;
-        }) */
       })
     }) 
   }
 
-  function getRoomCountForInput(room){
-    /*   room = db.collection('rooms').doc(room)
+  function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;
+  
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+
+  function noDuplicates(list){
+    let inputList = document.querySelector('#word-list')
+  
+  
+    let room = db.collection('users').doc(auth.currentUser.uid)
+  
     room.get().then((doc) => {
-        let usersRef = db.collection('rooms').doc(room)
-        //getUsers(usersRef)
-        
-        let listofInp = document.querySelector("#word-list");
-        let html = "";
-    
-        for (let i = 0; i < doc.data().total_count; i++) {
-          html += `<li><input type="text" placeholder="enter word" class="word-cell" </input> </li>`;
-        }
+      console.log(`general list length`, list.length)
+      console.log(`my list length`, doc.data().list_one_input.length)
+  
+  
+      console.log(`your list two input from rooms db`,doc.data().list_one_input)
+  
+      console.log(`random list_two from db`,list)
+      let wantedArray = ['me', 'so', 'pale']
 
-        html += `<button data-id="next-2"class="next-2"id='${doc.id}'>Next</button>`;
-        listofInp.innerHTML = html;
-    }) */
+  
+      //console.log(`secondList`, secondList)
+  
+      let html = ''
+                list.forEach((word) => {
+                  html += `<li>${word}</li>`
+                })
+                inputList.innerHTML = html  
+                console.log('good')
+  
+                if(arraysEqual(list, doc.data().list_one_input) == true){
+                  console.log('trueeeeee')
+  
+                  //has to be stored
+                  //look at like 86
+                  //maybe nows a time to use the algorithm function
+                  //have the main thing function on randos but if its the same one
+                  //then get the number from the db and store it in
+                  //usersReference.get().then((querySnapshot) => {
+      //querySnapshot is "iteratable" itself
+     /*  console.log(querySnapshot.docs[0].data())
+      console.log(querySnapshot.docs[1].data())
+      console.log(querySnapshot.docs[2].data())
+      console.log(querySnapshot.docs[3].data()) */
+  //})
+  
+  //something better that it collects is needed
+                  noDuplicates(wantedArray)
+                  wantedArray.forEach((word) => {
+                    room.update({
+                        list_one_received: firebase.firestore.FieldValue.arrayUnion(word)
+                    }).then(() => {
+                        console.log('list two received added')
+                    }).catch((err) => {
+                        console.log(err)
+                    }) 
+                    console.log('fetched from list_two')
+                }) 
+                }else{
+                  list.forEach((word) => {
+                    room.update({
+                        list_one_received: firebase.firestore.FieldValue.arrayUnion(word)
+                    }).then(() => {
+                        console.log('list two received added')
+                    }).catch((err) => {
+                        console.log(err)
+                    }) 
+                    console.log('fetched from list_two')
+                }) 
+                }
+  
+                console.log(arraysEqual(list, doc.data().list_one_input))
+    })
+  }
 
+  function getRoomCountForInput(room){
     db.collection('rooms').doc(room).get().then((doc) => {
         console.log(doc.data())
-        let listofInp = document.querySelector("#word-list");
+        let listofInp = document.querySelector("#input-list");
         let html = "";
     
         for (let i = 0; i < doc.data().total_count; i++) {
@@ -157,47 +188,13 @@ function startGame(room){
    }  
 
 
-   let test = document.querySelector('#test')
-
-test.addEventListener('click', function(){
-    console.log(8)
-
-    let randomInt = Math.floor(Math.random() * 200);
 
 
-    let arr1 = [1,2,3,4,5,6,7]
-
-    console.log(randomInt)
-
-    let word = {
-        [randomInt]: ['waht','huh'],
-    }
-
-    let room = db.collection('rooms').doc('T5yCQPYGfgZNlnXMCCnb')
-
-
-   return room.set({
-        word
-    }, {merge: true})
-
-
-  console.log(word)
-
-})
 
 let test2= document.querySelector('#test-2')
 
 test2.addEventListener('click', function(){
-  /*   console.log('heydsdsy')
-    let room = db.collection('rooms').doc('T5yCQPYGfgZNlnXMCCnb')
 
-    room.get().then((doc) => {
-        console.log(doc.data().word)
-    }) */
-
-  /*   db.collection('users').get().then((doc) => {
-        console.log(doc.data())
-    }) */
 console.log('hje')
 var usersReference = db.collection("users");
 

@@ -51,55 +51,19 @@ function startGame(room){
 
               console.log(`wanted list`,wantedList)
 
-             let html = ''
-              wantedList.forEach((word) => {
-                html += `<li>${word}</li>`
-              })
-              inputList.innerHTML = html 
-
-              //upload wanted list into list_one_received
 
 
           }).then((doc) => {
-             let userRef = db.collection('users').doc(auth.currentUser.uid)
-            wantedList.forEach((word) => {
-                userRef.update({
-                    list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
-                }).then(() => {
-                    console.log('list two received added')
-                }).catch((err) => {
-                    console.log(err)
-                }) 
-                console.log('fetched from list_two')
-            }) 
-            //upload wanted list into list_one_received
-
-            //console.log(`docref`, docRef)
-            //docRef = doc.data().rooms_joined
-
+     
             //get the input cells
 console.log('fetched from list three')
 
-
+            noDuplicates(wantedList)
              getReceivedListOne()
              getReceivedListTwo()
             getRoomCountForInput(docRef) 
         })
-     
-       /*  db.collection('rooms').doc(docRef).get().then((doc) => {
-            let usersRef = db.collection('rooms').doc(docRef)
-            getUsers(usersRef)
-            
-            let listofInp = document.querySelector("#input-list");
-            let html = "";
-        
-            for (let i = 0; i < doc.data().total_count; i++) {
-              html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
-            }
 
-            html += `<button data-id="next-1"class="next-1"id='${doc.id}'>Next</button>`;
-            listofInp.innerHTML = html;
-        }) */
       })
     }) 
   }
@@ -166,6 +130,91 @@ function getRoomCountForInput(room){
 
         html += `<button data-id="next-4"class="next-4"id='${doc.id}'>Next</button>`;
         listofInp.innerHTML = html;
+    })
+  }
+
+  function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;
+  
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+  
+
+  function noDuplicates(list){
+    let inputList = document.querySelector('#word-list3')
+  
+  
+    let room = db.collection('users').doc(auth.currentUser.uid)
+  
+    room.get().then((doc) => {
+      console.log(`general list length`, list.length)
+      console.log(`my list length`, doc.data().list_three_input.length)
+  
+  
+      console.log(`your list two input from rooms db`,doc.data().list_three_input)
+  
+      console.log(`random list_two from db`,list)
+
+      let wantedArray = ['me', 'so', 'pale']
+  
+      //console.log(`secondList`, secondList)
+  
+      let html = ''
+                list.forEach((word) => {
+                  html += `<li>${word}</li>`
+                })
+                inputList.innerHTML = html  
+                console.log('good')
+  
+                if(arraysEqual(list, doc.data().list_three_input) == true){
+                  console.log('trueeeeee')
+  
+                  //has to be stored
+                  //look at like 86
+                  //maybe nows a time to use the algorithm function
+                  //have the main thing function on randos but if its the same one
+                  //then get the number from the db and store it in
+                  //usersReference.get().then((querySnapshot) => {
+      //querySnapshot is "iteratable" itself
+     /*  console.log(querySnapshot.docs[0].data())
+      console.log(querySnapshot.docs[1].data())
+      console.log(querySnapshot.docs[2].data())
+      console.log(querySnapshot.docs[3].data()) */
+  //})
+  
+  //something better that it collects is needed
+                  noDuplicates(wantedArray)
+
+                  wantedArray.forEach((word) => {
+                    room.update({
+                        list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
+                    }).then(() => {
+                        console.log('list two received added')
+                    }).catch((err) => {
+                        console.log(err)
+                    }) 
+                    console.log('fetched from list_two')
+                }) 
+                  //can we save it right here? 
+                }else{
+                  list.forEach((word) => {
+                    room.update({
+                        list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
+                    }).then(() => {
+                        console.log('list two received added')
+                    }).catch((err) => {
+                        console.log(err)
+                    }) 
+                    console.log('fetched from list_two')
+                }) 
+                }
+  
+                console.log(arraysEqual(list, doc.data().list_three_input))
     })
   }
   
