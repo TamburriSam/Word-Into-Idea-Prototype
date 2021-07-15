@@ -195,8 +195,74 @@ let test2= document.querySelector('#test-2')
 
 test2.addEventListener('click', function(){
 
+  let myCode = ''
+
+let myUserRef = db.collection('users').doc(auth.currentUser.uid)
+var usersReference = db.collection("users");
+let user_name = '';
+
+
+
+  return db.runTransaction((transaction) => {
+    return transaction.get(myUserRef).then((doc) => {
+
+      myCode = doc.data().rooms_joined
+      user_name = doc.data().user_name
+    }).then(() => {
+      console.log(`my code`, myCode)
+
+usersReference.get().then((querySnapshot) => {
+  let yourRoomList = [];
+
+
+  for(let i = 0; i < querySnapshot.docs; i++){
+    console.log(`q`,querySnapshot.docs[i].data())
+  }
+
+
+
+  querySnapshot.docs.forEach((doc) => {
+
+/* if(doc.data().rooms_joined === myCode){
+  console.log(`WANTED ROOM LIST`,doc.data().user_name)
+  console.log(`YOUR INDEX #`, doc.data().rooms_joined.indexOf(myCode))
+} */
+
+
+    //yes this is exactly what we need but lets find our index first
+
+  if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
+      yourRoomList.push(doc.data())
+    } 
+
+
+
+
+
+
+
+  })
+ //the numbers from the algorithm would go here
+  console.log(`list one`, yourRoomList[0])
+  console.log(`list two`, yourRoomList[1])
+})
+
+
+    })
+  })
+
 console.log('hje')
 var usersReference = db.collection("users");
+
+//let myUserRef = ''
+
+db.collection('users').doc(auth.currentUser.uid).get().then((doc) => {
+  myUserRef =  doc.data().rooms_joined
+}).catch((err) => {
+  console.log(err)
+})
+
+console.log(myUserRef)
 
 //Get them
 //nope bc users is all users not just users in room
@@ -207,11 +273,16 @@ var usersReference = db.collection("users");
 
 usersReference.get().then((querySnapshot) => {
 
+
+  querySnapshot.docs.forEach((doc) => {
+    console.log(doc.data().rooms_joined)
+  })
+
     //querySnapshot is "iteratable" itself
-   /*  console.log(querySnapshot.docs[0].data())
-    console.log(querySnapshot.docs[1].data())
-    console.log(querySnapshot.docs[2].data())
-    console.log(querySnapshot.docs[3].data()) */
+   console.log(0, querySnapshot.docs[0].data())
+    console.log(1, querySnapshot.docs[1].data())
+    console.log(2, querySnapshot.docs[2].data())
+    console.log(3, querySnapshot.docs[3].data()) 
 
 
 })
@@ -221,19 +292,37 @@ function algorithm(num){
 
     let numArray = [];
 
-    for(let i = 1; i <= num; i++){
+    for(let i = 1; i < num; i++){
         numArray.push(i)
     }
 
     let huhArray = [];
 
     for(let i = 0; i < numArray.length; i++){
-        huhArray.push([numArray[i]  + '', numArray[i+1], numArray[i+2], numArray[i+3], numArray[i+4]])    
+        huhArray.push([numArray[i+1], numArray[i+2], numArray[i+3], numArray[i+4]])   
     }
 
-    numArray[numArray.length-5]
+numArray[numArray.length-5]
 console.log(huhArray)
-    console.log(huhArray[huhArray.length - 5])
+
+huhArray[huhArray.length-5][3] = 1
+huhArray[huhArray.length-4][2] = 1
+
+huhArray[huhArray.length-4][3] = 2
+huhArray[huhArray.length-3][1] = 1
+huhArray[huhArray.length-3][2] = 2
+huhArray[huhArray.length-3][3] = 3
+
+huhArray[huhArray.length-2][0] = 1
+huhArray[huhArray.length-2][1] = 2
+huhArray[huhArray.length-2][2] = 3
+huhArray[huhArray.length-2][3] = 4
+
+
+
+
+
+    console.log(huhArray[huhArray.length - 4][3])
 }
 
 console.log(algorithm(34))

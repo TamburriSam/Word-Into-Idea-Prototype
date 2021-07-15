@@ -65,7 +65,11 @@ console.log('fetched from list three')
         })
 
       })
-    }) 
+    }).then(() => {
+      console.log('done')
+    }).catch((err) => {
+      console.err(err)
+    })
   }
 
   function getUsers(room) {
@@ -268,3 +272,6 @@ function updateUserInputList(){
         });
     })
 }
+
+
+

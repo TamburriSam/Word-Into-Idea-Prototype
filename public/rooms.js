@@ -12,11 +12,19 @@ const createForm = document.querySelector(".create-room");
 
 let roomName = document.querySelector('#room-name')
 let roomCount = document.querySelector('#room-count')
+let test = document.querySelector('#btn')
+
+test.addEventListener('click', function(){
+})
+
+
+
 
 
 createForm.addEventListener("click", () => {
 
   console.log('booyah')
+
 
   //create new record in firestore database
   db.collection("rooms")
@@ -39,6 +47,28 @@ createForm.addEventListener("click", () => {
     });
 });
 
+function findIndex(){
+let roomCode = '';
+let position = [];
+
+
+let room = db.collection('users').doc(auth.currentUser.uid)
+
+db.collection('users').doc(auth.currentUser.uid).get().then((doc) => {
+  console.log('doc', doc.data())
+})
+
+/* return db.runTransaction((transaction) => {
+  return transaction.get(room).then((doc) => {
+    console.log(`Found`,doc)
+  })
+}).then(() => {
+  console.log('done')
+})
+ */
+ 
+}
+
 auth.onAuthStateChanged((user) => {
 
 
@@ -46,12 +76,16 @@ if(user){
     userName.innerHTML = 'Hello' + ' ' + user.displayName  
      db.collection("rooms").onSnapshot((snapshot) => {
         setUpRooms(snapshot.docs);
+        findIndex();
+
       });
+
 
       console.log(firebase.auth().currentUser)
 
 }
   });
+
 
   const setUpRooms = (data) => {
     //if there is data
