@@ -15,58 +15,12 @@ auth.onAuthStateChanged((user) => {
 
     if(user){
         userName.innerHTML = `Hello ` + user.displayName
-
+      console.log(auth.currentUser.email)
         startGame()
     }
 })
 
-function startGame(room){
-    room = db.collection('users').doc(auth.currentUser.uid)
-    let docRef = ''
-    let id=''
-    let wantedList=''
-    return db.runTransaction((transaction) => {
-      return transaction.get(room).then((doc) => {
 
-        console.log(doc.data())
-
-        docRef = doc.data().rooms_joined
-        id = doc.id
-      }).then(() => {
-          //get words first
-         
-
-          db.collection('rooms').doc(docRef).get().then((doc) => {
-            let usersRef = db.collection('rooms').doc(docRef)
-            getUsers(usersRef)
-              let data = doc.data().list_one
-                let inputList = document.querySelector('#input-list')
-              const propertyValues = Object.values(data);
-              let randomInt = getRandomInt(0, propertyValues.length-1)
-
-
-              console.log(`property values`, propertyValues[randomInt])
-
-
-              console.log(`random int`,randomInt)
-
-               wantedList = propertyValues[randomInt]
-
-              console.log(`wanted list`,wantedList)
-
-          }).then((doc) => {
-
-
-            console.log(`docref`, docRef)
-            //docRef = doc.data().rooms_joined
-
-            //get the input cells
-            noDuplicates(wantedList)
-            getRoomCountForInput(docRef)
-        })
-      })
-    }) 
-  }
 
   function arraysEqual(a, b) {
     if (a === b) return true;
@@ -79,7 +33,7 @@ function startGame(room){
     return true;
   }
 
-  function noDuplicates(list){
+  function noDuplicates(list, secondList){
     let inputList = document.querySelector('#word-list')
   
   
@@ -93,10 +47,8 @@ function startGame(room){
       console.log(`your list two input from rooms db`,doc.data().list_one_input)
   
       console.log(`random list_two from db`,list)
-      let wantedArray = ['me', 'so', 'pale']
 
   
-      //console.log(`secondList`, secondList)
   
       let html = ''
                 list.forEach((word) => {
@@ -107,23 +59,9 @@ function startGame(room){
   
                 if(arraysEqual(list, doc.data().list_one_input) == true){
                   console.log('trueeeeee')
-  
-                  //has to be stored
-                  //look at like 86
-                  //maybe nows a time to use the algorithm function
-                  //have the main thing function on randos but if its the same one
-                  //then get the number from the db and store it in
-                  //usersReference.get().then((querySnapshot) => {
-      //querySnapshot is "iteratable" itself
-     /*  console.log(querySnapshot.docs[0].data())
-      console.log(querySnapshot.docs[1].data())
-      console.log(querySnapshot.docs[2].data())
-      console.log(querySnapshot.docs[3].data()) */
-  //})
-  
-  //something better that it collects is needed
-                  noDuplicates(wantedArray)
-                  wantedArray.forEach((word) => {
+
+                  noDuplicates(secondList)
+                  secondList.forEach((word) => {
                     room.update({
                         list_one_received: firebase.firestore.FieldValue.arrayUnion(word)
                     }).then(() => {
@@ -138,7 +76,7 @@ function startGame(room){
                     room.update({
                         list_one_received: firebase.firestore.FieldValue.arrayUnion(word)
                     }).then(() => {
-                        console.log('list two received added')
+                        console.log('list one received added')
                     }).catch((err) => {
                         console.log(err)
                     }) 
@@ -168,7 +106,6 @@ function startGame(room){
   function getUsers(room) {
     let inputList = document.querySelector("#user-list");
      let html;
-     console.log("HAR");
      //display the usernames
      //but we want to set up a listener
    
@@ -179,7 +116,6 @@ function startGame(room){
        let html = "";
        snapshot.data().users.forEach((user) => {
          html += `<li> ${user} </li>`;
-         console.log(user);
        });
        inputList.innerHTML = html;
      }); 
@@ -194,138 +130,9 @@ function startGame(room){
 let test2= document.querySelector('#test-2')
 
 test2.addEventListener('click', function(){
-
-  let myCode = ''
-
-let myUserRef = db.collection('users').doc(auth.currentUser.uid)
-var usersReference = db.collection("users");
-let user_name = '';
-
-
-
-  return db.runTransaction((transaction) => {
-    return transaction.get(myUserRef).then((doc) => {
-
-      myCode = doc.data().rooms_joined
-      user_name = doc.data().user_name
-    }).then(() => {
-      console.log(`my code`, myCode)
-
-usersReference.get().then((querySnapshot) => {
-  let yourRoomList = [];
-
-
-  for(let i = 0; i < querySnapshot.docs; i++){
-    console.log(`q`,querySnapshot.docs[i].data())
-  }
-
-
-
-  querySnapshot.docs.forEach((doc) => {
-
-/* if(doc.data().rooms_joined === myCode){
-  console.log(`WANTED ROOM LIST`,doc.data().user_name)
-  console.log(`YOUR INDEX #`, doc.data().rooms_joined.indexOf(myCode))
-} */
-
-
-    //yes this is exactly what we need but lets find our index first
-
-  if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
-      yourRoomList.push(doc.data())
-    } 
-
-
-
-
-
-
-
-  })
- //the numbers from the algorithm would go here
-  console.log(`list one`, yourRoomList[0])
-  console.log(`list two`, yourRoomList[1])
 })
 
 
-    })
-  })
-
-console.log('hje')
-var usersReference = db.collection("users");
-
-//let myUserRef = ''
-
-db.collection('users').doc(auth.currentUser.uid).get().then((doc) => {
-  myUserRef =  doc.data().rooms_joined
-}).catch((err) => {
-  console.log(err)
-})
-
-console.log(myUserRef)
-
-//Get them
-//nope bc users is all users not just users in room
-//nope bc users is all users not just users in room
-//nope bc users is all users not just users in room
-
-//nope bc users is all users not just users in room
-
-usersReference.get().then((querySnapshot) => {
-
-
-  querySnapshot.docs.forEach((doc) => {
-    console.log(doc.data().rooms_joined)
-  })
-
-    //querySnapshot is "iteratable" itself
-   console.log(0, querySnapshot.docs[0].data())
-    console.log(1, querySnapshot.docs[1].data())
-    console.log(2, querySnapshot.docs[2].data())
-    console.log(3, querySnapshot.docs[3].data()) 
-
-
-})
-})
-
-function algorithm(num){
-
-    let numArray = [];
-
-    for(let i = 1; i < num; i++){
-        numArray.push(i)
-    }
-
-    let huhArray = [];
-
-    for(let i = 0; i < numArray.length; i++){
-        huhArray.push([numArray[i+1], numArray[i+2], numArray[i+3], numArray[i+4]])   
-    }
-
-numArray[numArray.length-5]
-console.log(huhArray)
-
-huhArray[huhArray.length-5][3] = 1
-huhArray[huhArray.length-4][2] = 1
-
-huhArray[huhArray.length-4][3] = 2
-huhArray[huhArray.length-3][1] = 1
-huhArray[huhArray.length-3][2] = 2
-huhArray[huhArray.length-3][3] = 3
-
-huhArray[huhArray.length-2][0] = 1
-huhArray[huhArray.length-2][1] = 2
-huhArray[huhArray.length-2][2] = 3
-huhArray[huhArray.length-2][3] = 4
-
-
-
-
-
-    console.log(huhArray[huhArray.length - 4][3])
-}
-
-console.log(algorithm(34))
 
 document.body.addEventListener('click', function(e){
     e.preventDefault()
@@ -377,3 +184,89 @@ function updateUserInputList(){
     })
 }
 
+
+
+
+function startGame(room){
+  room = db.collection('users').doc(auth.currentUser.uid)
+  let docRef = ''
+  let id=''
+  let wantedList=''
+  let myCode = ''
+  var usersReference = db.collection("users");
+  let user_name = '';
+  let myIndex = ''
+  let recipients = ''
+
+  return db.runTransaction((transaction) => {
+    return transaction.get(room).then((doc) => {
+      myCode = doc.data().rooms_joined
+      user_name = doc.data().user_name
+      myIndex = doc.data().index
+      recipients = doc.data().recipients
+
+      console.log(`REC`,doc.data().recipients[0])
+
+      docRef = doc.data().rooms_joined
+      id = doc.id
+
+
+
+    })
+    }).then(() => {
+        //get words first
+        //get words from this class' list_one only
+
+
+        db.collection('rooms').doc(docRef).get().then((doc) => {
+
+
+
+          let usersRef = db.collection('rooms').doc(docRef)
+          getUsers(usersRef)
+            let data = doc.data().list_one
+              let inputList = document.querySelector('#input-list')
+            const propertyValues = Object.values(data);
+            let randomInt = getRandomInt(0, propertyValues.length-1)
+
+
+            console.log(`property values`, propertyValues[randomInt])
+
+
+            console.log(`random int`,randomInt)
+
+
+            //HAS TO BE CHANGED
+
+             wantedList = propertyValues[randomInt]
+
+         
+
+            console.log(`wanted list`,wantedList)
+
+
+       
+    
+        }).then(() => {
+          let yourRoomList = []
+          let secondList = [];
+
+          console.log('HERE')
+db.collection('users').get().then((querySnapshot) => {
+           querySnapshot.forEach((doc) => {
+            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
+              yourRoomList.push(doc.data())
+              
+            } 
+           })
+
+           console.log(`ROOM LIST`,yourRoomList)
+           console.log(`THE THING YOU WANT`, yourRoomList[0].list_one_input)
+           console.log('I DONT GET IT', yourRoomList)
+           noDuplicates(wantedList, recipients[0])
+           getRoomCountForInput(docRef)
+
+        })}).then(() => {
+        })
+      })
+    }

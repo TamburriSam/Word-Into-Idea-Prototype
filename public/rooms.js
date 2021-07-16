@@ -15,7 +15,61 @@ let roomCount = document.querySelector('#room-count')
 let test = document.querySelector('#btn')
 
 test.addEventListener('click', function(){
+  console.log(algorithm(23))
 })
+
+function algorithm(num, position){
+
+  let numArray = [];
+
+  for(let i = 1; i < num; i++){
+      numArray.push(i)
+  }
+
+  let huhArray = [];
+
+  for(let i = 0; i < numArray.length; i++){
+      huhArray.push([numArray[i+1], numArray[i+2], numArray[i+3], numArray[i+4]])   
+  }
+
+numArray[numArray.length-5]
+console.log(huhArray)
+
+huhArray[huhArray.length-5][3] = 1
+huhArray[huhArray.length-4][2] = 1
+
+huhArray[huhArray.length-4][3] = 2
+huhArray[huhArray.length-3][1] = 1
+huhArray[huhArray.length-3][2] = 2
+huhArray[huhArray.length-3][3] = 3
+
+huhArray[huhArray.length-2][0] = 1
+huhArray[huhArray.length-2][1] = 2
+huhArray[huhArray.length-2][2] = 3
+huhArray[huhArray.length-2][3] = 4
+
+
+
+
+
+  console.log(huhArray[huhArray.length - 4][3])
+
+  console.log(`TARGET NUM`)
+
+
+  let wantedArr = huhArray[position]
+  var userRef = db.collection('users').doc(auth.currentUser.uid);
+
+  return userRef.update({
+    recipients: wantedArr
+  }).then(() => {
+    console.log('doc success')
+  }).catch((err) => {
+    console.error(err)
+  })
+
+
+}
 
 
 
@@ -47,26 +101,61 @@ createForm.addEventListener("click", () => {
     });
 });
 
+
 function findIndex(){
 let roomCode = '';
-let position = [];
+let position = ''
 
 
 let room = db.collection('users').doc(auth.currentUser.uid)
+let user_name = '';
+let roomCount = ''
 
-db.collection('users').doc(auth.currentUser.uid).get().then((doc) => {
-  console.log('doc', doc.data())
-})
 
-/* return db.runTransaction((transaction) => {
+console.log(`doc`,auth.currentUser.uid)
+
+return db.runTransaction((transaction) => {
   return transaction.get(room).then((doc) => {
-    console.log(`Found`,doc)
+    roomCode = doc.data().rooms_joined
+    user_name = doc.data().user_name
+
   })
 }).then(() => {
-  console.log('done')
-})
- */
+  console.log('done', roomCode)
+
+  db.collection('rooms').doc(roomCode).get().then((doc) => {
+    position =  doc.data().users.length
+    roomCount = doc.data().total_count
+    console.log(`POSITION`, position)
+    algorithm(roomCount, position)
+    return addIndexToUserProfile(position)
+
+  })
+
+
+
  
+})
+}
+
+function addIndexToUserProfile(indice){
+
+
+  var userRef = db.collection('users').doc(auth.currentUser.uid);
+
+
+
+  // Set the "capital" field of the city 'DC'
+  return userRef.update({
+      index: indice
+  })
+  .then(() => {
+      console.log("Document successfully updated!");
+  })
+  .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+  });
 }
 
 auth.onAuthStateChanged((user) => {
@@ -76,7 +165,6 @@ if(user){
     userName.innerHTML = 'Hello' + ' ' + user.displayName  
      db.collection("rooms").onSnapshot((snapshot) => {
         setUpRooms(snapshot.docs);
-        findIndex();
 
       });
 
@@ -113,6 +201,7 @@ if(user){
       let uid = firebase.auth().currentUser.uid
       let email = firebase.auth().currentUser.email
 
+
       if(e.target.dataset.id === 'btn'){
           db.collection('users').doc(uid).set({
               rooms_joined: id,
@@ -130,6 +219,9 @@ if(user){
               console.log(id)
               watchForCount(id)
               document.querySelector('#waiting').style.display='block'
+              findIndex()
+
+
              // window.location = 'game1.html'
           }).catch((err) => {
               console.log(err)
