@@ -221,6 +221,9 @@ if(user){
               document.querySelector('#waiting').style.display='block'
               findIndex()
 
+              makeItModal();
+
+
 
              // window.location = 'game1.html'
           }).catch((err) => {
@@ -270,6 +273,24 @@ if(user){
       inputList.innerHTML = html;
     });
   }
+
+  function startCountdown(seconds) {
+    let counter = seconds;
+      
+    const interval = setInterval(() => {
+      console.log(counter);
+      counter--;
+
+      document.querySelector('#waiting').innerHTML = `Game Starting in ${counter} seconds`
+
+        
+      if (counter < 1 ) {
+        clearInterval(interval);
+        console.log('Ding!');
+        window.location = 'game1.html'
+      }
+    }, 1000);
+  }
   
   function isRoomFull(room){
       console.log(`ROOM`, room)
@@ -279,11 +300,10 @@ if(user){
 
         if(data.active_count === data.total_count){
 
-                document.querySelector('#waiting').innerHTML = 'Game Starting in 3 seconds'
-
-                setTimeout(() => {
+startCountdown(9)
+              /*   setTimeout(() => {
                     window.location = 'game1.html'
-                }, 1000);
+                }, 1000); */
            
         }
     })
@@ -291,3 +311,60 @@ if(user){
 
 
   }
+
+  // Get the modal
+var modal = document.getElementById("myModal");
+
+let roomBtns = document.querySelectorAll('.room-select')
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+function makeItModal(){
+  let modalInput = document.querySelector('#alphabetInput')
+  let modalBtn = document.querySelector('#modalSubmit')
+  let modalContent = document.querySelector('.modal-content')
+
+
+
+
+  
+
+    modal.style.display = "block";
+    console.log('clicked')
+
+    modalBtn.addEventListener('click', function(){
+      db.collection('users').doc(auth.currentUser.uid).update({
+        favorite_letter: modalInput.value
+      }).then(() => {
+        console.log('fav letter successfully added')
+        modalContent.innerHTML = 'Thank You. The Game will begin shortly'
+  
+        setTimeout(() => {
+  modal.style.display='none'
+        }, 2000);
+      }).catch((err) => {
+        console.log(`Error on line 317 ${err}`)
+      })
+    })
+
+
+
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+

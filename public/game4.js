@@ -13,64 +13,109 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
 
     if(user){
+      console.log(user.email)
       userName.innerHTML = `Hello ` + user.displayName
       startGame()
     }
 })
 
 function startGame(room){
-    //getUsers()
-    room = db.collection('users').doc(auth.currentUser.uid)
-    let docRef = ''
-    let id=''
-    let wantedList=''
-    return db.runTransaction((transaction) => {
-      return transaction.get(room).then((doc) => {
+  room = db.collection('users').doc(auth.currentUser.uid)
+  let docRef = ''
+  let id=''
+  let wantedList=''
+  let myCode = ''
+  var usersReference = db.collection("users");
+  let user_name = '';
+  let myIndex = ''
+  let recipients = ''
 
-        console.log(doc.data())
+  return db.runTransaction((transaction) => {
+    return transaction.get(room).then((doc) => {
+      myCode = doc.data().rooms_joined
+      user_name = doc.data().user_name
+      myIndex = doc.data().index
+      recipients = doc.data().recipients
 
-        docRef = doc.data().rooms_joined
-        id = doc.id
-      }).then(() => {
-          //get words first
-          db.collection('rooms').doc(docRef).get().then((doc) => {
-            let usersRef = db.collection('rooms').doc(docRef)
-            getUsers(usersRef)
-              let data = doc.data().list_three
-                let inputList = document.querySelector('#word-list3')
-              const propertyValues = Object.values(data);
-              let randomInt = getRandomInt(0, propertyValues.length-1)
+      console.log(`REC`,doc.data().recipients[0])
 
-
-              console.log(`property values`, propertyValues[randomInt])
-
-
-              console.log(`random int`,randomInt)
-
-               wantedList = propertyValues[randomInt]
-
-              console.log(`wanted list`,wantedList)
+      docRef = doc.data().rooms_joined
+      id = doc.id
 
 
 
-          }).then((doc) => {
-     
-            //get the input cells
-console.log('fetched from list three')
-
-            noDuplicates(wantedList)
-             getReceivedListOne()
-             getReceivedListTwo()
-            getRoomCountForInput(docRef) 
-        })
-
-      })
-    }).then(() => {
-      console.log('done')
-    }).catch((err) => {
-      console.err(err)
     })
-  }
+    }).then(() => {
+        //get words first
+        //get words from this class' list_one only
+
+
+        db.collection('rooms').doc(docRef).get().then((doc) => {
+
+
+
+          let usersRef = db.collection('rooms').doc(docRef)
+          getUsers(usersRef)
+            let data = doc.data().list_three
+              let inputList = document.querySelector('#word-list3')
+            const propertyValues = Object.values(data);
+            let randomInt = getRandomInt(0, propertyValues.length-1)
+
+
+            console.log(`property values`, propertyValues[randomInt])
+
+
+            console.log(`random int`,randomInt)
+
+            //why cant this be the second list??? 
+            //its better bc its recursive so itll keep calling it 
+            //ugh
+            //like properttyvalue[randomINt] as the second list 
+
+
+            //HAS TO BE CHANGED
+
+             wantedList = propertyValues[randomInt]
+
+         
+
+            console.log(`wanted list`,wantedList)
+
+
+       
+    
+        }).then(() => {
+          let yourRoomList = []
+          let secondList = [];
+
+          console.log('HERE')
+db.collection('users').get().then((querySnapshot) => {
+           querySnapshot.forEach((doc) => {
+            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
+              yourRoomList.push(doc.data())
+              
+            } 
+           })
+
+           
+           console.log(`ROOM LIST`,yourRoomList[recipients[3]])
+           console.log(`THE THING YOU WANT`, yourRoomList[0].list_three_input)
+           console.log('I DONT GET IT', yourRoomList)
+
+  noDuplicates(wantedList, yourRoomList[2].list_two_input)
+  getReceivedListOne()
+  getReceivedListTwo()
+ getRoomCountForInput(docRef) 
+
+          })
+        }).then(() => {
+        })
+      })
+}
+
+
+
+
 
   function getUsers(room) {
     let inputList = document.querySelector("#user-list");
@@ -149,7 +194,7 @@ function getRoomCountForInput(room){
   }
   
 
-  function noDuplicates(list){
+  function noDuplicates(list, secondList){
     let inputList = document.querySelector('#word-list3')
   
   
@@ -163,10 +208,8 @@ function getRoomCountForInput(room){
       console.log(`your list two input from rooms db`,doc.data().list_three_input)
   
       console.log(`random list_two from db`,list)
-
-      let wantedArray = ['me', 'so', 'pale']
   
-      //console.log(`secondList`, secondList)
+  
   
       let html = ''
                 list.forEach((word) => {
@@ -178,43 +221,27 @@ function getRoomCountForInput(room){
                 if(arraysEqual(list, doc.data().list_three_input) == true){
                   console.log('trueeeeee')
   
-                  //has to be stored
-                  //look at like 86
-                  //maybe nows a time to use the algorithm function
-                  //have the main thing function on randos but if its the same one
-                  //then get the number from the db and store it in
-                  //usersReference.get().then((querySnapshot) => {
-      //querySnapshot is "iteratable" itself
-     /*  console.log(querySnapshot.docs[0].data())
-      console.log(querySnapshot.docs[1].data())
-      console.log(querySnapshot.docs[2].data())
-      console.log(querySnapshot.docs[3].data()) */
-  //})
-  
-  //something better that it collects is needed
-                  noDuplicates(wantedArray)
-
-                  wantedArray.forEach((word) => {
+                  noDuplicates(secondList)
+                  secondList.forEach((word) => {
                     room.update({
                         list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
                     }).then(() => {
-                        console.log('list two received added')
+                        console.log('list 3 received added')
                     }).catch((err) => {
                         console.log(err)
                     }) 
-                    console.log('fetched from list_two')
+                    console.log('fetched from 3')
                 }) 
-                  //can we save it right here? 
                 }else{
                   list.forEach((word) => {
                     room.update({
                         list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
                     }).then(() => {
-                        console.log('list two received added')
+                        console.log('list 3 received added')
                     }).catch((err) => {
                         console.log(err)
                     }) 
-                    console.log('fetched from list_two')
+                    console.log('fetched from list_three')
                 }) 
                 }
   
@@ -275,3 +302,6 @@ function updateUserInputList(){
 
 
 
+window.onbeforeunload = function() {
+  return "Data will be lost if you leave the page, are you sure?";
+};

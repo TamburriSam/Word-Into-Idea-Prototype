@@ -32,6 +32,7 @@ function startGame(){
       }).then(() => {
      
         db.collection('rooms').doc(docRef).get().then((doc) => {
+          populateAlphabet(docRef)
             let usersRef = db.collection('rooms').doc(docRef)
             getUsers(usersRef)
             
@@ -47,6 +48,31 @@ function startGame(){
         })
       })
     }) 
+  }
+
+  let testBtn = document.querySelector('#test')
+  testBtn.addEventListener('click', function(){
+    populateAlphabet()
+  })
+  function populateAlphabet(room){
+    db.collection('users').get().then((querySnapshot) => {
+      let alphabetArray = []
+      let alphabetList = document.querySelector('#alphabet-list')
+      querySnapshot.forEach((doc) => {
+
+        if(doc.data().rooms_joined === room){
+          alphabetArray.push(doc.data().favorite_letter)
+        }
+
+      })
+      console.log(alphabetArray)
+
+      let html = ''
+      alphabetArray.forEach((letter) => {
+        html += `<li>${letter}</li>`
+      })
+      alphabetList.innerHTML = html
+    })
   }
 
   console.log(88)

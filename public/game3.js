@@ -31,55 +31,95 @@ function arraysEqual(a, b) {
 }
 
 function startGame(room){
-    //getUsers()
-     room = db.collection('users').doc(auth.currentUser.uid)
-    let docRef, wantedList, id, secondaryList;
-    return db.runTransaction((transaction) => {
-      return transaction.get(room).then((doc) => {
+  room = db.collection('users').doc(auth.currentUser.uid)
+  let docRef = ''
+  let id=''
+  let wantedList=''
+  let myCode = ''
+  var usersReference = db.collection("users");
+  let user_name = '';
+  let myIndex = ''
+  let recipients = ''
 
-        console.log(doc.data())
+  return db.runTransaction((transaction) => {
+    return transaction.get(room).then((doc) => {
+      myCode = doc.data().rooms_joined
+      user_name = doc.data().user_name
+      myIndex = doc.data().index
+      recipients = doc.data().recipients
 
-        docRef = doc.data().rooms_joined
-        id = doc.id
-      }).then(() => {
-          //get words first
-          db.collection('rooms').doc(docRef).get().then((doc) => {
-            let usersRef = db.collection('rooms').doc(docRef)
-            getUsers(usersRef)
-              let data = doc.data().list_two
+      console.log(`REC`,doc.data().recipients[0])
 
-         //get user reference of list_two
-         //compare the wanted list and list two
-         //if its the same do something else
+      docRef = doc.data().rooms_joined
+      id = doc.id
+
+
+
+    })
+    }).then(() => {
+        //get words first
+        //get words from this class' list_one only
+
+
+        db.collection('rooms').doc(docRef).get().then((doc) => {
+
+
+
+          let usersRef = db.collection('rooms').doc(docRef)
+          getUsers(usersRef)
+            let data = doc.data().list_two
+              let inputList = document.querySelector('#word-list2')
+            const propertyValues = Object.values(data);
+            let randomInt = getRandomInt(0, propertyValues.length-1)
+
+
+            console.log(`property values`, propertyValues[randomInt])
+
+
+            console.log(`random int`,randomInt)
+
+
+            //HAS TO BE CHANGED
+
+             wantedList = propertyValues[randomInt]
+
+         
+
+            console.log(`wanted list`,wantedList)
+
+
+       
+    
+        }).then(() => {
+          let yourRoomList = []
+          let secondList = [];
+
+          console.log('HERE')
+db.collection('users').get().then((querySnapshot) => {
+           querySnapshot.forEach((doc) => {
+            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
+              yourRoomList.push(doc.data())
               
+            } 
+           })
 
-                let inputList = document.querySelector('#word-list2')
-              const propertyValues = Object.values(data);
-              let randomInt = getRandomInt(0, propertyValues.length-1)
-              let otherRandomInt = getRandomInt(0, propertyValues.length-1)
+           ///ITS GETTING CUT OFF AT THE LENGTH WHY???
+           ///ITS MATCHING BECAUSE THE ARRAY IS SHORTER
+           console.log(`WANTED LISTR HERE`, wantedList)
+           console.log(`ROOM LIST`,yourRoomList)
+           console.log(`THE THING YOU WANT`, yourRoomList[1].list_two_input)
+           console.log('I DONT GET IT', yourRoomList)
 
-
-              console.log(`property values`, propertyValues[randomInt])
-
-
-              console.log(`random int`,randomInt)
-
-
-               wantedList = propertyValues[randomInt]
-
-
-
-          }).then((doc) => {
-
-           noDuplicates(wantedList, secondaryList);
-
-            getReceivedListOne()
-            getRoomCountForInput(docRef)
+           noDuplicates(wantedList, yourRoomList[1].list_two_input)
+           getReceivedListOne()
+           getRoomCountForInput(docRef)
+          })
+        }).then(() => {
         })
-
       })
-    }) 
-  }
+}
+
+
 
   function getUsers(room) {
     let inputList = document.querySelector("#user-list");
@@ -182,10 +222,10 @@ function updateUserInputList(){
     })
 }
 
-function noDuplicates(list){
+
+function noDuplicates(list, secondList){
   let inputList = document.querySelector('#word-list2')
 
-  let wantedArray = ['me', 'so', 'pale']
 
   let room = db.collection('users').doc(auth.currentUser.uid)
 
@@ -198,7 +238,7 @@ function noDuplicates(list){
 
     console.log(`random list_two from db`,list)
 
-    //console.log(`secondList`, secondList)
+
 
     let html = ''
               list.forEach((word) => {
@@ -208,24 +248,14 @@ function noDuplicates(list){
               console.log('good')
 
               if(arraysEqual(list, doc.data().list_two_input) == true){
+                //ITS NOT LOGGING TRUEEEEE
+                //BC ITS FALSE
+                //OK GOOD THAT WE GOT THE ERROR BC IT IS TRUE BUT SOMETHINGS HAPPENING THATS THROWING THE ERROR
+                //IS IT SOMETHING TO DO W SECONDARY LIST? 
                 console.log('trueeeeee')
 
-                //has to be stored
-                //look at like 86
-                //maybe nows a time to use the algorithm function
-                //have the main thing function on randos but if its the same one
-                //then get the number from the db and store it in
-                //usersReference.get().then((querySnapshot) => {
-    //querySnapshot is "iteratable" itself
-   /*  console.log(querySnapshot.docs[0].data())
-    console.log(querySnapshot.docs[1].data())
-    console.log(querySnapshot.docs[2].data())
-    console.log(querySnapshot.docs[3].data()) */
-//})
-
-//something better that it collects is needed
-                noDuplicates(wantedArray)
-                wantedArray.forEach((word) => {
+                noDuplicates(secondList)
+                secondList.forEach((word) => {
                   room.update({
                       list_two_received: firebase.firestore.FieldValue.arrayUnion(word)
                   }).then(() => {
@@ -240,7 +270,7 @@ function noDuplicates(list){
                   room.update({
                       list_two_received: firebase.firestore.FieldValue.arrayUnion(word)
                   }).then(() => {
-                      console.log('list two received added')
+                      console.log('list one received added')
                   }).catch((err) => {
                       console.log(err)
                   }) 
@@ -252,6 +282,9 @@ function noDuplicates(list){
   })
 }
 
+window.onbeforeunload = function() {
+  return "Data will be lost if you leave the page, are you sure?";
+};
 
 
 console.log(arraysEqual(['l','k','p'], ['l','k','p']))

@@ -35,7 +35,7 @@ auth.onAuthStateChanged((user) => {
 
   function noDuplicates(list, secondList){
     let inputList = document.querySelector('#word-list')
-  
+  let arr = ['sdfsdf','asdfa']
   
     let room = db.collection('users').doc(auth.currentUser.uid)
   
@@ -254,19 +254,44 @@ function startGame(room){
           console.log('HERE')
 db.collection('users').get().then((querySnapshot) => {
            querySnapshot.forEach((doc) => {
+
+            //BUT WHY NOT SOMETHING LIKE
+            //&& TIMES_SENT_TO < 4
+            //BECAUSE HOW CAN WE FLAG IF IT WAS SENT
+            //let query = firestore.collection('col').where('foo', '==', 'bar');
+            //let query = firestore.collection('users').where()
+
             if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
               yourRoomList.push(doc.data())
+
+
+
+
+
               
             } 
            })
 
+           let num = recipients[0]
+           console.log(`huj`, num)
+           // EVENTUALLY CHANGE THIS ON ALL OF THEM
+           // EVENTUALLY CHANGE THIS ON ALL OF THEM 
+           //CANT NOW BECAUSE WE DONT HAVE ENOUGH PEOPLE
+
+
            console.log(`ROOM LIST`,yourRoomList)
+           console.log(`RECIPIENTS 0` ,recipients[0])
            console.log(`THE THING YOU WANT`, yourRoomList[0].list_one_input)
            console.log('I DONT GET IT', yourRoomList)
-           noDuplicates(wantedList, recipients[0])
+           noDuplicates(wantedList, yourRoomList[0].list_one_input)
            getRoomCountForInput(docRef)
 
-        })}).then(() => {
+        })
+      }).then(() => {
         })
       })
     }
+
+    window.onbeforeunload = function() {
+      return "Data will be lost if you leave the page, are you sure?";
+    };
