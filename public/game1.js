@@ -54,8 +54,10 @@ function startGame(){
   testBtn.addEventListener('click', function(){
     populateAlphabet()
   })
-  function populateAlphabet(room){
-    db.collection('users').get().then((querySnapshot) => {
+
+  //can change this to just fetch it straight from the room now
+/*   function populateAlphabet(room){
+    db.collection('rooms').get().then((querySnapshot) => {
       let alphabetArray = []
       let alphabetList = document.querySelector('#alphabet-list')
       querySnapshot.forEach((doc) => {
@@ -73,9 +75,39 @@ function startGame(){
       })
       alphabetList.innerHTML = html
     })
+  } */
+
+  function populateAlphabet(){
+    let userRef = db.collection('users').doc(auth.currentUser.uid)
+  var roomRef = db.collection("rooms")
+  let roomCode = ''
+  let alphabetList = document.querySelector('#alphabet-list')
+  
+  // Uncomment to initialize the doc.
+  // sfDocRef.set({ population: 0 });
+  
+  return db.runTransaction((transaction) => {
+      // This code may get re-run multiple times if there are conflicts.
+      return transaction.get(userRef).then((doc) => {
+        roomCode = doc.data().rooms_joined
+  
+  
+  
+      });
+  }).then(() => {
+    db.collection('rooms').doc(roomCode).get().then((doc) => {
+      let html = ''
+      doc.data().favorite_letters.forEach((letter) => {
+        html += `<li>${letter}</li>`
+      })
+      alphabetList.innerHTML = html
+
+    })
+  }).catch((error) => {
+      console.log("Transaction failed: ", error);
+  });
   }
 
-  console.log(88)
 
 //MAYBE LETS SAVE THE DATA UNDER USER
 function getUsers(room) {
@@ -86,9 +118,6 @@ function getUsers(room) {
     //but we want to set up a listener
   
     room.onSnapshot((snapshot) => {
-      //IF THERE IS NOW A LISTENER HERE FOR USERS
-      //CAN WE SET UP A LISTETNER FOR THE COUNT AS WELL
-      //ANOTHER PARAMETER FOR THE DOCREF WITH A TWEAK FOR USERS FIELD INSTEAD
       let html = "";
       snapshot.data().users.forEach((user) => {
         html += `<li> ${user} </li>`;

@@ -1,6 +1,3 @@
-//const { default: firebase } = require("firebase");
-
-
 
 const userName = document.querySelector('#user')
 const roomList = document.querySelector(".rooms");
@@ -15,14 +12,9 @@ let roomCount = document.querySelector('#room-count')
 let test = document.querySelector('#btn')
 
 test.addEventListener('click', function(){
-  db.collection('users').doc(auth.currentUser.uid).delete().then(() => {
-    console.log('User Deleted')
-    firebase.auth().signOut().then(() => {
-     console.log('User sign out successful')
-    }).catch((error) => {
-      // An error happened.
-    });
-  })
+
+
+
 })
 
 function algorithm(num, position){
@@ -102,6 +94,7 @@ createForm.addEventListener("click", () => {
     .then(() => {
       //close modal and reset form
       //8createForm.reset();
+      //add stock words on creation 
     })
     .catch((err) => {
       console.error(err);
@@ -152,7 +145,6 @@ function addIndexToUserProfile(indice){
 
 
 
-  // Set the "capital" field of the city 'DC'
   return userRef.update({
       index: indice
   })
@@ -175,7 +167,7 @@ if(user){
 
       });
 
-
+      
       console.log(firebase.auth().currentUser)
 
 }
@@ -285,9 +277,6 @@ if(user){
     //but we want to set up a listener
   
     room.onSnapshot((snapshot) => {
-      //IF THERE IS NOW A LISTENER HERE FOR USERS
-      //CAN WE SET UP A LISTETNER FOR THE COUNT AS WELL
-      //ANOTHER PARAMETER FOR THE DOCREF WITH A TWEAK FOR USERS FIELD INSTEAD
       let html = "";
       snapshot.data().users.forEach((user) => {
         html += `<li> ${user} </li>`;
@@ -321,8 +310,8 @@ if(user){
     db.collection('rooms').doc(room).onSnapshot((snapshot) => {
         let data = snapshot.data();
 
-        if(data.active_count === data.total_count){
-
+        if(data.active_count === data.total_count && data.total_count === data.favorite_letters.length){
+          //&& data.favorite_letters.length === data.total_count
 startCountdown(9)
            
            
@@ -333,6 +322,38 @@ startCountdown(9)
 
   }
 
+//DOESNT WORK BC TRANSACTION IS ROOM
+  function addLetterToRoomDb(){
+    let room = db.collection('users').doc(auth.currentUser.uid)
+    return db.runTransaction((transaction) => {
+      return transaction.get(room).then((doc) => {
+        roomCode = doc.data().rooms_joined
+        user_name = doc.data().user_name
+    
+      })
+    }).then(() => {
+      console.log('done', roomCode)
+      let docRef = db.collection('rooms').doc(roomCode)
+
+
+
+      // Set the "capital" field of the city 'DC'
+      return docRef.update({
+          favorite_letters: firebase.firestore.FieldValue.arrayUnion(modalInput.value)
+      })
+      .then(() => {
+          console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+      });
+    
+     
+    })
+  }
+
+  let modalInput = document.querySelector('#alphabetInput')
   // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -359,9 +380,19 @@ function makeItModal(){
     console.log('clicked')
 
     modalBtn.addEventListener('click', function(){
+
+
+
+
       db.collection('users').doc(auth.currentUser.uid).update({
         favorite_letter: modalInput.value
       }).then(() => {
+    
+        addLetterToRoomDb()
+
+
+
+
         console.log('fav letter successfully added')
         modalContent.innerHTML = 'Thank You. The Game will begin shortly'
   
@@ -418,3 +449,32 @@ window.addEventListener('beforeunload', function (e) {
   })
   e.returnValue = '';
 }); */
+
+// Create a reference to the SF doc.
+
+
+function populateAlphabet(){
+  let userRef = db.collection('users').doc(auth.currentUser.uid)
+var roomRef = db.collection("rooms")
+let roomCode = ''
+
+// Uncomment to initialize the doc.
+// sfDocRef.set({ population: 0 });
+
+return db.runTransaction((transaction) => {
+    // This code may get re-run multiple times if there are conflicts.
+    return transaction.get(userRef).then((doc) => {
+      roomCode = doc.data().rooms_joined
+
+
+
+    });
+}).then(() => {
+  db.collection('rooms').doc(roomCode).get().then((doc) => {
+    console.log(doc.data())
+  })
+}).catch((error) => {
+    console.log("Transaction failed: ", error);
+});
+}
+

@@ -305,11 +305,11 @@ db.collection('users').get().then((querySnapshot) => {
 
            console.log(`ROOM LIST`,yourRoomList)
            console.log(`RECIPIENTS 0` ,recipients[0])
-           console.log(`THE THING YOU WANT`, yourRoomList[0].list_one_input)
+           console.log(`THE THING YOU WANT`, getWordsThatArentFromTheRoom())
            console.log('I DONT GET IT', yourRoomList)
 
            //could we just do wanted list again? 
-           noDuplicates(wantedList, yourRoomList[0].list_one_input)
+           noDuplicates(wantedList, secondList)
            getRoomCountForInput(docRef)
 
         })
@@ -321,3 +321,15 @@ db.collection('users').get().then((querySnapshot) => {
     window.onbeforeunload = function() {
       return "Data will be lost if you leave the page, are you sure?";
     };
+
+    function getWordsThatArentFromTheRoom(){
+      let data = [];
+      db.collection('users').doc('0fZF5wsC3qNbGjrsiUSNgP7FZ7P2').get().then((doc) => {
+        data.push(doc.data())
+        })
+      
+    return data
+  }
+
+
+  console.log(getWordsThatArentFromTheRoom())

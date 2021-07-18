@@ -102,7 +102,7 @@ db.collection('users').get().then((querySnapshot) => {
            console.log(`THE THING YOU WANT`, yourRoomList[0].list_three_input)
            console.log('I DONT GET IT', yourRoomList)
 
-  noDuplicates(wantedList, yourRoomList[2].list_two_input)
+  noDuplicates(wantedList, yourRoomList[2].list_three_input)
   getReceivedListOne()
   getReceivedListTwo()
  getRoomCountForInput(docRef) 
