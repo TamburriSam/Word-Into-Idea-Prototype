@@ -262,42 +262,67 @@ function getRoomCountForInput(room){
 
       let docRef = db.collection('rooms').doc(targetId)
       updateUserInputList()
-      inputList.forEach((cell) => {
-          console.log(cell.value)
+   
+      const validInputs = Array.from(inputList).filter( input => input.value !== "");
 
+      console.log(`INPUT LENGTH`, inputList.length)
+      console.log(`VALID INPUT`,validInputs)
+
+      if(validInputs.length < inputList.length){
+        let list_four = {}
+        console.log('need all cells')
+          warningBox.innerHTML = 'Need All Cells'
+          return false
+      }else{
+        //here is the problem
+        //the return was getting included in the for each
+        inputList.forEach((cell) => {
           cells.push(cell.value)
-      })
-      console.log(cells)
-      let randomInt = Math.floor(Math.random() * 200);
-
-      let list_four = {
-          [randomInt]: cells
-      }
-
+          console.log(cells)
+          let randomInt = Math.floor(Math.random() * 200);
+  
+           list_four = {
+              [randomInt]: cells
+          }
+        })
+        
       return docRef.set({
-          list_four
-      }, {merge: true}).then(() => {
-            window.location='finalPage.html'
-            inputForm.reset()
-      })
+        list_four
+    }, {merge: true}).then(() => {
+          window.location='finalPage.html'
+          inputForm.reset()
+    })
+      }    
+
+
     }
 })
 
-function updateUserInputList(){
-    let userRef = db.collection('users').doc(auth.currentUser.uid)
 
-    let inputList = document.querySelectorAll('.word-cell')
-    inputList.forEach((cell) => {
-        userRef.update({
-            list_four_input: firebase.firestore.FieldValue.arrayUnion(cell.value)
-        }).then(() => {
-            console.log("User successfully updated!");
-        })
-        .catch((error) => {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-        });
-    })
+function updateUserInputList(){
+  let userRef = db.collection('users').doc(auth.currentUser.uid)
+
+  let inputList = document.querySelectorAll('.word-cell')
+  inputList.forEach((cell) => {
+    if(cell.value === ''){
+      console.log('must enter all cells')
+      return false
+    }else{
+
+
+
+      userRef.update({
+          list_four_input: firebase.firestore.FieldValue.arrayUnion(cell.value)
+      }).then(() => {
+          console.log("User successfully updated!");
+      })
+      .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+      });
+    }
+  })
+
 }
 
 

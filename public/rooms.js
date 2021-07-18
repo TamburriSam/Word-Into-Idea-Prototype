@@ -15,7 +15,14 @@ let roomCount = document.querySelector('#room-count')
 let test = document.querySelector('#btn')
 
 test.addEventListener('click', function(){
-  console.log(algorithm(23))
+  db.collection('users').doc(auth.currentUser.uid).delete().then(() => {
+    console.log('User Deleted')
+    firebase.auth().signOut().then(() => {
+     console.log('User sign out successful')
+    }).catch((error) => {
+      // An error happened.
+    });
+  })
 })
 
 function algorithm(num, position){
@@ -221,7 +228,6 @@ if(user){
               document.querySelector('#waiting').style.display='block'
               findIndex()
 
-              makeItModal();
 
 
 
@@ -239,13 +245,30 @@ if(user){
           return transaction.get(docref).then((doc) => {
               console.log(doc.data())
 
+
+
+
+            console.log(`DOC DATA`, doc.data().users)
+            console.log(`MY USER DATA`, auth.currentUser.displayName)
+
+            console.log(!doc.data().users.includes('Kule'))
+
+
+
+
+
+              //right here we need to add something else that denies user another click if their username is found 
               if (doc.data().active_count < doc.data().total_count) {
+                if(!doc.data().users.includes(auth.currentUser.displayName)){
                 let newCount = doc.data().active_count + 1;
                 transaction.update(docref, { active_count: newCount },
                     );
                     transaction.update(docref, {users: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.displayName)})
-
+                    makeItModal();
+              }else{
+                console.log('didnt go up')
               }
+            }
           })
       }).then((doc) => {
           console.log('done')
@@ -301,9 +324,7 @@ if(user){
         if(data.active_count === data.total_count){
 
 startCountdown(9)
-              /*   setTimeout(() => {
-                    window.location = 'game1.html'
-                }, 1000); */
+           
            
         }
     })
@@ -368,3 +389,32 @@ window.onclick = function(event) {
   }
 }
 
+/* window.onunload = function () {
+  db.collection('users').doc(auth.currentUser.uid).delete().then(() => {
+    console.log('User Deleted')
+    firebase.auth().signOut().then(() => {
+     console.log('User sign out successful')
+    }).catch((error) => {
+      // An error happened.
+    });
+  })
+
+  
+}
+
+
+
+window.addEventListener('beforeunload', function (e) {
+  // Cancel the event
+  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+  // Chrome requires returnValue to be set
+  db.collection('users').doc(auth.currentUser.uid).delete().then(() => {
+    console.log('User Deleted')
+    firebase.auth().signOut().then(() => {
+     console.log('User sign out successful')
+    }).catch((error) => {
+      // An error happened.
+    });
+  })
+  e.returnValue = '';
+}); */
