@@ -305,11 +305,11 @@ db.collection('users').get().then((querySnapshot) => {
 
            console.log(`ROOM LIST`,yourRoomList)
            console.log(`RECIPIENTS 0` ,recipients[0])
-           console.log(`THE THING YOU WANT`, getWordsThatArentFromTheRoom())
+           console.log(`THE THING YOU WANT`, yourRoomList[0])
            console.log('I DONT GET IT', yourRoomList)
 
            //could we just do wanted list again? 
-           noDuplicates(wantedList, secondList)
+           noDuplicates(wantedList, yourRoomList[0])
            getRoomCountForInput(docRef)
 
         })
@@ -322,14 +322,73 @@ db.collection('users').get().then((querySnapshot) => {
       return "Data will be lost if you leave the page, are you sure?";
     };
 
-    function getWordsThatArentFromTheRoom(){
-      let data = [];
-      db.collection('users').doc('0fZF5wsC3qNbGjrsiUSNgP7FZ7P2').get().then((doc) => {
-        data.push(doc.data())
-        })
-      
-    return data
+
+
+    document.getElementById('timer').innerHTML =
+    00 + ":" + 8;
+  startTimer();
+  
+  
+  function startTimer() {
+    var presentTime = document.getElementById('timer').innerHTML;
+    var timeArray = presentTime.split(/[:]+/);
+    var m = timeArray[0];
+    var s = checkSecond((timeArray[1] - 1));
+    if(s==59){m=m-1}
+    if(m==0 && s==0){checkToSeeIfAllHasBeenEntered()}
+    if(m<0){
+      return
+    }
+    
+    document.getElementById('timer').innerHTML =
+      m + ":" + s;
+    setTimeout(startTimer, 1000);
+    
   }
-
-
-  console.log(getWordsThatArentFromTheRoom())
+  
+  function checkSecond(sec) {
+    if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+    if (sec < 0) {sec = "59"};
+    return sec;
+  }
+  
+  function checkToSeeIfAllHasBeenEntered(){
+  
+  
+  
+    let inputList = document.querySelectorAll('.word-cell')
+  let emptywords = [];
+    inputList.forEach((word) => {
+      let randomInt = Math.floor(Math.random() * 90);
+  
+      console.log(`word count`, inputList.length)
+      if(word.value === ''){
+        
+        word.value = words[randomInt]
+        emptywords.push(word.value)}
+   
+  
+  
+        let userRef = db.collection('users').doc(auth.currentUser.uid)
+  
+  
+  
+        userRef.update({
+          list_two_input: firebase.firestore.FieldValue.arrayUnion(word.value)
+        }).then(() => {
+          window.location='game3.html'
+  
+        })
+  
+  
+  
+  
+     
+    })
+  
+  
+  
+  
+  }
+  
+  let words = ["trouble", "straight", "improve", "red", "tide", "dish", "dried", "police", "prize", "addition", "tonight", "quick", "child", "apartment", "sister", "could", "feet", "passage", "tobacco", "thou", "leg", "lady", "excellent", "fifth", "lake", "plural", "influence", "hurry", "river", "treated", "slightly", "else", "create", "live", "cool", "ought", "observe", "pass", "attack", "angle", "battle", "touch", "goes", "steady", "discussion", "cloth", "corner", "ordinary", "dozen", "soldier", "pride", "shells", "remarkable", "prevent", "nearly", "movie", "usual", "circle", "cover", "bottle", "machinery", "planet", "product", "nose", "as", "stopped", "hang", "time", "fight", "garden", "bar", "rapidly", "none", "question", "paint", "seven", "language", "dropped", "excellent", "porch", "club", "slip", "powder", "steam", "which", "before", "island", "deeply", "board", "notice", "his", "railroad", "slabs", "particular", "bee", "rule", "sheet", "determine", "afraid", "planned"]

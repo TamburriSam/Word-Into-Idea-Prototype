@@ -12,10 +12,67 @@ let roomCount = document.querySelector('#room-count')
 let test = document.querySelector('#btn')
 
 test.addEventListener('click', function(){
-
-
-
+  populateListOneOnCreation(11)
 })
+
+function populateListOneOnCreation(){
+
+
+
+    // Create a reference to the SF doc.
+    var userRef = db.collection("users").doc(auth.currentUser.uid);
+    let roomCode = ''
+    let roomCount = ''
+    let roomRef = ''
+    let randomInt = Math.floor(Math.random() * 200);
+    
+    // Uncomment to initialize the doc.
+    // sfDocRef.set({ population: 0 });
+    
+    return db.runTransaction((transaction) => {
+        // This code may get re-run multiple times if there are conflicts.
+        return transaction.get(userRef).then((doc) => {
+          roomCode = doc.data().rooms_joined
+    
+    }).then(() => {
+    
+     roomRef = db.collection('rooms').doc(roomCode).get().then((doc) => {
+      roomCount = doc.data().total_count
+    })
+    
+
+  })
+    .then(() => {
+
+     
+    let roomRef = db.collection('rooms').doc(roomCode)
+    
+    let wordsWeWant = [];
+    
+    for(let i = 0; i < roomCount; i++){
+      let randomInt = Math.floor(Math.random() * 90);
+
+      wordsWeWant.push(randomWords[randomInt])
+    }
+    
+    console.log(wordsWeWant)
+    
+      console.log(`ROOM COUNT`, roomCount)
+    list_one = {
+      [randomInt]: wordsWeWant
+    }
+    
+    return roomRef.update({
+      list_one
+    }) 
+
+  })
+})
+   
+    }
+
+
+
 
 function algorithm(num, position){
 
@@ -92,6 +149,9 @@ createForm.addEventListener("click", () => {
       list_four: []
     })
     .then(() => {
+
+      ///WE WANT TO ADD STOCK LIST HERE
+      ///WE WANT TO ADD STOCK LIST HERE
       //close modal and reset form
       //8createForm.reset();
       //add stock words on creation 
@@ -118,6 +178,7 @@ return db.runTransaction((transaction) => {
   return transaction.get(room).then((doc) => {
     roomCode = doc.data().rooms_joined
     user_name = doc.data().user_name
+    roomCount = doc.data().total_count
 
   })
 }).then(() => {
@@ -128,6 +189,7 @@ return db.runTransaction((transaction) => {
     roomCount = doc.data().total_count
     console.log(`POSITION`, position)
     algorithm(roomCount, position)
+    populateListOneOnCreation()
     return addIndexToUserProfile(position)
 
   })
@@ -478,3 +540,7 @@ return db.runTransaction((transaction) => {
 });
 }
 
+
+
+
+let randomWords = ["trouble", "straight", "improve", "red", "tide", "dish", "dried", "police", "prize", "addition", "tonight", "quick", "child", "apartment", "sister", "could", "feet", "passage", "tobacco", "thou", "leg", "lady", "excellent", "fifth", "lake", "plural", "influence", "hurry", "river", "treated", "slightly", "else", "create", "live", "cool", "ought", "observe", "pass", "attack", "angle", "battle", "touch", "goes", "steady", "discussion", "cloth", "corner", "ordinary", "dozen", "soldier", "pride", "shells", "remarkable", "prevent", "nearly", "movie", "usual", "circle", "cover", "bottle", "machinery", "planet", "product", "nose", "as", "stopped", "hang", "time", "fight", "garden", "bar", "rapidly", "none", "question", "paint", "seven", "language", "dropped", "excellent", "porch", "club", "slip", "powder", "steam", "which", "before", "island", "deeply", "board", "notice", "his", "railroad", "slabs", "particular", "bee", "rule", "sheet", "determine", "afraid", "planned"]
