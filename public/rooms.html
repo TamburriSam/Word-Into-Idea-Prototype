@@ -34,6 +34,12 @@
 
 <div class="liveRoom">
   <h1>Active Rooms</h1>
+  <button id="createNewRoom">Create New Room</button>
+  <div id="create-room">
+    <input type="text" id="room-name" placeholder="Room Name" />
+    <input type="text" id="room-count" placeholder="Room Count" />
+    <button class="create-room">Create Room</button>
+</div>
   <table style="width: 100%">
     <tr>
       <ul class="rooms"></ul>
@@ -42,7 +48,9 @@
   </table>
 </div>
 
-
+<div id="warningBox2">
+  Room must be equal to or greater than six. Name must have a name.
+</div>
 
 
   <!--     <button id="btn">test</button>

@@ -546,3 +546,43 @@ return db.runTransaction((transaction) => {
 
 
 let randomWords = ["trouble", "straight", "improve", "red", "tide", "dish", "dried", "police", "prize", "addition", "tonight", "quick", "child", "apartment", "sister", "could", "feet", "passage", "tobacco", "thou", "leg", "lady", "excellent", "fifth", "lake", "plural", "influence", "hurry", "river", "treated", "slightly", "else", "create", "live", "cool", "ought", "observe", "pass", "attack", "angle", "battle", "touch", "goes", "steady", "discussion", "cloth", "corner", "ordinary", "dozen", "soldier", "pride", "shells", "remarkable", "prevent", "nearly", "movie", "usual", "circle", "cover", "bottle", "machinery", "planet", "product", "nose", "as", "stopped", "hang", "time", "fight", "garden", "bar", "rapidly", "none", "question", "paint", "seven", "language", "dropped", "excellent", "porch", "club", "slip", "powder", "steam", "which", "before", "island", "deeply", "board", "notice", "his", "railroad", "slabs", "particular", "bee", "rule", "sheet", "determine", "afraid", "planned"]
+
+let warningBox2 = document.getElementById('warningBox2')
+let createNewRoom = document.getElementById('createNewRoom')
+let createBox = document.getElementById('create-room')
+createNewRoom.addEventListener('click', function(){
+  createBox.style.display = 'block'
+  
+})
+
+createForm.addEventListener("click", () => {
+
+console.log('booyah')
+
+console.log(typeof(parseInt(roomCount.value)))
+
+if(roomCount.value < 6 || typeof(parseInt(roomCount.value)) !== 'number'){
+  console.log(false)
+  warningBox2.style.display='block'
+}else{
+
+//create new record in firestore database
+db.collection("rooms")
+  .add({
+    name: roomName.value,
+    total_count: parseInt(roomCount.value),
+    active_count: 0,
+    users: [],
+    list_one: [],
+    list_two: [],
+    list_three: [],
+    list_four: []
+  })
+  .then(() => {
+createBox.style.display = 'none'
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+}
+});
