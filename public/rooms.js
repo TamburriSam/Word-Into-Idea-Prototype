@@ -59,7 +59,7 @@ function populateListOneOnCreation(){
     
       console.log(`ROOM COUNT`, roomCount)
     list_one = {
-      [0]: wordsWeWant
+      0: wordsWeWant
     }
     
     return roomRef.update({

@@ -187,16 +187,32 @@ function updateUserInputList(){
   let userRef = db.collection('users').doc(auth.currentUser.uid)
 
   let inputList = document.querySelectorAll('.word-cell')
+  let completedWords = []
+
   inputList.forEach((cell) => {
     if(cell.value === ''){
       console.log('must enter all cells')
       return false
     }else{
+      completedWords.push(cell.value)
+    }
+  })
+    
+    if(completedWords.length === inputList.length){
 
+completedWords.forEach((word) => {
+  userRef.update({
+    list_two_input: firebase.firestore.FieldValue.arrayUnion(word)
+  }).then(() => {
+    console.log('User updated')
+  }).catch((error) => {
+    console.log(`Error ${error}`)
+  })
+})
 
 
       userRef.update({
-          list_two_input: firebase.firestore.FieldValue.arrayUnion(cell.value)
+          list_two_input: completedWords
       }).then(() => {
           console.log("User successfully updated!");
       })
@@ -205,7 +221,7 @@ function updateUserInputList(){
           console.error("Error updating document: ", error);
       });
     }
-  })
+  
 
 }
 

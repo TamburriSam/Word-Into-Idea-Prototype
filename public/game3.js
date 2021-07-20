@@ -40,6 +40,7 @@ function startGame(room){
   let user_name = '';
   let myIndex = ''
   let recipients = ''
+  let thirdList = ''
 
   return db.runTransaction((transaction) => {
     return transaction.get(room).then((doc) => {
@@ -48,7 +49,6 @@ function startGame(room){
       myIndex = doc.data().index
       recipients = doc.data().recipients
 
-      console.log(`REC`,doc.data().recipients[0])
 
       docRef = doc.data().rooms_joined
       id = doc.id
@@ -82,7 +82,7 @@ function startGame(room){
             //HAS TO BE CHANGED
 
              wantedList = propertyValues[randomInt]
-
+             thirdList = propertyValues[randomInt]
          
 
             console.log(`wanted list`,wantedList)
@@ -97,20 +97,54 @@ function startGame(room){
           console.log('HERE')
 db.collection('users').get().then((querySnapshot) => {
            querySnapshot.forEach((doc) => {
-            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
+
+
+
+
+
+            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name && doc.data().flag < 2){
+ 
+
+            
+              console.log(`DOC TO MESS W`, doc.data())
+              console.log(`DATA`, doc.data().uid)
+
               yourRoomList.push(doc.data())
+
+              console.log(`USER WE WANT 2`, yourRoomList[0].uid)
+
+              let targetUsersId = yourRoomList[0].uid
+
+
+
+           
+let newCount = parseInt(doc.data().flag) + 1;
+db.collection("users").doc(targetUsersId).update({flag: parseInt(newCount) });
+
+
+
+
+
               
+            }else{
+              console.log('not it')
             } 
+           
            })
+
+           console.log(`USER WE WANT`, yourRoomList[0])
+
 
            ///ITS GETTING CUT OFF AT THE LENGTH WHY???
            ///ITS MATCHING BECAUSE THE ARRAY IS SHORTER
            console.log(`WANTED LISTR HERE`, wantedList)
            console.log(`ROOM LIST`,yourRoomList)
-           console.log(`THE THING YOU WANT`, yourRoomList[1].list_two_input)
+          /*  console.log(`THE THING YOU WANT`, yourRoomList[1].list_two_input) */
            console.log('I DONT GET IT', yourRoomList)
 
-           noDuplicates(wantedList, yourRoomList[1].list_two_input)
+     
+
+           noDuplicates(yourRoomList[0].list_one_input, wantedList, thirdList)
            getReceivedListOne()
            getRoomCountForInput(docRef)
           })
@@ -284,6 +318,10 @@ function noDuplicates(list, secondList){
                 console.log('trueeeeee')
 
                 noDuplicates(secondList)
+
+                if(secondList.length === 0){
+                  noDuplicates(thirdList)
+                }else{
                 secondList.forEach((word) => {
                   room.update({
                       list_two_received: firebase.firestore.FieldValue.arrayUnion(word)
@@ -294,6 +332,11 @@ function noDuplicates(list, secondList){
                   }) 
                   console.log('fetched from list_two')
               }) 
+            }
+
+
+
+
               }else{
                 list.forEach((word) => {
                   room.update({

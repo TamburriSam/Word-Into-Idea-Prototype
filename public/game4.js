@@ -23,6 +23,7 @@ function startGame(room){
   room = db.collection('users').doc(auth.currentUser.uid)
   let docRef = ''
   let id=''
+  let thirdList = '';
   let wantedList=''
   let myCode = ''
   var usersReference = db.collection("users");
@@ -75,8 +76,8 @@ function startGame(room){
 
             //HAS TO BE CHANGED
 
-             wantedList = propertyValues[randomInt]
-
+            wantedList = propertyValues[randomInt]
+            thirdList = propertyValues[randomInt]
          
 
             console.log(`wanted list`,wantedList)
@@ -91,27 +92,50 @@ function startGame(room){
           console.log('HERE')
 db.collection('users').get().then((querySnapshot) => {
            querySnapshot.forEach((doc) => {
-            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
+            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name && doc.data().flag < 2){
+ 
+
+            
+              console.log(`DOC TO MESS W`, doc.data())
+              console.log(`DATA`, doc.data().uid)
+
               yourRoomList.push(doc.data())
+
+              console.log(`USER WE WANT 2`, yourRoomList[0].uid)
+
+              let targetUsersId = yourRoomList[0].uid
+
+
+
+           
+let newCount = parseInt(doc.data().flag) + 1;
+db.collection("users").doc(targetUsersId).update({flag: parseInt(newCount) });
+
+
+
+
+
               
+            }else{
+              console.log('not it')
             } 
+           
            })
+           
 
            
            //console.log(`ROOM LIST`,yourRoomList[recipients[3]])
            //console.log(`THE THING YOU WANT`, yourRoomList[0].list_three_input)
-           console.log('I DONT GET IT', yourRoomList)
+           console.log('I DONT GET IT', yourRoomList[1].list_two_input)
 
            //if you get an error here remember the person has to have input
-  noDuplicates(wantedList, yourRoomList[0].list_one_input)
+  noDuplicates(yourRoomList[1].list_two_input, wantedList, thirdList)
   getReceivedListOne()
   getReceivedListTwo()
  getRoomCountForInput(docRef) 
-
           })
-        }).then(() => {
-        })
-      })
+          })
+          })
 }
 
 
@@ -195,7 +219,7 @@ function getRoomCountForInput(room){
   }
   
 
-  function noDuplicates(list, secondList){
+  function noDuplicates(list, secondList, thirdList){
     let inputList = document.querySelector('#word-list3')
   
   
@@ -223,6 +247,10 @@ function getRoomCountForInput(room){
                   console.log('trueeeeee')
   
                   noDuplicates(secondList)
+
+                  if(secondList.length === 0){
+                    noDuplicates(thirdList)
+                  }
                   secondList.forEach((word) => {
                     room.update({
                         list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
@@ -270,7 +298,6 @@ function getRoomCountForInput(room){
       console.log(`VALID INPUT`,validInputs)
 
       if(validInputs.length < inputList.length){
-        let list_four = {}
         console.log('need all cells')
           warningBox.innerHTML = 'Need All Cells'
           return false
