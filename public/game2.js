@@ -216,6 +216,7 @@ function startGame(room){
   let docRef = ''
   let id=''
   let wantedList=''
+  let secondList = ''
   let myCode = ''
   var usersReference = db.collection("users");
   let user_name = '';
@@ -228,20 +229,12 @@ function startGame(room){
       user_name = doc.data().user_name
       myIndex = doc.data().index
       recipients = doc.data().recipients
-
-      console.log(`REC`,doc.data().recipients[0])
-
       docRef = doc.data().rooms_joined
       id = doc.id
-
-
-
     })
     }).then(() => {
         //get words first
         //get words from this class' list_one only
-
-
         db.collection('rooms').doc(docRef).get().then((doc) => {
 
 
@@ -257,13 +250,12 @@ function startGame(room){
             console.log(`property values`, propertyValues[randomInt])
 
 
-            console.log(`random int`,randomInt)
-
-
             //HAS TO BE CHANGED
 
-             wantedList = propertyValues[randomInt]
+            console.log(`PROP VAL 0`, propertyValues[0])
 
+          wantedList = propertyValues[randomInt]
+          secondList = propertyValues[0]
          
 
             console.log(`wanted list`,wantedList)
@@ -272,47 +264,9 @@ function startGame(room){
        
     
         }).then(() => {
-          let yourRoomList = []
-          let secondList = [];
-
+          noDuplicates(wantedList, secondList)
+          getRoomCountForInput(docRef)
           console.log('HERE')
-db.collection('users').get().then((querySnapshot) => {
-           querySnapshot.forEach((doc) => {
-
-            //BUT WHY NOT SOMETHING LIKE
-            //&& TIMES_SENT_TO < 4
-            //BECAUSE HOW CAN WE FLAG IF IT WAS SENT
-            //let query = firestore.collection('col').where('foo', '==', 'bar');
-            //let query = firestore.collection('users').where()
-
-            if(doc.data().rooms_joined === myCode && doc.data().user_name !== user_name){
-              yourRoomList.push(doc.data())
-
-
-
-
-
-              
-            } 
-           })
-
-           let num = recipients[0]
-           console.log(`huj`, num)
-           // EVENTUALLY CHANGE THIS ON ALL OF THEM
-           // EVENTUALLY CHANGE THIS ON ALL OF THEM 
-           //CANT NOW BECAUSE WE DONT HAVE ENOUGH PEOPLE
-
-
-           console.log(`ROOM LIST`,yourRoomList)
-           console.log(`RECIPIENTS 0` ,recipients[0])
-           console.log(`THE THING YOU WANT`, yourRoomList[0])
-           console.log('I DONT GET IT', yourRoomList)
-
-           //could we just do wanted list again? 
-           noDuplicates(wantedList, yourRoomList[0])
-           getRoomCountForInput(docRef)
-
-        })
       }).then(() => {
         })
       })
@@ -325,7 +279,7 @@ db.collection('users').get().then((querySnapshot) => {
 
 
     document.getElementById('timer').innerHTML =
-    00 + ":" + 8;
+    01 + ":" + 59;
   startTimer();
   
   
@@ -376,7 +330,7 @@ db.collection('users').get().then((querySnapshot) => {
         userRef.update({
           list_two_input: firebase.firestore.FieldValue.arrayUnion(word.value)
         }).then(() => {
-          window.location='game3.html'
+          //window.location='game3.html'
   
         })
   

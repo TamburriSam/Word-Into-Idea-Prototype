@@ -9,11 +9,11 @@ const createForm = document.querySelector(".create-room");
 
 let roomName = document.querySelector('#room-name')
 let roomCount = document.querySelector('#room-count')
-let test = document.querySelector('#btn')
+/* let test = document.querySelector('#btn')
 
 test.addEventListener('click', function(){
   populateListOneOnCreation(11)
-})
+}) */
 
 function populateListOneOnCreation(){
 
@@ -59,7 +59,7 @@ function populateListOneOnCreation(){
     
       console.log(`ROOM COUNT`, roomCount)
     list_one = {
-      [randomInt]: wordsWeWant
+      [0]: wordsWeWant
     }
     
     return roomRef.update({
@@ -131,7 +131,7 @@ huhArray[huhArray.length-2][3] = 4
 
 
 
-createForm.addEventListener("click", () => {
+/* createForm.addEventListener("click", () => {
 
   console.log('booyah')
 
@@ -160,7 +160,7 @@ createForm.addEventListener("click", () => {
       console.error(err);
     });
 });
-
+ */
 
 function findIndex(){
 let roomCode = '';
@@ -229,7 +229,7 @@ if(user){
 
       });
 
-      
+      console.log(`IDIDID`,user.uid)
       console.log(firebase.auth().currentUser)
 
 }
@@ -245,7 +245,7 @@ if(user){
   
         console.log(doc.id);
         //console.log("Iterated snapshot", room);
-        const li = `<li><button data-id="btn" class="room-select" id="${doc.id}">${room.name}</button> ${room.active_count}/${room.total_count} Active</li>`;
+        const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active <button data-id="btn" class="room-select" id="${doc.id}">Join</button></li>`;
   
         html += li;
   
@@ -265,6 +265,8 @@ if(user){
 
       if(e.target.dataset.id === 'btn'){
           db.collection('users').doc(uid).set({
+              uid: auth.currentUser.uid,
+              flag: parseInt(0), 
               rooms_joined: id,
               user_name: email,
               list_one_input: [],
@@ -373,7 +375,7 @@ if(user){
         let data = snapshot.data();
 
         if(data.active_count === data.total_count && data.total_count === data.favorite_letters.length){
-          //&& data.favorite_letters.length === data.total_count
+       
 startCountdown(9)
            
            

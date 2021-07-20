@@ -333,7 +333,7 @@ window.onbeforeunload = function() {
 };
 
 document.getElementById('timer').innerHTML =
-00 + ":" + 8;
+01 + ":" + 59;
 startTimer();
 
 

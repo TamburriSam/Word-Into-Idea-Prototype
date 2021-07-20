@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    
+    <!--     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+        <link rel="stylesheet" href="style.css">
+        <title>Roofs</title>
+</head>
+<body>
+
+  
+
+    <div class="button-container">
+        <button class="join">Join Room</button>
+        <button class="create">Create Room</button>
+      </div>
+
+<script src="/firebase.js"></script>
+<script>
+
+let create = document.querySelector('.create')
+let join = document.querySelector('.join')
+
+create.addEventListener('click', function(){
+    window.location = `create.html`
+})
+
+join.addEventListener('click', function(){
+    window.location = `rooms.html`
+})
+
+
+
+</script>
+</body>
+</html>

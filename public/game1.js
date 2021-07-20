@@ -205,13 +205,10 @@ function updateUserInputList(){
   
 }
 
-function timer(){
-
-}
 
 
 document.getElementById('timer').innerHTML =
-  00 + ":" + 8;
+  01 + ":" +59;
 startTimer();
 
 
