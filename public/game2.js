@@ -162,14 +162,10 @@ auth.onAuthStateChanged((user) => {
 
   function getUsers(room) {
     let inputList = document.querySelector("#user-list");
-     let html;
      //display the usernames
      //but we want to set up a listener
    
      room.onSnapshot((snapshot) => {
-       //IF THERE IS NOW A LISTENER HERE FOR USERS
-       //CAN WE SET UP A LISTETNER FOR THE COUNT AS WELL
-       //ANOTHER PARAMETER FOR THE DOCREF WITH A TWEAK FOR USERS FIELD INSTEAD
        let html = "";
        snapshot.data().users.forEach((user) => {
          html += `<li> ${user} </li>`;
@@ -212,13 +208,10 @@ document.body.addEventListener('click', function(e){
       console.log(`VALID INPUT`,validInputs)
 
       if(validInputs.length < inputList.length){
-        let list_two = {}
         console.log('need all cells')
           warningBox.innerHTML = 'Need All Cells'
           return false
       }else{
-        //here is the problem
-        //the return was getting included in the for each
         inputList.forEach((cell) => {
           cells.push(cell.value)
           console.log(cells)

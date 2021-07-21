@@ -38,7 +38,6 @@ function startGame(room){
       myIndex = doc.data().index
       recipients = doc.data().recipients
 
-      console.log(`REC`,doc.data().recipients[0])
 
       docRef = doc.data().rooms_joined
       id = doc.id
@@ -129,7 +128,7 @@ db.collection("users").doc(targetUsersId).update({flag: parseInt(newCount) });
            console.log('I DONT GET IT', yourRoomList[1].list_two_input)
 
            //if you get an error here remember the person has to have input
-  noDuplicates(yourRoomList[1].list_two_input, wantedList, thirdList)
+  noDuplicates(yourRoomList[0].list_one_input, wantedList, thirdList)
   getReceivedListOne()
   getReceivedListTwo()
  getRoomCountForInput(docRef) 
@@ -221,7 +220,7 @@ function getRoomCountForInput(room){
 
   function noDuplicates(list, secondList, thirdList){
     let inputList = document.querySelector('#word-list3')
-  
+  let indices = [];
   
     let room = db.collection('users').doc(auth.currentUser.uid)
   
@@ -230,10 +229,61 @@ function getRoomCountForInput(room){
       console.log(`my list length`, doc.data().list_three_input.length)
   
   
+      for(let i = 0; i < doc.data().list_three_input.length; i++){
+        indices.push(i)
+      }
+  console.log(`INDICES`, indices)
+  
       console.log(`your list two input from rooms db`,doc.data().list_three_input)
   
       console.log(`random list_two from db`,list)
-  
+
+      list_three_received = list
+
+      if(doc.data().list_three_received){
+        if(doc.data().list_three_received.length > 0){
+          console.log('ok')
+          //set with merge overwrites the field we want
+          //without merge it would override the whole document
+          room.set({
+            list_three_received
+        }, {merge: true})
+      }
+        let html = ''
+        list.forEach((word) => {
+          html += `<li>${word}</li>`
+        })
+        inputList.innerHTML = html  
+        console.log('good')
+
+        if(arraysEqual(list, doc.data().list_three_input) == true){
+          console.log('trueeeeee')
+
+          noDuplicates(secondList)
+          secondList.forEach((word) => {
+            room.update({
+                list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
+            }).then(() => {
+                console.log('list two received added')
+            }).catch((err) => {
+                console.log(err)
+            }) 
+            console.log('fetched from list_two')
+        }) 
+        }else{
+          list.forEach((word) => {
+            room.update({
+                list_three_received: firebase.firestore.FieldValue.arrayUnion(word)
+            }).then(() => {
+                console.log('list one received added')
+            }).catch((err) => {
+                console.log(err)
+            }) 
+            console.log('fetched from list_two')
+        }) 
+        }
+      
+      }else{
   
   
       let html = ''
@@ -274,8 +324,12 @@ function getRoomCountForInput(room){
                 }) 
                 }
   
+             
                 console.log(arraysEqual(list, doc.data().list_three_input))
-    })
+      }
+              
+              })
+
   }
   
 
