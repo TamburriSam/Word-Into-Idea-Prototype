@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 
@@ -11,26 +11,29 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
-
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
+  </head>
+  <body id="indexBody">
+    <nav>
+      <h4>Word Into Idea (Prototype Edition)</h4>
+    </nav>
 
+    <div id="sign-inForm">
+      <h2 id="title">Word Into Idea</h2>
+      <h3>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h3>
 
-</head>
-<body>
+      <div id="firebaseui-auth-container"></div>
+      <div id="loader">Loading...</div>
+    </div>
 
-  <nav>
-    <h4>Word Into Idea (Prototype Edition)</h4>
-  </nav>
-
-<div id="firebaseui-auth-container"></div>
-<div id="loader">Loading...</div>
-
-<script src="/firebase.js"></script>
+    <script src="/firebase.js"></script>
     <script src="/index.js"></script>
-
-</body>
+  </body>
 </html>

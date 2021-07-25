@@ -99,6 +99,7 @@ auth.onAuthStateChanged((user) => {
             console.log('fetched from list_two')
         }) 
         }
+      }
       }else{
       //DELETE WHATS IN THE RECEIVED LIST FIRST
       //THEN ADD
@@ -141,7 +142,7 @@ auth.onAuthStateChanged((user) => {
   
                 console.log(arraysEqual(list, doc.data().list_one_input))
               }
-            }
+            
     })
   }
 

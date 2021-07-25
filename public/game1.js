@@ -79,7 +79,6 @@ function startGame(){
 
   function populateAlphabet(){
     let userRef = db.collection('users').doc(auth.currentUser.uid)
-  var roomRef = db.collection("rooms")
   let roomCode = ''
   let alphabetList = document.querySelector('#alphabet-list')
   
