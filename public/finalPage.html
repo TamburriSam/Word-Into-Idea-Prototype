@@ -43,8 +43,11 @@
     <ul id="fourth-list"></ul>
 </div>
 <button id="test">Test</button>
+<button id="test-2">test2</button>
+<div id="testbox"></div>
 
-
+<textarea id="w3review" name="w3review" rows="4" cols="50">
+    </textarea>
 
 
 <script src="/firebase.js"></script>
@@ -64,7 +67,6 @@ document.getElementById('test').addEventListener('click', () => {
         var pdf = new jsPDF('p', 'pt', 'letter');
         // source can be HTML-formatted string, or a reference
         // to an actual DOM element from which the text will be scraped.
-        source = $('#content')[0];
 
         // we support special element handlers. Register them with jQuery-style 
         // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
