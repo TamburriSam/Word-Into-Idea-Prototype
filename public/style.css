@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@200;300&display=swap");
 :root {
 }
@@ -26,6 +27,13 @@
   text-align: center;
 }
 
+.h4 {
+  position: absolute;
+  left: 0;
+  font-family: "Rock Salt", cursive;
+  font-size: 20px;
+}
+
 #sign-inForm h3 {
   font-family: "Encode Sans SC", sans-serif;
   font-size: 10px;
@@ -37,6 +45,28 @@
 
 /* END Index Page */
 /* ROOMS */
+
+nav {
+}
+
+#user-info {
+  background-color: lightpink;
+  padding-left: 10px;
+  width: 150px;
+  height: 64px;
+  position: absolute;
+  right: 0;
+  color: black;
+  clip-path: ellipse(130px 140px at 10% 20%);
+}
+
+.user-box {
+  display: none;
+}
+
+#user-list {
+  display: none;
+}
 
 #waiting {
   display: none;
@@ -51,7 +81,17 @@
 }
 
 body {
-  background-color: lightblue;
+}
+
+.photoURL {
+  height: 40px;
+  width: 40px;
+}
+
+/* END room page */
+/* Game 1 */
+.play-1 {
+  display: flex;
 }
 
 /* The Modal (background) */
@@ -148,7 +188,7 @@ div#rooms {
 .liveRoom {
   width: 500px;
   color: black;
-  background-color: white;
+  background-color: paleturquoise;
   margin: auto;
   padding-left: 10px;
   padding-right: 10px;

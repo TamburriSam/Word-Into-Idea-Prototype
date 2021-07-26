@@ -7,8 +7,47 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     userName.innerHTML = `Hello ` + user.displayName;
     loadColumns(auth.currentUser.uid);
+    watchForZeroCount();
   }
 });
+
+const watchForZeroCount = (roomCode) => {
+  let userRef = db.collection("users").doc(auth.currentUser.uid);
+  return db
+    .runTransaction((transaction) => {
+      // This code may get re-run multiple times if there are conflicts.
+      return transaction
+        .get(userRef)
+        .then((doc) => {
+          roomCode = doc.data().rooms_joined;
+        })
+        .then(() => {
+          let docRef = db.collection("rooms").doc(roomCode);
+
+          docRef.onSnapshot((snapshot) => {
+            if (snapshot.data().active_count < 1) {
+              console.log("here");
+
+              //CHANGE THIS WHEN WE DONT WANT IT TO ACTUALLY DELETE ROOM
+              /* db.collection("rooms")
+                .doc("roomCode")
+                .delete()
+                .then(() => {
+                  console.log("Document successfully deleted!");
+                })
+                .catch((error) => {
+                  console.error("Error removing document: ", error);
+                }); */
+            }
+          });
+        });
+    })
+    .catch((error) => {
+      console.log("Transaction failed: ", error);
+    });
+};
+
+let allInputs = [];
 
 function loadColumns(id) {
   let firstCol = document.getElementById("first-list");
@@ -25,10 +64,14 @@ function loadColumns(id) {
       let list3 = doc.data().list_three_input;
       let list4 = doc.data().list_four_input;
 
+      allInputs = [list1, list2, list3, list4];
+      allInputs = allInputs.flat();
       populateListWithInputValue(firstCol, list1);
       populateListWithInputValue(secondCol, list2);
       populateListWithInputValue(thirdCol, list3);
       populateListWithInputValue(fourthCol, list4);
+
+      console.log(allInputs);
     });
 }
 
@@ -45,74 +88,36 @@ function populateListWithInputValue(htmlList, dbList) {
 
 document.getElementById("test").addEventListener("click", function () {
   const doc = new jsPDF();
-
-  doc.text("Hello world!", 10, 10);
+  doc.text(allInputs, 10, 10);
   doc.save("a4.pdf");
+  deleteOnTimeout();
 });
 
-document.getElementById("test-2").addEventListener("click", consoleThis);
+function deleteOnTimeout() {
+  var userRef = db.collection("users").doc(auth.currentUser.uid);
+  let roomCode = "";
 
-let textArea = document.getElementById("w3review");
-let testBox = document.getElementById("testbox");
+  setTimeout(() => {
+    return db.runTransaction((transaction) => {
+      return transaction
+        .get(userRef)
+        .then((doc) => {
+          roomCode = doc.data().rooms_joined;
+        })
+        .then(() => {
+          let docRef = db.collection("rooms").doc(roomCode);
 
-let arr1 =
-  `here is a story all about how my life got twist turned upside down and id like to take a minute just sit right there`.split(
-    " "
-  );
-testBox.innerHTML = arr1.join(" ");
+          docRef.get().then((doc) => {
+            let newCount = doc.data().active_count - 1;
 
-let originalBox = testBox.innerHTML;
-
-let inner = testBox.innerHTML.split(" ");
-
-/* function consoleThis() {
-  let usedWords = [];
-
-  textArea.addEventListener("keyup", function (e) {
-    console.log(e.target.value);
-    for (let i = 0; i < 2; i++) {
-      if (e.target.value.includes(inner[i])) {
-        //if space bar is pressed
-        //check if textarea includes arr1 i
-
-
-
-        if (inner[i].length > 0) {
-          usedWords.push(inner[i]);
-        }
-      }
-    }
-    console.log(usedWords);
-  });
-} */
-
-function consoleThis() {
-  let usedWords = [];
-
-  textArea.addEventListener("keyup", function (e) {
-    for (let i = 0; i < arr1.length; i++) {
-      if (e.target.value.split(" ").includes(inner[i])) {
-        if (e.keyCode == 32 && !usedWords.includes(inner[i])) {
-          usedWords.push(inner[i]);
-          arr1.splice(i, 1);
-          testBox.innerHTML = arr1.join(" ");
-          showNew(inner[i]);
-        }
-      }
-    }
-    console.log(usedWords);
-  });
+            docRef.update({
+              active_count: newCount,
+            });
+          });
+        })
+        .catch((error) => {
+          console.log("Transaction failed: ", error);
+        });
+    });
+  }, 7000);
 }
-
-console.log(arr1);
-
-function showNew(word) {
-  if (arr1.includes(word)) {
-    testBox.innerHTML += word + " ";
-  }
-}
-
-//make new array with omitted words and stuff t
-
-//filter
-//

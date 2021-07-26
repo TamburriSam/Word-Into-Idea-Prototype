@@ -16,27 +16,43 @@
         <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
         <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+        <link rel="stylesheet" href="style1.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
         <title>Roofs</title>
 </head>
 <body>
 
-<div id="userNameContainer"></div>
+    <nav>
+        <div id="userNameContainer"></div>
+
+    </nav>
+
+<div id="timer"></div>
+
+<div id="user-box">
 <h5>Class List</h5>
 <ul id="user-list"></ul>
+</div>
+<h1 id="room-name">Column 1</h1>
+<h2>Instructions 1</h2>
+
 <div id="play-box">
-    <div class="play-1">
-    <h1 id="room-name">Column 1</h1>
-    <h2>Instructions 1</h2>
-    <form id="inputForm"action="">
-        <ul id="alphabet-list"></ul>
-        <button id="test">test</button>
-    <ul id="input-list"></ul>
-</form>
+
+
+    
+ 
+    <div id="inputForm"action="">
+        
+        <ul class="collection with-header" id="alphabet-list">        
+        </ul>
+
     </div>
+<ul id="input-list"></ul>
+
+</div>
 
     <div id="warningBox"></div>
-<div id="timer"></div>
 
 <script src="/firebase.js"></script>
 <script src="/game1.js"></script>

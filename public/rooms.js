@@ -165,13 +165,18 @@ function addIndexToUserProfile(indice) {
 
 auth.onAuthStateChanged((user) => {
   if (user) {
-    userName.innerHTML = "Hello" + " " + user.displayName;
+    userName.innerHTML =
+      "Hello" +
+      " " +
+      user.displayName +
+      `<img class="photoURL" src="${user.photoURL}" alt="">`;
     db.collection("rooms").onSnapshot((snapshot) => {
       setUpRooms(snapshot.docs);
     });
     roomFullDisableButton();
-
+    rejoin();
     console.log(`IDIDID`, user.uid);
+    console.log("USER INFO", user.photoURL);
     console.log(firebase.auth().currentUser);
   }
 });
@@ -250,6 +255,13 @@ function roomFullDisableButton() {
 
 function watchForCount(room) {
   let docref = db.collection("rooms").doc(room);
+  let inputList = document.querySelector("#user-list");
+  let inputHolder = document.querySelector(".user-box");
+  let liveRoomBox = document.querySelector(".liveRoom");
+  inputList.style.display = "block";
+  inputHolder.style.display = "block";
+  liveRoomBox.style.display = "none";
+
   return db
     .runTransaction((transaction) => {
       return transaction.get(docref).then((doc) => {
@@ -279,6 +291,7 @@ function watchForCount(room) {
 
 function getUsers(room) {
   let inputList = document.querySelector("#user-list");
+
   let html;
   console.log("HAR");
   //display the usernames
@@ -416,38 +429,6 @@ window.onclick = function (event) {
   }
 };
 
-/* window.onunload = function () {
-  db.collection('users').doc(auth.currentUser.uid).delete().then(() => {
-    console.log('User Deleted')
-    firebase.auth().signOut().then(() => {
-     console.log('User sign out successful')
-    }).catch((error) => {
-      // An error happened.
-    });
-  })
-
-  
-}
-
-
-
-window.addEventListener('beforeunload', function (e) {
-  // Cancel the event
-  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-  // Chrome requires returnValue to be set
-  db.collection('users').doc(auth.currentUser.uid).delete().then(() => {
-    console.log('User Deleted')
-    firebase.auth().signOut().then(() => {
-     console.log('User sign out successful')
-    }).catch((error) => {
-      // An error happened.
-    });
-  })
-  e.returnValue = '';
-}); */
-
-// Create a reference to the SF doc.
-
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   var roomRef = db.collection("rooms");
@@ -583,6 +564,10 @@ let warningBox2 = document.getElementById("warningBox2");
 let createNewRoom = document.getElementById("createNewRoom");
 let createBox = document.getElementById("create-room");
 
+createNewRoom.addEventListener("click", function () {
+  createBox.style.display = "block";
+});
+
 createForm.addEventListener("click", () => {
   console.log("booyah");
 
@@ -613,3 +598,16 @@ createForm.addEventListener("click", () => {
       });
   }
 });
+
+//check for rejoin
+
+function rejoin() {
+  db.collection("users")
+    .doc(auth.currentUser.uid)
+    .get()
+    .then((doc) => {
+      if (doc.data().rooms_joined.length > 1) {
+        document.getElementById(doc.data().rooms_joined).innerHTML = "Rejoin";
+      }
+    });
+}
