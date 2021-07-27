@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@200;300&display=swap");
 :root {
 }
 
 /* Index Page */
 #indexBody {
-  background-image: url("campfire.jpg");
+  background-image: url("logos/photo-boards-KZNTEn2r6tw-unsplash\ \(1\).jpg");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -17,14 +18,24 @@
 #sign-inForm {
   padding: 15px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 30%;
   width: 350px;
-  border: 1px solid white;
+  border: 5px solid black;
   background-color: white;
   font-size: 20px;
-  box-shadow: 5px 5px 0px 0px #c5c3c3;
+  box-shadow: 5px 5px 0px 0px #000000;
   border-radius: 3px;
   text-align: center;
+  z-index: 3;
+  right: 10px;
+  top: 50%;
+}
+
+.logo {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  width: 35%;
 }
 
 .h4 {
@@ -43,10 +54,141 @@
   font-family: "Encode Sans SC", sans-serif;
 }
 
+.left {
+  width: 40%;
+  height: 100vh !important;
+  position: absolute;
+  background-color: white;
+}
+
+.blurb {
+  margin: auto;
+  width: 70%;
+  position: relative;
+  top: 50px;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 40%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.692); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#overlay-black {
+  position: fixed; /* Sit on top of the page content */
+  width: 60%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  background-color: rgb(8, 1, 1); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#logo-alone {
+  max-width: 50%;
+}
+
+#divide {
+  right: 70px;
+  position: absolute;
+}
+
+.subtitle {
+  position: absolute;
+  right: 80px;
+  top: 40%;
+  display: none;
+  font-size: 32px;
+  font-family: "Baloo Chettan 2", cursive;
+}
+
+#divide {
+  position: absolute;
+  right: 20px;
+  display: none;
+
+  top: 50%;
+  font-family: "Baloo Chettan 2", cursive;
+  font-weight: 400;
+}
+
 /* END Index Page */
 /* ROOMS */
 
-nav {
+#overlay1 {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.692); /* Black background with opacity */
+  z-index: 0; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+#container {
+  width: 97vw;
+  margin: auto;
+  /*   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+    0 1px 5px 0 rgb(0 0 0 / 20%); */
+  height: 83vh;
+}
+
+#RoomBody {
+  background-color: lightgreen;
+  /*   background-image: url("logos/photo-boards-KZNTEn2r6tw-unsplash\ \(1\).jpg");
+ */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#roomNav {
+  background-color: white;
+  color: black;
+  line-height: 1;
+
+  width: 97vw;
+  z-index: 400 !important;
+  margin: auto;
+  display: flex;
+}
+
+#nav-links {
+  top: 30px;
+  position: absolute;
+  left: 60%;
+}
+
+.nav-link {
+  margin-right: 15px;
+}
+
+#mainLogo {
+  bottom: 8px;
+}
+
+#overlay3 {
+  position: absolute; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
 }
 
 #user-info {
@@ -186,9 +328,13 @@ div#rooms {
 }
 
 .liveRoom {
-  width: 500px;
+  top: 40px;
+  left: 0;
+  position: relative;
+  border: 2px purple solid;
+  border-radius: 2px;
+  width: 50%;
   color: black;
-  background-color: paleturquoise;
   margin: auto;
   padding-left: 10px;
   padding-right: 10px;
