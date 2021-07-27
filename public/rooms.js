@@ -190,7 +190,8 @@ const setUpRooms = (data) => {
 
       console.log(doc.id);
       //console.log("Iterated snapshot", room);
-      const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active <button data-id="btn" class="room-select" id="${doc.id}">Join</button></li>`;
+      const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active<a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </li> <br>
+      `;
 
       html += li;
 
@@ -606,8 +607,10 @@ function rejoin() {
     .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
-      if (doc.data().rooms_joined.length > 1) {
+      if (doc.data() && doc.data().rooms_joined.length > 1) {
         document.getElementById(doc.data().rooms_joined).innerHTML = "Rejoin";
+      } else {
+        console.log("do nothing");
       }
     });
 }

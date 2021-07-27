@@ -44,3 +44,21 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
 }
+
+#roomNav {
+  flex-direction: row;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+#userNameContainer {
+  position: absolute;
+  right: 0;
+}
+
+#mainLogo {
+  width: 15%;
+  position: absolute;
+  top: -5px;
+}

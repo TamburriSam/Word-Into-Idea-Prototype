@@ -24,17 +24,42 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
   </head>
+
   <body id="indexBody">
-    <nav>
-      <h4>Word Into Idea (Prototype Edition)</h4>
-    </nav>
+    <div id="overlay">
+      <div id="sign-inForm">
+        <h2 id="title">
+          <img id="logo-alone" src="./logos/logoStandalone.png" alt="" />
+        </h2>
 
-    <div id="sign-inForm">
-      <h2 id="title">Word Into Idea</h2>
-      <h3>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h3>
+        <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div>
+      </div>
+    </div>
 
-      <div id="firebaseui-auth-container"></div>
-      <div id="loader">Loading...</div>
+    <div id="overlay-black">
+      <img class="logo" src="logos/white_logo_dark_background.jpg" alt="" />
+      <img class="blurb" src="logos/blurb2.jpeg" alt="" />
+
+      <h2 class="subtitle">What is this?</h2>
+
+      <h4 id="divide">
+        Word Into Idea is a creative exercise made popular by Stephen Fried in
+        1991. <br />
+        This website aims to bring the round-robin classroom exercise live in a
+        digital format.<br />
+        Sign in to start!
+      </h4>
+    </div>
+
+    <!--  <div class="left">
+      <div class="centered">
+        <h2>Jane Flex</h2>
+      </div>
+    </div> -->
+
+    <div class="right">
+      <div class="centered"></div>
     </div>
 
     <script src="/firebase.js"></script>

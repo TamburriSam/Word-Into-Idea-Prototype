@@ -25,36 +25,57 @@
 
     <title>Rooms</title>
   </head>
-  <body>
-    <nav>
-      <h4 class="h4">Word Into Idea</h4>
+  <body id="RoomBody">
+    <nav id="roomNav">
+      <img
+        id="mainLogo"
+        src="logos/dark_logo_transparent_background.png"
+        alt=""
+      />
+
+      <ul id="nav-links">
+        <li class="nav-link">About</li>
+        <li class="nav-link">Rooms</li>
+        <li class="nav-link">Solo Mode</li>
+      </ul>
 
       <div id="user-info">
         <div id="user"></div>
       </div>
     </nav>
 
-    <h1 id="waiting">Waiting for users to join</h1>
-    <div id="rooms">
-      <div class="user-box">
-        <h4>Class List</h4>
-        <ul id="user-list"></ul>
+    <div id="container">
+      <h1 id="waiting">Waiting for users to join</h1>
+      <div id="rooms">
+        <div class="user-box">
+          <h4>Class List</h4>
+          <ul id="user-list"></ul>
+        </div>
       </div>
-    </div>
 
-    <div class="liveRoom">
-      <h1>Active Rooms</h1>
-      <button id="createNewRoom">Create New Room</button>
-      <div id="create-room">
-        <input type="text" id="room-name" placeholder="Room Name" />
-        <input type="text" id="room-count" placeholder="Room Count" />
-        <button class="create-room">Create Room</button>
+      <div class="liveRoom">
+        <h1>Active Rooms</h1>
+
+        <a class="waves-effect waves-light btn" id="createNewRoom"
+          >Create New Room</a
+        >
+
+        <div id="create-room">
+          <input type="text" id="room-name" placeholder="Room Name" required />
+          <input
+            type="text"
+            id="room-count"
+            placeholder="Room Count"
+            required
+          />
+          <a class="waves-effect waves-light btn create-room">Create Room</a>
+        </div>
+        <table style="width: 100%">
+          <tr>
+            <ul class="rooms"></ul>
+          </tr>
+        </table>
       </div>
-      <table style="width: 100%">
-        <tr>
-          <ul class="rooms"></ul>
-        </tr>
-      </table>
     </div>
 
     <div id="warningBox2">
