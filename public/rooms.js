@@ -166,8 +166,8 @@ function addIndexToUserProfile(indice) {
 auth.onAuthStateChanged((user) => {
   if (user) {
     userName.innerHTML =
-      "Hello" +
-      " " +
+      "Hello," +
+      "  " +
       user.displayName +
       `<img class="photoURL" src="${user.photoURL}" alt="">`;
     db.collection("rooms").onSnapshot((snapshot) => {
@@ -182,7 +182,8 @@ auth.onAuthStateChanged((user) => {
 });
 
 const setUpRooms = (data) => {
-  //if there is data
+  let r = document.querySelector(".tbody1"); //if there is data
+
   if (data.length) {
     let html = "";
     data.forEach((doc) => {
@@ -190,14 +191,15 @@ const setUpRooms = (data) => {
 
       console.log(doc.id);
       //console.log("Iterated snapshot", room);
-      const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active<a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </li> <br>
-      `;
+      /* const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active<a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </li> <br>
+      `; */
+      const li = `<tr><td>${room.name}</td> <td>${room.active_count}/${room.total_count} Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
 
       html += li;
 
       //add event listener that ties the room name with the name in database
     });
-    roomList.innerHTML = html;
+    r.innerHTML = html;
   } else {
     roomList.innerHTML = `<h5>Log in to view rooms</h5>`;
   }

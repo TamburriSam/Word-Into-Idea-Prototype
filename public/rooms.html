@@ -27,17 +27,22 @@
   </head>
   <body id="RoomBody">
     <nav id="roomNav">
-      <img
-        id="mainLogo"
-        src="logos/dark_logo_transparent_background.png"
-        alt=""
-      />
+      <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
 
       <ul id="nav-links">
-        <li class="nav-link">About</li>
-        <li class="nav-link">Rooms</li>
-        <li class="nav-link">Solo Mode</li>
+        <li class="nav-link about-link">About</li>
+        <li>| &nbsp;</li>
+        <li class="nav-link rooms-link">Rooms</li>
       </ul>
+
+      <div class="switch">
+        <label>
+          <span class="solo">Solo Mode</span>
+          <input type="checkbox" />
+          <span class="lever"></span>
+          <span class="collaborative">Collaborative Mode</span>
+        </label>
+      </div>
 
       <div id="user-info">
         <div id="user"></div>
@@ -53,13 +58,25 @@
         </div>
       </div>
 
+      <!--       <div id="select">
+        <h3>Select a room to start</h1>
+          <br>
+      </div> -->
+
       <div class="liveRoom">
-        <h1>Active Rooms</h1>
+        <div id="active-container">
+          <h1>Active Rooms</h1>
+          <br />
+          <br />
 
-        <a class="waves-effect waves-light btn" id="createNewRoom"
-          >Create New Room</a
-        >
+          <a class="waves-effect waves-light btn" id="createNewRoom"
+            >Create New Room</a
+          ><br />
 
+          <br />
+          <br />
+        </div>
+        <br />
         <div id="create-room">
           <input type="text" id="room-name" placeholder="Room Name" required />
           <input
@@ -68,12 +85,26 @@
             placeholder="Room Count"
             required
           />
-          <a class="waves-effect waves-light btn create-room">Create Room</a>
+          <a class="creater waves-effect waves-light btn create-room"
+            >Create Room</a
+          >
         </div>
-        <table style="width: 100%">
-          <tr>
-            <ul class="rooms"></ul>
-          </tr>
+        <table class="table1 centered">
+          <thead>
+            <tr>
+              <th>Group Name</th>
+              <th>Members Active</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody class="tbody1">
+            <tr>
+              <td>Alvin</td>
+              <td>Eclair</td>
+              <td>$0.87</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
