@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
+
+/* Index Page */
+#indexBody {
+  background-image: url("/logos/photo-boards-KZNTEn2r6tw-unsplash (1).jpg") !important;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: black;
+}
+
+#sign-inForm {
+  padding: 15px;
+  margin: auto;
+  margin-top: 30%;
+  width: 350px;
+  /*   border: 5px solid black;
+ */
+  background-color: white;
+  font-size: 20px;
+  /*   box-shadow: 5px 5px 0px 0px #000000;
+ */
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999;
+
+  border-radius: 3px;
+  text-align: center;
+  z-index: 3;
+  right: 10px;
+  top: 50%;
+}
+
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-content
+  > form
+  > ul
+  > li:nth-child(2)
+  > button
+  > span.firebaseui-idp-icon-wrapper
+  > img {
+}
+
+.firebaseui-idp-text {
+  color: black;
+}
+
+.firebaseui-idp-text-long {
+  color: black;
+}
+
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-content
+  > form
+  > ul
+  > li:nth-child(1)
+  > button {
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-content
+  > form
+  > ul
+  > li:nth-child(2)
+  > button {
+  background-color: rgba(253, 110, 234, 0.226) !important;
+  color: black;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-content
+  > form
+  > ul
+  > li:nth-child(2)
+  > button:hover {
+  background-color: rgba(253, 110, 234, 0.658) !important;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.logo {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  width: 35%;
+}
+
+.h4 {
+  position: absolute;
+  left: 0;
+  font-family: "Rock Salt", cursive;
+  font-size: 20px;
+}
+
+#sign-inForm h3 {
+  font-family: "Encode Sans SC", sans-serif;
+  font-size: 10px;
+}
+
+#title {
+  font-family: "Encode Sans SC", sans-serif;
+}
+
+.left {
+  width: 40%;
+  height: 100vh !important;
+  position: absolute;
+  background-color: white;
+}
+
+.blurb {
+  margin: auto;
+  width: 70%;
+  position: relative;
+  top: 50px;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 40%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  right: 0;
+  text-align: center;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.411); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#overlay-black {
+  position: fixed; /* Sit on top of the page content */
+  width: 60%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  background-color: rgb(8, 1, 1); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#logo-alone {
+  max-width: 50%;
+}
+
+#divide {
+  right: 70px;
+  position: absolute;
+}
+
+.subtitle {
+  position: absolute;
+  right: 80px;
+  top: 40%;
+  display: none;
+  font-size: 32px;
+  font-family: "Baloo Chettan 2", cursive;
+}
+
+#divide {
+  position: absolute;
+  right: 20px;
+  display: none;
+
+  top: 50%;
+  font-family: "Baloo Chettan 2", cursive;
+  font-weight: 400;
+}
