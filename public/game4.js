@@ -110,8 +110,8 @@ function startGame(room) {
 
               //if you get an error here remember the person has to have input
               noDuplicates(
-                wantedList,
                 yourRoomList[1].list_one_input,
+                wantedList,
                 wantedList
               );
               getReceivedListOne();

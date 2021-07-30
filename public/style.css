@@ -392,6 +392,14 @@ nav {
   cursor: pointer;
 }
 
+.modal {
+  z-index: 4 !important;
+}
+
+#myModal {
+  z-index: 4 !important;
+}
+
 #mock-window {
   background-color: rgb(155, 155, 155);
   z-index: 500 !important;
@@ -413,8 +421,8 @@ nav {
   top: 130px;
   /*   outline: solid 20px rgb(155, 155, 155);
  */
-  display: block;
-  z-index: 50;
+  display: none;
+  z-index: 2;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;

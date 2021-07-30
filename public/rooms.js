@@ -259,9 +259,11 @@ function roomFullDisableButton() {
 function watchForCount(room) {
   let docref = db.collection("rooms").doc(room);
   let inputList = document.querySelector("#user-list");
+  let fastfactBox = document.querySelector("#fast-facts");
   let inputHolder = document.querySelector(".user-box");
   let liveRoomBox = document.querySelector(".liveRoom");
   inputList.style.display = "block";
+  fastfactBox.style.display = "block";
   inputHolder.style.display = "block";
   liveRoomBox.style.display = "none";
 
@@ -281,6 +283,7 @@ function watchForCount(room) {
             makeItModal();
           } else {
             console.log("didnt go up");
+            checkForLetter();
           }
         }
       });
@@ -303,7 +306,9 @@ function getUsers(room) {
   room.onSnapshot((snapshot) => {
     let html = "";
     snapshot.data().users.forEach((user) => {
-      let randomInt = Math.floor(Math.random() * 18);
+      //GOTTA TAKE OUT THE ZERO
+      let randomInt = Math.floor(Math.random() * 19) + 1;
+      console.log(randomInt);
       html += `<li class="profile-holder"> <img
       class="profilepic"
       src="logos/icons/${randomInt}.png"
@@ -351,7 +356,19 @@ function isRoomFull(room) {
     });
 }
 
-//DOESNT WORK BC TRANSACTION IS ROOM
+const checkForLetter = () => {
+  db.collection("users")
+    .doc(auth.currentUser.uid)
+    .get()
+    .then((doc) => {
+      console.log(`HERE WE GO`, doc.data().favorite_letter);
+
+      if (!doc.data().favorite_letter) {
+        makeItModal();
+      }
+    });
+};
+
 function addLetterToRoomDb() {
   let room = db.collection("users").doc(auth.currentUser.uid);
   return db
@@ -431,11 +448,11 @@ span.onclick = function () {
 };
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
+/* window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-};
+}; */
 
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);

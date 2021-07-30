@@ -121,8 +121,8 @@ function startGame(room) {
 
               //CHANGE THE 0 IN ROOM LIST TO MATCH RECIPIENT NUMBER ON ACTUAL GAME EXECUTION
               noDuplicates(
-                yourRoomList[0].list_one_input,
                 wantedList,
+                yourRoomList[0].list_one_input,
                 thirdList
               );
               getReceivedListOne();
