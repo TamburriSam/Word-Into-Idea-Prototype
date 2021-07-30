@@ -33,16 +33,28 @@
         <li class="nav-link about-link">About</li>
         <li>| &nbsp;</li>
         <li class="nav-link rooms-link">Rooms</li>
+        <li>| &nbsp;</li>
+
+        <li>
+          <div class="switch">
+            <label>
+              <span class="solo">Solo Mode</span>
+              <input type="checkbox" />
+              <span class="lever"></span>
+              <span class="collaborative">Collaborative Mode</span>
+            </label>
+          </div>
+        </li>
       </ul>
 
-      <div class="switch">
+      <!--    <div class="switch">
         <label>
           <span class="solo">Solo Mode</span>
           <input type="checkbox" />
           <span class="lever"></span>
           <span class="collaborative">Collaborative Mode</span>
         </label>
-      </div>
+      </div> -->
 
       <div id="user-info">
         <div id="user"></div>
@@ -50,10 +62,38 @@
     </nav>
 
     <div id="container">
-      <h1 id="waiting">Waiting for users to join</h1>
+      <h1 id="waiting">
+        <p class="loading">Waiting for users to join</p>
+      </h1>
+
+      <div id="fast-facts">
+        <h2>Fast Facts</h2>
+
+        <p>
+          Word into idea is inspired by an aleatory (art involving random
+          choice) literary technique popularized in the late 1950's by American
+          writer William S. Burroughs called the Cut-up technique.
+        </p>
+      </div>
+
       <div id="rooms">
         <div class="user-box">
-          <h4>Class List</h4>
+          <img class="redBtn" src="logos/red.png" alt="" />
+          <img class="yellowBtn" src="logos/yellow.png" alt="" />
+
+          <img class="greenBtn" src="logos/green.png" alt="" />
+
+          <div id="friend-title">
+            <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" />
+
+            <h4>Friend List</h4>
+          </div>
+
+          <h5>
+            Friends Online
+            <img class="active-button" src="logos/GPCX4030.webp" alt="" />
+            <span class="connected">connected</span>
+          </h5>
           <ul id="user-list"></ul>
         </div>
       </div>
@@ -99,11 +139,7 @@
           </thead>
 
           <tbody class="tbody1">
-            <tr>
-              <td>Alvin</td>
-              <td>Eclair</td>
-              <td>$0.87</td>
-            </tr>
+            <tr></tr>
           </tbody>
         </table>
       </div>
@@ -130,7 +166,6 @@
 
     <script src="/firebase.js"></script>
     <script src="/rooms.js"></script>
-
     <script src="https://cdn.jsdelivr.net/combine/npm/random-word-generator@0.9.9,npm/random-words@1.1.1"></script>
   </body>
 </html>

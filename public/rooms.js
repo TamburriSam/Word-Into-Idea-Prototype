@@ -303,7 +303,12 @@ function getUsers(room) {
   room.onSnapshot((snapshot) => {
     let html = "";
     snapshot.data().users.forEach((user) => {
-      html += `<li> ${user} </li>`;
+      let randomInt = Math.floor(Math.random() * 18);
+      html += `<li class="profile-holder"> <img
+      class="profilepic"
+      src="logos/icons/${randomInt}.png"
+      alt=""
+    />${user}     </li>`;
       console.log(user);
     });
     inputList.innerHTML = html;

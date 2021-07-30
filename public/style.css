@@ -348,13 +348,83 @@ nav {
 .collaborative {
   color: #399e3c9a !important;
 }
+#user-list {
+  border: 2px solid black;
+  padding: 5px;
+}
 
-.user-box {
-  display: none;
+#user-list li {
+  line-height: 1;
+}
+
+#friend-title {
+  display: flex;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.friendlistlogo {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  top: 17px;
+  margin-right: 10px;
+}
+
+.redBtn {
+  width: 15px !important;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+.greenBtn {
+  width: 15px !important;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+.yellowBtn {
+  width: 15px !important;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+#mock-window {
+  background-color: rgb(155, 155, 155);
+  z-index: 500 !important;
+  position: fixed;
+  width: 500px;
+}
+
+#fast-facts {
+  width: 40vw;
+
+  background-color: rgb(240, 240, 240);
+  margin-top: 20px;
+  text-align: left;
+  position: absolute;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  max-height: 90vh;
+  left: 15px;
+  top: 130px;
+  /*   outline: solid 20px rgb(155, 155, 155);
+ */
+  display: block;
+  z-index: 50;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
 }
 
 #user-list {
+  overflow-y: auto;
   display: none;
+
+  right: 0;
 }
 
 #overlay4 {
@@ -379,12 +449,21 @@ nav {
 }
 
 #createNewRoom {
-  right: 0;
-  top: 0px;
-  background-color: #399e3cd3 !important;
-
+  right: 130px;
+  top: 40px;
+  background-color: white !important;
+  border: 3px solid #399e3ca9 !important;
+  color: black;
+  border-radius: 10px;
   width: 200px !important;
+  line-height: 2.3;
   position: absolute;
+}
+
+#createNewRoom:hover {
+  background-color: #399e3ca9 !important;
+  color: white;
+  border: #93ff97e8 3px solid;
 }
 
 #create-room {
@@ -392,7 +471,17 @@ nav {
 }
 
 .creater {
-  background-color: #399e3cd3 !important;
+  border-radius: 10px !important;
+
+  background-color: white !important;
+  border: 3px solid #399e3ca9 !important;
+  color: black !important;
+}
+
+.creater:hover {
+  background-color: #399e3ca9 !important;
+  color: white;
+  border: #93ff97e8 3px solid;
 }
 
 body {
@@ -539,14 +628,49 @@ div#rooms {
 }
 
 .user-box {
-  left: 20px;
+  background-color: rgb(240, 240, 240);
   margin-top: 20px;
   text-align: left;
   position: absolute;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
+  max-height: 90vh;
+  right: 20px;
+  bottom: 40px;
+  /*   outline: solid 20px rgb(155, 155, 155);
+ */
+  display: none;
+  z-index: 50;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;
+}
+
+.connected {
+  font-size: 12px;
+  color: #399e3c9a;
+  position: relative;
+  left: 10px;
+  bottom: 5px;
+}
+
+.active-button {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 10px;
+}
+
+.profile-holder {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.profilepic {
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  position: relative;
 }
 
 #waiting {
@@ -555,4 +679,28 @@ div#rooms {
 
 #warningBox2 {
   display: none;
+}
+
+.loading:after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: black;
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 rgb(0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%,
+  100% {
+    text-shadow: 0.25em 0 0 black, 0.5em 0 0 black;
+  }
 }
