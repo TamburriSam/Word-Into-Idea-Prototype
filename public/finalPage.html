@@ -46,6 +46,89 @@
 <button id="test-2">test2</button>
 <div id="testbox"></div>
 
+<textarea id="w3review"></textarea>
+
+
+<script>
+document.getElementById("test-2").addEventListener("click", elseWise);
+
+let textArea = document.getElementById("w3review");
+let testBox = document.getElementById("testbox");
+
+let arr1 =
+  `here is a story all about how my life got twist turned upside down and id like to take a minute just sit right there`.split(
+    " "
+  );
+
+  let secondTest = [...arr1]
+testBox.innerHTML = arr1.join(" ");
+
+let originalBox = testBox.innerHTML;
+
+let inner = testBox.innerHTML.split(" ");
+
+
+function elseWise(e){
+    let lastWord = ''
+
+
+    textArea.addEventListener('keyup', function(e){
+  
+
+        if(e.keyCode === 32){
+            var words = textArea.value.split(' ');
+            lastWord = words[words.length - 2];
+            getWithIt(lastWord)
+            
+        }else if(e.keyCode === 8){
+            //find the difference
+            //take the secondTest
+            console.log(secondTest)
+
+
+
+
+            console.log('ERASED')
+        }
+
+    })
+
+}
+
+
+function getWithIt(word){
+    let indices = [];
+
+
+
+    for(let i = 0; i < arr1.length; i++){
+        if(word === (arr1[i])){
+        indices.push(i)
+        goFar(indices);
+        }
+    }
+}
+
+function goFar(arr){
+let lastElement = arr[arr.length-1]
+console.log(lastElement)
+
+arr1.splice(lastElement, 1)
+
+console.log(arr1)
+
+
+
+}
+
+
+
+</script>
+
+//make new array with omitted words and stuff t
+
+//filter
+//
 
 
 

@@ -13,6 +13,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
 
 /* Index Page */
+
+#w3review {
+  right: 0;
+  position: absolute;
+  bottom: 10px;
+  background-color: green;
+}
+
+#testbox {
+  right: 50px;
+  position: absolute;
+  bottom: 100px;
+  z-index: 500;
+  background-color: blue;
+  width: 50px;
+  color: white;
+}
+
 #indexBody {
   background-image: url("/logos/photo-boards-KZNTEn2r6tw-unsplash (1).jpg") !important;
   background-size: cover;

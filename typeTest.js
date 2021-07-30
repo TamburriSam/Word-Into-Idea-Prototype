@@ -34,7 +34,7 @@ let inner = testBox.innerHTML.split(" ");
   });
 } */
 
-function consoleThis() {
+/* function consoleThis() {
   let usedWords = [];
 
   textArea.addEventListener("keyup", function (e) {
@@ -58,6 +58,24 @@ function showNew(word) {
   if (arr1.includes(word)) {
     testBox.innerHTML += word + " ";
   }
+} */
+
+function consoleThis() {
+  let usedWords = [];
+  let indice = "";
+  let indices = [];
+  let split = e.target.value.split(" ");
+
+  textArea.addEventListener("keyup", function (e) {
+    if (e.keyCode == 32) {
+      for (let i = 0; i < arr1.length; i++) {
+        if (arr1.includes(split[i])) {
+          indice = i;
+        }
+      }
+      console.log(indice);
+    }
+  });
 }
 
 //make new array with omitted words and stuff t
