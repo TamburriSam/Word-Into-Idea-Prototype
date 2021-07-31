@@ -1,141 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-    
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
     <!--     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
         <script defer src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script -->
-        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
-        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-        <title>Roofs</title>
-</head>
-<body>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
+    />
+
+    <title>Roofs</title>
+  </head>
+  <style>
+    .listItem {
+      list-style: none;
+      color: red;
+    }
+
+    .listItemIncomplete {
+    }
+
+    .listItemComplete {
+      color: green;
+      text-decoration: line-through;
+    }
+  </style>
+  <body>
     <div id="userNameContainer"></div>
 
-<h5>Thank you lorem ipsum this has been an educational lorem ipsum </h5>
-<div id="first-column">
-    <h1>First Column</h1>
-    <ul id="first-list"></ul>
-</div>
-<div id="second-column">
-    <h1>Second Column</h1>
+    <h5>Thank you lorem ipsum this has been an educational lorem ipsum</h5>
+    <div id="first-column">
+      <h1>First Column</h1>
+      <ul id="first-list"></ul>
+    </div>
+    <div id="second-column">
+      <h1>Second Column</h1>
 
-        <ul id="second-list"></ul>
-</div>
-<div id="third-column">    
-    <h1>Third Column</h1>
+      <ul id="second-list"></ul>
+    </div>
+    <div id="third-column">
+      <h1>Third Column</h1>
 
-    <ul id="third-list"></ul>
-</div>
-<div id="fourth-column">   
-    <h1>Fourth Column</h1>
- 
-    <ul id="fourth-list"></ul>
-</div>
-<button id="test">Test</button>
-<button id="test-2">test2</button>
-<div id="testbox"></div>
+      <ul id="third-list"></ul>
+    </div>
+    <div id="fourth-column">
+      <h1>Fourth Column</h1>
 
-<textarea id="w3review"></textarea>
+      <ul id="fourth-list"></ul>
+    </div>
+    <button id="test">Test</button>
+    <button id="test-2">test2</button>
+    <div id="testbox"></div>
 
+    <textarea id="w3review"></textarea>
 
-<script>
-document.getElementById("test-2").addEventListener("click", elseWise);
+    <ul id="test12"></ul>
 
-let textArea = document.getElementById("w3review");
-let testBox = document.getElementById("testbox");
+    <script>
+      document.getElementById("test-2").addEventListener("click", tryIt);
 
-let arr1 =
-  `here is a story all about how my life got twist turned upside down and id like to take a minute just sit right there`.split(
-    " "
-  );
+      let arr1 =
+        `here is a story all about how my life got twist turned upside down and id like to take a minute just sit right there`.split(
+          " "
+        );
 
-  let secondTest = [...arr1]
-testBox.innerHTML = arr1.join(" ");
+      let testtest = document.querySelector("#test12");
+      let html = "";
+      for (let i = 0; i < arr1.length; i++) {
+        html += `<li class="listItem">${arr1[i]}</li>`;
+      }
+      testtest.innerHTML = html;
 
-let originalBox = testBox.innerHTML;
+      function tryIt(e) {
+        let lastWord = "";
+        let html = "";
+        let listItems = document.querySelectorAll(".listItem");
 
-let inner = testBox.innerHTML.split(" ");
-
-
-function elseWise(e){
-    let lastWord = ''
-
-
-    textArea.addEventListener('keyup', function(e){
-  
-
-        if(e.keyCode === 32){
-            var words = textArea.value.split(' ');
+        textArea.addEventListener("keyup", function (e) {
+          if (e.keyCode === 32) {
+            let words = textArea.value.split(" ");
             lastWord = words[words.length - 2];
-            getWithIt(lastWord)
-            
-        }else if(e.keyCode === 8){
-            //find the difference
-            //take the secondTest
-            console.log(secondTest)
+            let html = "";
+            let currentIndex = "";
+            let needed = "";
 
+            for (let i = 0; i < arr1.length; i++) {
+              if (listItems[i].innerHTML === lastWord) {
+                listItems[i].classList.add("listItemComplete");
+              }
+            }
+          } else if (e.keyCode === 8) {
+            let words = textArea.value.split(" ");
+            lastWord = words[words.length - 1];
 
+            for (let i = 0; i < arr1.length; i++) {
+              if (listItems[i].innerHTML === lastWord) {
+                listItems[i].classList.remove("listItemComplete");
+                listItems[i].classList.add("listItem");
+              }
+            }
+          }
+        });
+      }
 
+      function makeAList(word, index) {
+        arr1.splice(index, 1);
+        arr1.forEach((li) => {
+          html += `<li>${li}</li>`;
+        });
+        html += `<li>XXXX${word}</li>`;
+      }
 
-            console.log('ERASED')
-        }
+      let textArea = document.getElementById("w3review");
+      let testBox = document.getElementById("testbox");
 
-    })
+      testBox.innerHTML = arr1.join(" ");
+    </script>
 
-}
+    //make new array with omitted words and stuff t //filter //
 
-
-function getWithIt(word){
-    let indices = [];
-
-
-
-    for(let i = 0; i < arr1.length; i++){
-        if(word === (arr1[i])){
-        indices.push(i)
-        goFar(indices);
-        }
-    }
-}
-
-function goFar(arr){
-let lastElement = arr[arr.length-1]
-console.log(lastElement)
-
-arr1.splice(lastElement, 1)
-
-console.log(arr1)
-
-
-
-}
-
-
-
-</script>
-
-//make new array with omitted words and stuff t
-
-//filter
-//
-
-
-
-<script src="/firebase.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-<script src="/finalPage.js"></script>
-
-
-</body>
+    <script src="/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="/finalPage.js"></script>
+  </body>
 </html>
