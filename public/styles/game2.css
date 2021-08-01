@@ -1,0 +1,431 @@
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
+
+* {
+}
+
+body {
+  background-color: #399e3c56;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#timer {
+  top: px;
+  width: 100px;
+  position: relative;
+  margin: auto;
+  background-color: white !important;
+  border: 2px solid #399e3c56;
+  text-align: center;
+
+  background-color: rgb(240, 240, 240);
+  margin-top: 20px;
+  font-family: "Bebas Neue", cursive !important;
+  font-size: 24px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  right: 25px;
+  /*   bottom: 40px;
+   */ /*   outline: solid 20px rgb(155, 155, 155);
+   */
+  z-index: 50;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+}
+
+.collection-item {
+  padding-left: 20px !important;
+}
+
+#inputForm {
+  margin-top: 20px;
+  text-align: center;
+  grid-column: 2 !important;
+  border: none !important;
+  height: 50vh !important;
+  width: 200px;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  left: 650px;
+  top: 100px;
+  display: inline-block;
+  position: relative;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  background: white;
+  max-height: 90vh;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#input-list {
+  grid-column: 3 !important;
+  border-left: red 1px solid;
+  position: relative;
+  top: 20%;
+  width: 200px;
+}
+
+input:not([type]),
+input[type="text"]:not(.browser-default),
+input[type="password"]:not(.browser-default),
+input[type="email"]:not(.browser-default),
+input[type="url"]:not(.browser-default),
+input[type="time"]:not(.browser-default),
+input[type="date"]:not(.browser-default),
+input[type="datetime"]:not(.browser-default),
+input[type="datetime-local"]:not(.browser-default),
+input[type="tel"]:not(.browser-default),
+input[type="number"]:not(.browser-default),
+input[type="search"]:not(.browser-default),
+textarea.materialize-textarea {
+  border-bottom: 1px solid navy !important;
+}
+
+.switch {
+  position: relative;
+}
+.switch label {
+  font-size: 15px;
+  color: white;
+  z-index: 2;
+}
+
+.solo {
+  color: #000000;
+}
+
+.lever {
+  background-color: #000000 !important;
+}
+
+.collaborative {
+  color: #399e3c9a !important;
+}
+
+#mainLogo {
+  bottom: 8px;
+}
+
+#user-info {
+  /*   background-color: lightpink;
+   */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 20;
+  width: 190px;
+  text-align: center !important;
+  height: 56px !important;
+  top: 3px;
+  font-size: 24px;
+  background-color: #399e3c9a !important;
+  height: 60px;
+  right: 8px;
+  position: relative;
+  border-radius: 10px;
+  color: black;
+  /*   clip-path: ellipse(130px 140px at 10% 20%);
+   */
+}
+
+#nav-links {
+  top: 0px;
+  font-size: 24px;
+  left: 60%;
+  cursor: pointer;
+}
+
+#roomNav {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  font-family: "Bebas Neue", cursive !important;
+
+  z-index: 10 !important;
+  font-size: 20px;
+  width: 97vw;
+  justify-content: space-between;
+  margin: auto;
+  display: flex !important;
+}
+
+.photoURL {
+  top: 10px;
+  height: 40px;
+  width: 40px;
+  margin-left: 12px;
+  position: relative;
+  clip-path: circle(40%);
+}
+
+#userNameContainer {
+  position: absolute;
+  right: 0;
+}
+
+#mainLogo {
+  top: -5px;
+}
+
+container {
+  width: 50vw;
+  background-color: white !important;
+  margin: auto;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+    0 1px 5px 0 rgb(0 0 0 / 20%);
+  position: relative;
+  top: 10px;
+}
+
+/* FRIEND LIST */
+.user-box {
+  background-color: rgb(240, 240, 240);
+  margin-top: 20px;
+  font-family: "Bebas Neue", cursive !important;
+
+  text-align: left;
+  position: absolute;
+  max-height: 80vh;
+  top: 90px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  right: 25px;
+  /*   bottom: 40px;
+   */ /*   outline: solid 20px rgb(155, 155, 155);
+   */
+  z-index: 510;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+}
+
+.redBtn {
+  width: 11px !important;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+.greenBtn {
+  width: 11px !important;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+.yellowBtn {
+  width: 11px !important;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+#user-list {
+  border: 2px solid black;
+  max-height: 80vh;
+  padding: 5px;
+  overflow-y: scroll;
+}
+
+#user-list li {
+  line-height: 1;
+}
+
+#friend-title {
+  display: flex;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.friendlistlogo {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: 17px;
+  margin-right: 10px;
+}
+
+.active-button {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 10px;
+}
+
+.connected {
+  font-size: 12px;
+  color: #399e3c9a;
+  position: relative;
+  left: 10px;
+  bottom: 5px;
+}
+
+.profile-holder {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.profilepic {
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+/* PLAY BOX */
+
+.input-cell {
+  height: 15px !important;
+  width: 50% !important;
+  font-size: 12px !important;
+  letter-spacing: 2px;
+}
+
+.collection-item {
+  height: 30px;
+}
+
+#play-box {
+  height: 70vh;
+  width: 20vw;
+  height: fit-content;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  left: 600px;
+  top: 100px;
+  display: inline-block;
+  position: relative;
+  z-index: 100;
+  text-align: left;
+  background: white;
+  max-height: 90vh;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.collection {
+  border: none !important;
+  position: relative;
+  top: 12px;
+  margin-bottom: 70px !important;
+}
+
+.collection .with-header {
+  height: 15px !important;
+  font-size: 12px !important;
+  letter-spacing: 2px;
+  position: relative;
+  border: none !important;
+  top: 10px;
+}
+
+#logoBox {
+  z-index: 1;
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+  width: 500px;
+}
+
+/* Instructions */
+
+#instructions {
+  background-color: rgb(240, 240, 240);
+  left: 50px;
+  width: 300px;
+  width: 800px;
+  font-family: "Bebas Neue", cursive !important;
+  display: flex;
+  text-align: left;
+  position: relative;
+  top: 40px;
+
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /*   bottom: 40px;
+   */ /*   outline: solid 20px rgb(155, 155, 155);
+   */
+  z-index: 500;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+}
+
+#instruction-text {
+  width: 95%;
+  letter-spacing: 2px;
+}
+
+/* Word Box */
+
+#word-list-container {
+  text-align: center;
+  grid-column: 2 !important;
+  border: none !important;
+  height: 50vh !important;
+  width: 200px;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  left: 350px;
+  position: absolute;
+  z-index: 100;
+  flex-wrap: wrap;
+  top: 100px;
+  text-align: center;
+  background: white;
+  max-height: 90vh;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+}
+
+#word-list {
+  position: relative;
+  top: 18%;
+}
+
+#word-list li {
+  letter-spacing: 2px;
+  line-height: 24px;
+}
+
+#papers {
+  position: relative;
+  right: 130px;
+}
+
+/* Paper Design */
+
+.hole-punch {
+  width: 15px;
+  height: 15px;
+}
+
+#holes {
+  height: 310px;
+  position: relative;
+  bottom: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

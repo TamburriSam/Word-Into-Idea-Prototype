@@ -1,5 +1,5 @@
 //const { default: firebase } = require("firebase");
-const userName = document.querySelector("#userNameContainer");
+const userName = document.querySelector("#user");
 const db = firebase.firestore();
 
 const auth = firebase.auth();
@@ -7,7 +7,11 @@ const auth = firebase.auth();
 auth.onAuthStateChanged((user) => {
   if (user) {
     startGame();
-    userName.innerHTML = `Hello ` + user.displayName;
+    userName.innerHTML =
+      "Hello," +
+      "  " +
+      user.displayName +
+      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   }
 });
 
@@ -44,42 +48,17 @@ function startGame() {
               html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
             }
 
-            html += `<button data-id="next-1"class="next-1"id='${doc.id}'>Next</button>`;
+            html += `<a data-id="next-1"class="waves-effect waves-light btn next-1" id="${doc.id}">Continue</a>`;
             listofInp.innerHTML = html;
           });
       });
   });
 }
 
-//can change this to just fetch it straight from the room now
-/*   function populateAlphabet(room){
-    db.collection('rooms').get().then((querySnapshot) => {
-      let alphabetArray = []
-      let alphabetList = document.querySelector('#alphabet-list')
-      querySnapshot.forEach((doc) => {
-
-        if(doc.data().rooms_joined === room){
-          alphabetArray.push(doc.data().favorite_letter)
-        }
-
-      })
-      console.log(alphabetArray)
-
-      let html = ''
-      alphabetArray.forEach((letter) => {
-        html += `<li>${letter}</li>`
-      })
-      alphabetList.innerHTML = html
-    })
-  } */
-
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   let roomCode = "";
   let alphabetList = document.querySelector("#alphabet-list");
-
-  // Uncomment to initialize the doc.
-  // sfDocRef.set({ population: 0 });
 
   return db
     .runTransaction((transaction) => {
@@ -117,7 +96,14 @@ function getUsers(room) {
   room.onSnapshot((snapshot) => {
     let html = "";
     snapshot.data().users.forEach((user) => {
-      html += `<li> ${user} </li>`;
+      //GOTTA TAKE OUT THE ZERO
+      let randomInt = Math.floor(Math.random() * 19) + 1;
+      console.log(randomInt);
+      html += `<li class="profile-holder"> <img
+      class="profilepic"
+      src="logos/icons/${randomInt}.png"
+      alt=""
+    />${user}     </li>`;
       console.log(user);
     });
     inputList.innerHTML = html;
@@ -187,6 +173,7 @@ function updateUserInputList() {
   let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
     if (cell.value === "") {
+      //maybe red
       console.log("must enter all cells");
       return false;
     } else {
@@ -206,7 +193,7 @@ function updateUserInputList() {
 }
 
 document.getElementById("timer").innerHTML = 01 + ":" + 59;
-startTimer();
+//startTimer();
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;

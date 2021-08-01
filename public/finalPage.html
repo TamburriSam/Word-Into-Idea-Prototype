@@ -86,14 +86,12 @@
 
       function tryIt(e) {
         let lastWord = "";
-        let html = "";
         let listItems = document.querySelectorAll(".listItem");
 
         textArea.addEventListener("keyup", function (e) {
           if (e.keyCode === 32) {
             let words = textArea.value.split(" ");
             lastWord = words[words.length - 2];
-            let html = "";
             let currentIndex = "";
             let needed = "";
 

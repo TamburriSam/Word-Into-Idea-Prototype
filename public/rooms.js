@@ -169,7 +169,7 @@ auth.onAuthStateChanged((user) => {
       "Hello," +
       "  " +
       user.displayName +
-      `<img class="photoURL" src="${user.photoURL}" alt="">`;
+      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
     db.collection("rooms").onSnapshot((snapshot) => {
       setUpRooms(snapshot.docs);
     });
