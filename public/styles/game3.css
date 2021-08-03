@@ -289,7 +289,7 @@ container {
 
 /* PLAY BOX */
 
-.input-cell {
+.word-cell {
   height: 15px !important;
   width: 50% !important;
   font-size: 12px !important;
@@ -382,7 +382,7 @@ container {
   width: 200px;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
-  left: 45%;
+  left: 25%;
   position: absolute;
   z-index: 100;
   padding: 20px;
@@ -401,8 +401,7 @@ container {
   width: 200px;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
-  left: 30%;
-  min-height: 50vh;
+  left: 45%;
   position: absolute;
   z-index: 100;
   padding: 20px;
@@ -419,7 +418,6 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
-  min-height: 50vh;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 45%;

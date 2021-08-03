@@ -466,10 +466,6 @@ function startGame(room) {
     });
 }
 
-window.onbeforeunload = function () {
-  return "Data will be lost if you leave the page, are you sure?";
-};
-
 document.getElementById("timer").innerHTML = 01 + ":" + 59;
 //startTimer();
 
@@ -521,7 +517,7 @@ function checkToSeeIfAllHasBeenEntered() {
         list_two_input: firebase.firestore.FieldValue.arrayUnion(word.value),
       })
       .then(() => {
-        //window.location='game3.html'
+        window.location = "game3.html";
       });
   });
 }

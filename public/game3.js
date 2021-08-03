@@ -1,5 +1,5 @@
 const db = firebase.firestore();
-const userName = document.querySelector("#userNameContainer");
+const userName = document.querySelector("#user");
 
 const auth = firebase.auth();
 
@@ -11,8 +11,12 @@ function getRandomInt(min, max) {
 
 auth.onAuthStateChanged((user) => {
   if (user) {
-    console.log(`CURRENT USER`, user.uid);
-    userName.innerHTML = `Hello ` + user.displayName;
+    userName.innerHTML =
+      "Hello," +
+      "  " +
+      user.displayName +
+      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    console.log(auth.currentUser.email);
     startGame();
   }
 });
@@ -135,24 +139,25 @@ function startGame(room) {
 
 function getUsers(room) {
   let inputList = document.querySelector("#user-list");
-  let html;
-  console.log("HAR");
+  inputList.style.display = "block";
   //display the usernames
   //but we want to set up a listener
 
   room.onSnapshot((snapshot) => {
-    //IF THERE IS NOW A LISTENER HERE FOR USERS
-    //CAN WE SET UP A LISTETNER FOR THE COUNT AS WELL
-    //ANOTHER PARAMETER FOR THE DOCREF WITH A TWEAK FOR USERS FIELD INSTEAD
     let html = "";
     snapshot.data().users.forEach((user) => {
-      html += `<li> ${user} </li>`;
+      //GOTTA TAKE OUT THE ZERO
+      let randomInt = Math.floor(Math.random() * 19) + 1;
+      console.log(randomInt);
+      html += `<li class="profile-holder"> <img
+      class="profilepic"
+      src="logos/icons/${randomInt}.png"
+      alt=""
+    />${user}     </li>`;
       console.log(user);
     });
     inputList.innerHTML = html;
   });
-
-  console.log(room);
 }
 
 function getRoomCountForInput(room) {
@@ -168,7 +173,7 @@ function getRoomCountForInput(room) {
         html += `<li><input type="text" placeholder="enter word" class="word-cell" </input> </li>`;
       }
 
-      html += `<button data-id="next-3"class="next-3"id='${doc.id}'>Next</button>`;
+      html += `<a data-id="next-3"class="waves-effect waves-light btn next-3" id="${doc.id}">Continue</a>`;
       listofInp.innerHTML = html;
     });
 }
@@ -180,7 +185,7 @@ function getReceivedListOne() {
     let list_one_received = doc.data().list_one_received;
     let html = "";
     list_one_received.forEach((word) => {
-      html += `<li>${word}</li>`;
+      html += `<li>${word}</li> <hr>`;
     });
     wordList2.innerHTML = html;
   });
@@ -307,7 +312,7 @@ function noDuplicates(list, secondList, thirdList) {
 
       let html = "";
       list.forEach((word) => {
-        html += `<li>${word}</li>`;
+        html += `<li>${word}</li> <hr>`;
       });
       inputList.innerHTML = html;
       console.log("good");
@@ -347,7 +352,7 @@ function noDuplicates(list, secondList, thirdList) {
     } else {
       let html = "";
       list.forEach((word) => {
-        html += `<li>${word}</li>`;
+        html += `<li>${word}</li> <hr>`;
       });
       inputList.innerHTML = html;
       console.log("good");
@@ -399,10 +404,6 @@ function noDuplicates(list, secondList, thirdList) {
     console.log(arraysEqual(list, doc.data().list_two_input));
   });
 }
-
-window.onbeforeunload = function () {
-  return "Data will be lost if you leave the page, are you sure?";
-};
 
 document.getElementById("timer").innerHTML = 01 + ":" + 59;
 startTimer();

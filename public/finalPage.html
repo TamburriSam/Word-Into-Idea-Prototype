@@ -10,125 +10,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-
-    <!--     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
-        <script defer src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script -->
     <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles/game4.css" />
     <link
-      type="text/css"
       rel="stylesheet"
-      href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
 
     <title>Roofs</title>
   </head>
-  <style>
-    .listItem {
-      list-style: none;
-      color: red;
-    }
 
-    .listItemIncomplete {
-    }
-
-    .listItemComplete {
-      color: green;
-      text-decoration: line-through;
-    }
-  </style>
   <body>
-    <div id="userNameContainer"></div>
+    <nav id="roomNav">
+      <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
 
-    <h5>Thank you lorem ipsum this has been an educational lorem ipsum</h5>
+      <ul id="nav-links">
+        <li class="nav-link about-link">About</li>
+        <li>| &nbsp;</li>
+        <li class="nav-link rooms-link">Rooms</li>
+        <li>| &nbsp;</li>
+
+        <li>
+          <div class="switch">
+            <label>
+              <span class="solo">Solo Mode</span>
+              <input type="checkbox" />
+              <span class="lever"></span>
+              <span class="collaborative">Collaborative Mode</span>
+            </label>
+          </div>
+        </li>
+      </ul>
+
+      <div id="user-info">
+        <div id="user"></div>
+      </div>
+    </nav>
+
+
+    <div id="instructions">
+        <div id="timer"></div>
+    
+        <div id="instruction-text">
+    <h7>You've received a compiled list of your classmates' favorite letters.</h6><br>
+    <h7>For each letter, write the first word that pops into your head.</h6><br>
+    <h7>The word does not have to contain or start with the letter.</h4>
+    </div>
+    
+    </div>
+
+
     <div id="first-column">
-      <h1>First Column</h1>
+      <h4>First Column</h1>
       <ul id="first-list"></ul>
     </div>
     <div id="second-column">
-      <h1>Second Column</h1>
+      <h4>Second Column</h1>
 
       <ul id="second-list"></ul>
     </div>
     <div id="third-column">
-      <h1>Third Column</h1>
+      <h4>Third Column</h1>
 
       <ul id="third-list"></ul>
     </div>
     <div id="fourth-column">
-      <h1>Fourth Column</h1>
+      <h4>Fourth Column</h1>
 
       <ul id="fourth-list"></ul>
     </div>
-    <button id="test">Test</button>
-    <button id="test-2">test2</button>
-    <div id="testbox"></div>
+  
 
     <textarea id="w3review"></textarea>
 
     <ul id="test12"></ul>
 
+    <div id="wordBox"></div>
+
     <script>
-      document.getElementById("test-2").addEventListener("click", tryIt);
 
-      let arr1 =
-        `here is a story all about how my life got twist turned upside down and id like to take a minute just sit right there`.split(
-          " "
-        );
 
-      let testtest = document.querySelector("#test12");
-      let html = "";
-      for (let i = 0; i < arr1.length; i++) {
-        html += `<li class="listItem">${arr1[i]}</li>`;
-      }
-      testtest.innerHTML = html;
-
-      function tryIt(e) {
-        let lastWord = "";
-        let listItems = document.querySelectorAll(".listItem");
-
-        textArea.addEventListener("keyup", function (e) {
-          if (e.keyCode === 32) {
-            let words = textArea.value.split(" ");
-            lastWord = words[words.length - 2];
-            let currentIndex = "";
-            let needed = "";
-
-            for (let i = 0; i < arr1.length; i++) {
-              if (listItems[i].innerHTML === lastWord) {
-                listItems[i].classList.add("listItemComplete");
-              }
-            }
-          } else if (e.keyCode === 8) {
-            let words = textArea.value.split(" ");
-            lastWord = words[words.length - 1];
-
-            for (let i = 0; i < arr1.length; i++) {
-              if (listItems[i].innerHTML === lastWord) {
-                listItems[i].classList.remove("listItemComplete");
-                listItems[i].classList.add("listItem");
-              }
-            }
-          }
-        });
-      }
-
-      function makeAList(word, index) {
-        arr1.splice(index, 1);
-        arr1.forEach((li) => {
-          html += `<li>${li}</li>`;
-        });
-        html += `<li>XXXX${word}</li>`;
-      }
-
-      let textArea = document.getElementById("w3review");
-      let testBox = document.getElementById("testbox");
-
-      testBox.innerHTML = arr1.join(" ");
     </script>
-
-    //make new array with omitted words and stuff t //filter //
 
     <script src="/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>

@@ -1,11 +1,16 @@
 const db = firebase.firestore();
-const userName = document.querySelector("#userNameContainer");
+const userName = document.querySelector("#user");
 
 const auth = firebase.auth();
-
+let textArea = document.getElementById("w3review");
+let testBox = document.getElementById("testbox");
 auth.onAuthStateChanged((user) => {
   if (user) {
-    userName.innerHTML = `Hello ` + user.displayName;
+    userName.innerHTML =
+      "Hello," +
+      "  " +
+      user.displayName +
+      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
     loadColumns(auth.currentUser.uid);
     watchForZeroCount();
   }
@@ -48,7 +53,7 @@ const watchForZeroCount = (roomCode) => {
 };
 
 let allInputs = [];
-
+let wordBox = document.querySelector("#wordBox");
 function loadColumns(id) {
   let firstCol = document.getElementById("first-list");
   let secondCol = document.getElementById("second-list");
@@ -66,12 +71,43 @@ function loadColumns(id) {
 
       allInputs = [list1, list2, list3, list4];
       allInputs = allInputs.flat();
-      populateListWithInputValue(firstCol, list1);
-      populateListWithInputValue(secondCol, list2);
-      populateListWithInputValue(thirdCol, list3);
-      populateListWithInputValue(fourthCol, list4);
+      populate(firstCol, list1);
+      populate(secondCol, list2);
+      populate(thirdCol, list3);
+      populate(fourthCol, list4);
+    })
+    .then(() => {
+      console.log("finished");
+    });
+}
 
-      console.log(allInputs);
+function doSomething() {}
+
+let firstCol = document.getElementById("first-list");
+let secondCol = document.getElementById("second-list");
+let thirdCol = document.getElementById("third-list");
+let fourthCol = document.getElementById("fourth-list");
+
+function populate(htmlList, dbList) {
+  var userRef = db.collection("users").doc(auth.currentUser.uid);
+
+  return db
+    .runTransaction((transaction) => {
+      return transaction.get(userRef).then((doc) => {
+        let html = "";
+        dbList.forEach((word) => {
+          html += `<li class="listItems">${word}</li>`;
+        });
+        htmlList.innerHTML = html;
+      });
+    })
+    .then(() => {
+      let listItems = document.querySelectorAll(".listItems");
+      well();
+      console.log(listItems.length);
+    })
+    .catch((error) => {
+      console.log("Transaction failed: ", error);
     });
 }
 
@@ -80,18 +116,130 @@ function populateListWithInputValue(htmlList, dbList) {
   userRef.get().then((doc) => {
     let html = "";
     dbList.forEach((word) => {
-      html += `<li>${word}</li>`;
+      html += `<li class="listItems">${word}</li>`;
     });
     htmlList.innerHTML = html;
   });
 }
 
-document.getElementById("test").addEventListener("click", function () {
+function well() {
+  textArea.addEventListener("keyup", function (e) {
+    let listItems = document.querySelectorAll(".listItems");
+    if (e.keyCode === 32) {
+      let words = textArea.value.split(" ");
+      lastWord = words[words.length - 2];
+
+      console.log(`LAST WORD`, lastWord);
+
+      for (let i = 0; i < listItems.length; i++) {
+        if (listItems[i].innerHTML === lastWord) {
+          listItems[i].classList.add("listItemComplete");
+
+          //listener for cccongratulations and encouragement to print to PDF
+          //actually maybe make a timout that when this thing is reached it prints the PDF automatically
+          // we probably also need a way for users to see their words again so yes, might want to add a profilee addition to the nav where users can see their previous word associations as well as their story if it was completed as set by this listener
+
+          //NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
+          // or if user copys and pastes
+
+          console.log(listItems.length);
+
+          console.log(textArea.value.split(" ").length);
+
+          if (listItems.length === textArea.value.split(" ").length + 1) {
+            console.log("congratulations!! Youve won");
+          }
+        }
+      }
+    } else if (e.keyCode === 8) {
+      let words = textArea.value.split(" ");
+      lastWord = words[words.length - 1];
+
+      for (let i = 0; i < allInputs.length; i++) {
+        if (listItems[i].innerHTML === lastWord) {
+          listItems[i].classList.remove("listItemComplete");
+          listItems[i].classList.add("listItem");
+        }
+      }
+    }
+  });
+
+  textArea.addEventListener("keydown", function () {
+    console.log(textArea.value.length);
+    let listItems = document.querySelectorAll(".listItems");
+
+    //compare it
+
+    let words = textArea.value.split(" ");
+
+    console.log(words);
+
+    if (textArea.value.length == 0) {
+      for (let i = 0; i < listItems.length; i++) {
+        /*      if (words.includes(listItems[i].innerHTML)) {
+          console.log(listItems[i].innerHTML); */
+
+        listItems[i].classList.remove("listItemComplete");
+        //}
+      }
+    } else {
+      for (let i = 0; i < listItems.length; i++) {
+        if (!words.includes(listItems[i].innerHTML)) {
+          listItems[i].classList.remove("listItemComplete");
+        }
+      }
+    }
+  });
+}
+function tryit(e) {
+  let listItems = document.querySelectorAll(".listItems");
+  textArea.addEventListener("keyup", function (e) {
+    if (e.keyCode === 32) {
+      let words = textArea.value.split(" ");
+      lastWord = words[words.length - 2];
+
+      console.log(`LAST WORD`, lastWord);
+
+      for (let i = 0; i < listItems.length; i++) {
+        if (listItems[i].innerHTML === lastWord) {
+          listItems[i].classList.add("listItemComplete");
+
+          //listener for cccongratulations and encouragement to print to PDF
+          //actually maybe make a timout that when this thing is reached it prints the PDF automatically
+          // we probably also need a way for users to see their words again so yes, might want to add a profilee addition to the nav where users can see their previous word associations as well as their story if it was completed as set by this listener
+
+          //NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
+          // or if user copys and pastes
+
+          console.log(listItems.length);
+
+          console.log(textArea.value.split(" ").length);
+
+          if (listItems.length === textArea.value.split(" ").length + 1) {
+            console.log("congratulations!! Youve won");
+          }
+        }
+      }
+    } else if (e.keyCode === 8) {
+      let words = textArea.value.split(" ");
+      lastWord = words[words.length - 1];
+
+      for (let i = 0; i < allInputs.length; i++) {
+        if (listItems[i].innerHTML === lastWord) {
+          listItems[i].classList.remove("listItemComplete");
+          listItems[i].classList.add("listItem");
+        }
+      }
+    }
+  });
+}
+
+/* document.getElementById("test").addEventListener("click", function () {
   const doc = new jsPDF();
   doc.text(allInputs, 10, 10);
   doc.save("a4.pdf");
   deleteOnTimeout();
-});
+}); */
 
 function deleteOnTimeout() {
   var userRef = db.collection("users").doc(auth.currentUser.uid);
@@ -121,3 +269,10 @@ function deleteOnTimeout() {
     });
   }, 7000);
 }
+
+//listener for cccongratulations and encouragement to print to PDF
+//actually maybe make a timout that when this thing is reached it prints the PDF automatically
+// we probably also need a way for users to see their words again so yes, might want to add a profilee addition to the nav where users can see their previous word associations as well as their story if it was completed as set by this listener
+
+//NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
+// or if user copys and pastes

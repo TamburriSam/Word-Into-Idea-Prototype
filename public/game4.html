@@ -16,41 +16,106 @@
         <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
         <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="styles/game4.css" />
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      />
         <title>Roofs</title>
 </head>
 <body>
 
-<div id="container">
-<div id="userNameContainer"></div>
-<h5>Class List</h5>
-<ul id="user-list"></ul>
-<div id="play-box">
-    <div class="play-1">
-    <h1 id="room-name">Colugmn 4</h1>
-    <h2>Instructions 4</h2>
-    </div>
-    <div id="content">
-    <form id="inputForm"action="">
-        <div id="col">
-            <ul id="input-list"></ul>
 
-            <ul id="word-list"></ul>
-            <ul id="word-list2"></ul>
-            <ul id="word-list3"></ul>
+    <nav id="roomNav">
+        <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
+  
+        <ul id="nav-links">
+          <li class="nav-link about-link">About</li>
+          <li>| &nbsp;</li>
+          <li class="nav-link rooms-link">Rooms</li>
+          <li>| &nbsp;</li>
+  
+          <li>
+            <div class="switch">
+              <label>
+                <span class="solo">Solo Mode</span>
+                <input type="checkbox" />
+                <span class="lever"></span>
+                <span class="collaborative">Collaborative Mode</span>
+              </label>
+            </div>
+          </li>
+        </ul>
+  
+        <div id="user-info">
+          <div id="user"></div>
+        </div>
+      </nav>
 
+      <div class="user-box">
+        <img class="redBtn" src="logos/red.png" alt="" />
+        <img class="yellowBtn" src="logos/yellow.png" alt="" />
+  
+        <img class="greenBtn" src="logos/green.png" alt="" />
+  
+        <div id="friend-title">
+          <img class="friendlistlogo" src="logos/friendsHug.png" alt="" />
+  
+          <h4>Friend List</h4>
+        </div>
+  
+        <h5>
+          Friends Online
+          <img class="active-button" src="logos/GPCX4030.webp" alt="" />
+          <span class="connected">connected</span>
+        </h5>
+        <ul id="user-list"></ul>
+      </div>
 
+      <div id="instructions">
+        <div id="timer"></div>
+    
+        <div id="instruction-text">
+    <h7>You've received a compiled list of your classmates' favorite letters.</h6><br>
+    <h7>For each letter, write the first word that pops into your head.</h6><br>
+    <h7>The word does not have to contain or start with the letter.</h4>
     </div>
     
-</form>
     </div>
 
-    <button id="test">test</button>
-    <button id="test-2">Test4</button>
+    <div id="papers">
+        
+        <div id="inputForm" action="">
+              <ul id="input-list"></ul>
+
+              <div id="holes">
+            <img class="hole-punch" id="top-circle" src="logos/black-circle.png" alt="">
+            <img class="hole-punch" id="middle-circle" src="logos/black-circle.png" alt="">               
+            <img class="hole-punch" id="bottom-circle" src="logos/black-circle.png" alt="">
+              </div>
+
+
+
+  </div>
+  <div id="word-list-container3">
+    <ul id="word-list3"></ul>
+
 </div>
+  <div id="word-list-container2">
+    <ul id="word-list2"></ul>
+
+</div>
+<div id="word-list-container">
+    <ul id="word-list"></ul>
+
+    </div>
+
+
+
+  
 <div id="warningBox"></div>
-<div id="timer"></div>
+   
+<div id="warningBox"></div>
 
 <script src="/firebase.js"></script>
 <script src="/game4.js"></script>

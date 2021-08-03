@@ -56,6 +56,7 @@ body {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  min-height: 50vh;
   background-color: white;
   padding: 20px;
   font-family: "Bebas Neue", cursive !important;
@@ -289,7 +290,7 @@ container {
 
 /* PLAY BOX */
 
-.input-cell {
+.word-cell {
   height: 15px !important;
   width: 50% !important;
   font-size: 12px !important;
@@ -382,7 +383,9 @@ container {
   width: 200px;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
-  left: 45%;
+  left: 15%;
+  min-height: 50vh;
+
   position: absolute;
   z-index: 100;
   padding: 20px;
@@ -402,12 +405,12 @@ container {
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 30%;
-  min-height: 50vh;
   position: absolute;
   z-index: 100;
   padding: 20px;
   flex-wrap: wrap;
   top: 100px;
+  min-height: 50vh;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -419,13 +422,13 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
-  min-height: 50vh;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 45%;
   position: absolute;
   z-index: 100;
   padding: 20px;
+  min-height: 50vh;
   flex-wrap: wrap;
   top: 100px;
   text-align: center;
@@ -488,4 +491,108 @@ container {
   display: none !important;
   flex-direction: column;
   justify-content: space-between;
+}
+
+#first-column {
+  text-align: center;
+  grid-column: 2 !important;
+  border: none !important;
+  left: 70%;
+  width: 200px;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  position: absolute;
+  z-index: 100;
+  padding: 20px;
+  min-height: 30vh;
+  flex-wrap: wrap;
+  top: 30%;
+  text-align: center;
+  background: white;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+}
+#second-column {
+  left: 50%;
+
+  text-align: center;
+  grid-column: 2 !important;
+  border: none !important;
+  width: 200px;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  position: absolute;
+  z-index: 100;
+  padding: 20px;
+  min-height: 30vh;
+  flex-wrap: wrap;
+  top: 30%;
+  text-align: center;
+  background: white;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+}
+
+#third-column {
+  left: 30%;
+
+  text-align: center;
+  grid-column: 2 !important;
+  border: none !important;
+  width: 200px;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  position: absolute;
+  z-index: 100;
+  padding: 20px;
+  min-height: 30vh;
+  flex-wrap: wrap;
+  top: 30%;
+  text-align: center;
+  background: white;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+}
+
+#fourth-column {
+  left: 10%;
+
+  text-align: center;
+  grid-column: 2 !important;
+  border: none !important;
+  width: 200px;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  position: absolute;
+  z-index: 100;
+  padding: 20px;
+  min-height: 30vh;
+  flex-wrap: wrap;
+  top: 30%;
+  text-align: center;
+  background: white;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+}
+
+#w3review {
+  position: absolute;
+  bottom: 20px;
+}
+
+.listItem {
+  list-style: none;
+}
+
+.listItemIncomplete {
+}
+
+.listItemComplete {
+  color: green;
+  text-decoration: line-through;
+}
+
+#wordBox {
+  position: absolute;
+  bottom: 80px;
 }
