@@ -185,6 +185,16 @@ container {
   padding: 10px;
 }
 
+/* .user-box::before {
+  right: 90%;
+  width: 300px;
+  top: 200px;
+  height: 100px;
+  z-index: 1;
+  position: absolute;
+  content: url("/logos/whiteLogoStandalone.png");
+} */
+
 .redBtn {
   width: 11px !important;
   position: relative;
@@ -277,7 +287,7 @@ container {
   left: 50px;
   top: 100px;
   position: relative;
-  z-index: 100;
+  z-index: 1000 !important;
   text-align: left;
   background: white;
   max-height: 90vh;
@@ -285,10 +295,19 @@ container {
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;
   max-height: 70vh;
-  overflow-y: scroll;
   display: grid !important;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
+}
+
+#play-box::after {
+  left: 110%;
+  width: 300px;
+  top: 130px;
+  height: 100px;
+  z-index: 1;
+  position: absolute;
+  content: url("/logos/whiteLogoStandalone.png");
 }
 
 #inputForm {
@@ -314,8 +333,16 @@ container {
 #logoBox {
   z-index: 1;
   position: absolute;
-  right: 0px;
+  left: 0px;
   bottom: 0;
+  width: 500px;
+}
+
+#logoWBox {
+  z-index: 1000;
+  position: relative;
+  left: 590px;
+  bottom: 90px;
   width: 500px;
 }
 

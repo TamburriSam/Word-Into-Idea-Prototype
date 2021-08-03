@@ -39,7 +39,7 @@
           <div class="switch">
             <label>
               <span class="solo">Solo Mode</span>
-              <input type="checkbox" />
+              <input type="checkbox" checked />
               <span class="lever"></span>
               <span class="collaborative">Collaborative Mode</span>
             </label>
@@ -60,11 +60,7 @@
       <div id="fast-facts">
         <h2>Fast Facts</h2>
 
-        <p>
-          Word into idea is inspired by an aleatory (art involving random
-          choice) literary technique popularized in the late 1950's by American
-          writer William S. Burroughs called the Cut-up technique.
-        </p>
+        <p class="facts"></p>
       </div>
 
       <div id="rooms">
@@ -153,6 +149,10 @@
         <input type="text" id="alphabetInput" placeholder="Favorite Letter" />
         <button id="modalSubmit">Submit</button>
       </div>
+    </div>
+
+    <div id="logoBox">
+      <img src="logos/white_logo_transparent_background.png" alt="" />
     </div>
 
     <script src="/firebase.js"></script>

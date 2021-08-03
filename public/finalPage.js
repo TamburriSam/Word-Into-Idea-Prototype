@@ -2,7 +2,7 @@ const db = firebase.firestore();
 const userName = document.querySelector("#user");
 
 const auth = firebase.auth();
-let textArea = document.getElementById("w3review");
+let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
 auth.onAuthStateChanged((user) => {
   if (user) {

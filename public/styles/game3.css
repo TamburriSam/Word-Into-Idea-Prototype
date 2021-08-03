@@ -56,11 +56,13 @@ body {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  min-height: 50vh;
+
   background-color: white;
   padding: 20px;
   font-family: "Bebas Neue", cursive !important;
-  left: 68%;
-  top: 100px;
+  left: 58%;
+  top: 68px;
   display: inline-block;
   position: relative;
   z-index: 100;
@@ -337,14 +339,6 @@ container {
   top: 10px;
 }
 
-#logoBox {
-  z-index: 1;
-  position: absolute;
-  right: 0px;
-  bottom: 0;
-  width: 500px;
-}
-
 /* Instructions */
 
 #instructions {
@@ -380,14 +374,16 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  min-height: 50vh;
+
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
-  left: 25%;
+  left: 4%;
   position: absolute;
   z-index: 100;
   padding: 20px;
   flex-wrap: wrap;
-  top: 100px;
+  top: 250px;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -399,14 +395,16 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  min-height: 50vh;
+
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
-  left: 45%;
+  left: 24%;
   position: absolute;
   z-index: 100;
   padding: 20px;
   flex-wrap: wrap;
-  top: 100px;
+  top: 250px;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -418,6 +416,8 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  min-height: 50vh;
+
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 45%;
@@ -486,4 +486,12 @@ container {
   display: none !important;
   flex-direction: column;
   justify-content: space-between;
+}
+
+#logoBox {
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 500px;
 }

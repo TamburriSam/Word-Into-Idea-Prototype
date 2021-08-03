@@ -262,10 +262,33 @@ function watchForCount(room) {
   let fastfactBox = document.querySelector("#fast-facts");
   let inputHolder = document.querySelector(".user-box");
   let liveRoomBox = document.querySelector(".liveRoom");
+  let facts = document.querySelector(".facts");
   inputList.style.display = "block";
   fastfactBox.style.display = "block";
   inputHolder.style.display = "block";
   liveRoomBox.style.display = "none";
+
+  let paragraphs = [
+    `Word into idea is inspired by an aleatory (art involving random choice) literary technique popularized in the late 1950's by American writer William S. Burroughs called the Cut-up technique. `,
+
+    `Word into idea is inspired by "the Cut-up technique"- an aleatory (random choice) literary technique popularized in the late 1950's by American writer William S. Burroughs.`,
+    `David Bowie used cut-ups in the 1970's to help construct his lyrics `,
+    `Thom Yorke, lead singer of the rock band Radiohead, borrowed elements from the technique- writing single lyric lines, placing them into a hat, and drawing them out randomly while the band rehearsed. `,
+    `The technique is known to aide in creative flow and writer's block relief.`,
+  ];
+
+  console.log(paragraphs);
+
+  let count = 0;
+
+  setInterval(() => {
+    facts.innerHTML = paragraphs[count];
+    count++;
+
+    if (count === 5) {
+      count = 0;
+    }
+  }, 5000);
 
   return db
     .runTransaction((transaction) => {
