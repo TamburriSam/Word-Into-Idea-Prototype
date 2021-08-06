@@ -3,11 +3,21 @@ const roomList = document.querySelector(".rooms");
 const db = firebase.firestore();
 
 const auth = firebase.auth();
-
+let toggleSwitch = document.querySelector(".switch");
 const createForm = document.querySelector(".create-room");
 
 let roomName = document.querySelector("#room-name");
 let roomCount = document.querySelector("#room-count");
+
+toggleSwitch.addEventListener("click", function () {
+  if (!document.getElementById("check").checked) {
+    document.getElementById("container").style.display = "none";
+    document.getElementById("comingSoon").style.display = "block";
+  } else {
+    document.getElementById("comingSoon").style.display = "none";
+    document.getElementById("container").style.display = "block";
+  }
+});
 
 function populateListOneOnCreation() {
   // Create a reference to the SF doc.
@@ -164,21 +174,25 @@ function addIndexToUserProfile(indice) {
 }
 
 auth.onAuthStateChanged((user) => {
-  if (user) {
+  if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
       "  " +
       user.displayName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    db.collection("rooms").onSnapshot((snapshot) => {
-      setUpRooms(snapshot.docs);
-    });
-    roomFullDisableButton();
-    rejoin();
-    console.log(`IDIDID`, user.uid);
-    console.log("USER INFO", user.photoURL);
-    console.log(firebase.auth().currentUser);
+  } else {
+    userName.innerHTML =
+      "Hello," +
+      "  " +
+      user.displayName +
+      `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
+
+  db.collection("rooms").onSnapshot((snapshot) => {
+    setUpRooms(snapshot.docs);
+  });
+  roomFullDisableButton();
+  rejoin();
 });
 
 const setUpRooms = (data) => {
@@ -260,6 +274,7 @@ function watchForCount(room) {
   let docref = db.collection("rooms").doc(room);
   let inputList = document.querySelector("#user-list");
   let fastfactBox = document.querySelector("#fast-facts");
+  let logoW = document.querySelector(".logo-white");
   let inputHolder = document.querySelector(".user-box");
   let liveRoomBox = document.querySelector(".liveRoom");
   let facts = document.querySelector(".facts");

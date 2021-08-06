@@ -5,15 +5,21 @@ const auth = firebase.auth();
 let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
 auth.onAuthStateChanged((user) => {
-  if (user) {
+  if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
       "  " +
       user.displayName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    loadColumns(auth.currentUser.uid);
-    watchForZeroCount();
+  } else {
+    userName.innerHTML =
+      "Hello," +
+      "  " +
+      user.displayName +
+      `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
+  loadColumns(auth.currentUser.uid);
+  watchForZeroCount();
 });
 
 const watchForZeroCount = (roomCode) => {
@@ -32,17 +38,6 @@ const watchForZeroCount = (roomCode) => {
           docRef.onSnapshot((snapshot) => {
             if (snapshot.data().active_count < 1) {
               console.log("here");
-
-              //CHANGE THIS WHEN WE DONT WANT IT TO ACTUALLY DELETE ROOM
-              /* db.collection("rooms")
-                .doc("roomCode")
-                .delete()
-                .then(() => {
-                  console.log("Document successfully deleted!");
-                })
-                .catch((error) => {
-                  console.error("Error removing document: ", error);
-                }); */
             }
           });
         });
@@ -96,7 +91,7 @@ function populate(htmlList, dbList) {
       return transaction.get(userRef).then((doc) => {
         let html = "";
         dbList.forEach((word) => {
-          html += `<li class="listItems">${word}</li>`;
+          html += `<li class="listItems">${word}</li><br>`;
         });
         htmlList.innerHTML = html;
       });
@@ -116,81 +111,41 @@ function populateListWithInputValue(htmlList, dbList) {
   userRef.get().then((doc) => {
     let html = "";
     dbList.forEach((word) => {
-      html += `<li class="listItems">${word}</li>`;
+      html += `<li class="listItems">${word}</li><br>`;
     });
     htmlList.innerHTML = html;
   });
 }
 
-function well() {
-  textArea.addEventListener("keyup", function (e) {
-    let listItems = document.querySelectorAll(".listItems");
-    if (e.keyCode === 32) {
-      let words = textArea.value.split(" ");
-      lastWord = words[words.length - 2];
+textArea.addEventListener("keydown", tryit);
 
-      console.log(`LAST WORD`, lastWord);
+textArea.addEventListener("keydown", function () {
+  console.log(textArea.value.length);
+  let listItems = document.querySelectorAll(".listItems");
 
-      for (let i = 0; i < listItems.length; i++) {
-        if (listItems[i].innerHTML === lastWord) {
-          listItems[i].classList.add("listItemComplete");
+  //compare it
 
-          //listener for cccongratulations and encouragement to print to PDF
-          //actually maybe make a timout that when this thing is reached it prints the PDF automatically
-          // we probably also need a way for users to see their words again so yes, might want to add a profilee addition to the nav where users can see their previous word associations as well as their story if it was completed as set by this listener
-
-          //NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
-          // or if user copys and pastes
-
-          console.log(listItems.length);
-
-          console.log(textArea.value.split(" ").length);
-
-          if (listItems.length === textArea.value.split(" ").length + 1) {
-            console.log("congratulations!! Youve won");
-          }
-        }
-      }
-    } else if (e.keyCode === 8) {
-      let words = textArea.value.split(" ");
-      lastWord = words[words.length - 1];
-
-      for (let i = 0; i < allInputs.length; i++) {
-        if (listItems[i].innerHTML === lastWord) {
-          listItems[i].classList.remove("listItemComplete");
-          listItems[i].classList.add("listItem");
-        }
-      }
-    }
+  let words = textArea.value.split(" ");
+  let lowercasedWords = [];
+  words.forEach((word) => {
+    lowercasedWords.push(word.toLowerCase());
   });
 
-  textArea.addEventListener("keydown", function () {
-    console.log(textArea.value.length);
-    let listItems = document.querySelectorAll(".listItems");
+  console.log(words);
 
-    //compare it
-
-    let words = textArea.value.split(" ");
-
-    console.log(words);
-
-    if (textArea.value.length == 0) {
-      for (let i = 0; i < listItems.length; i++) {
-        /*      if (words.includes(listItems[i].innerHTML)) {
-          console.log(listItems[i].innerHTML); */
-
+  if (textArea.value.length == 0) {
+    for (let i = 0; i < listItems.length; i++) {
+      listItems[i].classList.remove("listItemComplete");
+    }
+  } else {
+    for (let i = 0; i < listItems.length; i++) {
+      if (!lowercasedWords.includes(listItems[i].innerHTML.toLowerCase())) {
         listItems[i].classList.remove("listItemComplete");
-        //}
-      }
-    } else {
-      for (let i = 0; i < listItems.length; i++) {
-        if (!words.includes(listItems[i].innerHTML)) {
-          listItems[i].classList.remove("listItemComplete");
-        }
       }
     }
-  });
-}
+  }
+});
+
 function tryit(e) {
   let listItems = document.querySelectorAll(".listItems");
   textArea.addEventListener("keyup", function (e) {
@@ -201,7 +156,7 @@ function tryit(e) {
       console.log(`LAST WORD`, lastWord);
 
       for (let i = 0; i < listItems.length; i++) {
-        if (listItems[i].innerHTML === lastWord) {
+        if (listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase()) {
           listItems[i].classList.add("listItemComplete");
 
           //listener for cccongratulations and encouragement to print to PDF
@@ -225,7 +180,7 @@ function tryit(e) {
       lastWord = words[words.length - 1];
 
       for (let i = 0; i < allInputs.length; i++) {
-        if (listItems[i].innerHTML === lastWord) {
+        if (listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase()) {
           listItems[i].classList.remove("listItemComplete");
           listItems[i].classList.add("listItem");
         }
@@ -234,12 +189,19 @@ function tryit(e) {
   });
 }
 
-/* document.getElementById("test").addEventListener("click", function () {
+document.getElementById("wordsPdf").addEventListener("click", function () {
   const doc = new jsPDF();
   doc.text(allInputs, 10, 10);
-  doc.save("a4.pdf");
-  deleteOnTimeout();
-}); */
+  doc.save("wordIntoIdeaWords.pdf");
+  //deleteOnTimeout();
+});
+
+document.getElementById("essayPdf").addEventListener("click", function () {
+  const doc = new jsPDF();
+  doc.text(textArea.value, 10, 10);
+  doc.save("wordIntoIdeaEssay.pdf");
+  //deleteOnTimeout();
+});
 
 function deleteOnTimeout() {
   var userRef = db.collection("users").doc(auth.currentUser.uid);

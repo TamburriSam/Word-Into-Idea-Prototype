@@ -290,11 +290,11 @@ container {
   z-index: 1000 !important;
   text-align: left;
   background: white;
-  max-height: 90vh;
+  overflow-y: scroll;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;
-  max-height: 70vh;
+  max-height: 50vh;
   display: grid !important;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -305,7 +305,7 @@ container {
   width: 300px;
   top: 130px;
   height: 100px;
-  z-index: 1;
+  z-index: 1000;
   position: absolute;
   content: url("/logos/whiteLogoStandalone.png");
 }
@@ -319,6 +319,15 @@ container {
   position: relative;
   top: 12px;
   margin-bottom: 70px !important;
+}
+
+#warningBox {
+  border: 2px solid red;
+  display: none;
+  height: 50px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 3px;
 }
 
 .collection .with-header {
@@ -375,6 +384,32 @@ container {
   letter-spacing: 2px;
 }
 
+.gitHub {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.footer-text {
+  position: relative;
+  bottom: 10px;
+}
+
+#logoBox {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 500px;
+}
+
+.footer-link {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  color: rgba(0, 0, 0, 0.616);
+}
+
 /* That cool 3d side boxed effect */
 /* #instructions {
   background-color: rgb(240, 240, 240);
@@ -416,3 +451,97 @@ container {
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;
 } */
+
+/* Media Queries */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  #nav-links {
+    display: none;
+  }
+
+  #user-info {
+    width: 30vw;
+    height: 6.5vh !important;
+  }
+
+  #createNewRoom {
+    width: 150px !important;
+    right: 3px;
+  }
+
+  #logoBox {
+    width: 300px;
+    margin: auto;
+  }
+
+  .gitHub {
+    height: 10px;
+    width: 10px;
+  }
+
+  .footer-link {
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 10px;
+    left: 0;
+  }
+
+  #friend-title {
+    display: block;
+    text-align: center;
+  }
+
+  #friendsOnline {
+    text-align: center;
+  }
+
+  .friendlistLogo {
+    width: 0px;
+    height: 0px;
+  }
+
+  #friend-title h4 {
+    font-size: 12px;
+  }
+
+  .profile-holder {
+    font-size: 10px;
+  }
+
+  .profilepic {
+    top: 0px;
+    width: 15px;
+    height: 15px;
+  }
+
+  #play-box {
+    width: 80vw;
+    margin: auto;
+    left: 0;
+  }
+
+  #rooms h5 {
+    font-size: 12px;
+  }
+
+  .active-button {
+    height: 10px;
+    width: 10px;
+    left: 0px;
+  }
+
+  #instructions {
+    left: 0px;
+    width: 90%;
+    margin: auto;
+  }
+
+  .connected {
+    bottom: 0px;
+    left: 0px;
+  }
+
+  .user-box {
+    width: 100px !important;
+    top: 150px;
+    display: none;
+  }
+}

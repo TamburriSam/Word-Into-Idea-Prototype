@@ -13,6 +13,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+    rel="shortcut icon"
+    type="image/jpg"
+    href="logos/logoStandalone.png"
+  />
     <title>Word Into Idea</title>
   </head>
   <body>
@@ -29,7 +34,7 @@
           <div class="switch">
             <label>
               <span class="solo">Solo Mode</span>
-              <input type="checkbox" checked/>
+              <input type="checkbox" checked disabled/>
               <span class="lever"></span>
               <span class="collaborative">Collaborative Mode</span>
             </label>
@@ -49,16 +54,25 @@
       <img class="greenBtn" src="logos/green.png" alt="" />
 
       <div id="friend-title">
-        <img class="friendlistlogo" src="logos/friendsHug.png" alt="" />
+        <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" />
 
         <h4>Friend List</h4>
       </div>
 
+      <div id="friendsOnline">
       <h5>
         Friends Online
+      </h5>
+        <div id="connectedMockPic">
         <img class="active-button" src="logos/GPCX4030.webp" alt="" />
         <span class="connected">connected</span>
-      </h5>
+        </div>
+
+
+      </div>
+
+
+ 
       <ul id="user-list"></ul>
     </div>
 
@@ -80,15 +94,11 @@
         <div id="inputForm" action="">
               <ul id="input-list"></ul>
 
-              <div id="holes">
-            <img class="hole-punch" id="top-circle" src="logos/black-circle.png" alt="">
-            <img class="hole-punch" id="middle-circle" src="logos/black-circle.png" alt="">               
-            <img class="hole-punch" id="bottom-circle" src="logos/black-circle.png" alt="">
-              </div>
-
+            
 
 
   </div>
+  <div id="warningBox"></div>
 
 
 <div id="word-list-container">
@@ -100,10 +110,18 @@
 
 
     </div>
-    <div id="warningBox"></div>
     <div id="logoBox">
         <img src="logos/whiteTextLogoOnly.png" alt="">
         </div>
+
+        <a class="footer-link" href="https://github.com/TamburriSam">
+            <footer>
+         
+                <img class="gitHub" src="logos/ghicon.png" alt=""
+              />
+              <span class="footer-text"></span>Created by Sam Tamburri </span>
+            </footer>
+          </a>
     <script src="/firebase.js"></script>
     <script src="/game2.js"></script>
   </body>

@@ -56,7 +56,7 @@ body {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
-  min-height: 50vh;
+  overflow-y: scroll;
   background-color: white;
   padding: 20px;
   font-family: "Bebas Neue", cursive !important;
@@ -68,8 +68,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
+  min-height: 50vh;
+  max-height: 50vh;
   background: white;
-  max-height: 90vh;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -338,6 +339,37 @@ container {
   top: 10px;
 }
 
+.firebaseui-provider-sign-in-footer > .firebaseui-tos {
+  display: none !important;
+  border: red solid 2px;
+}
+
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-footer.firebaseui-provider-sign-in-footer {
+  display: none !important;
+}
+
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-footer.firebaseui-provider-sign-in-footer
+  > p {
+  display: none !important;
+}
+
+#warningBox {
+  border: 2px solid red;
+  display: none;
+  /* height: 50px; */
+  position: absolute;
+  text-align: center;
+  left: 40%;
+  top: 70px;
+  border-radius: 5px;
+  padding: 3px;
+  z-index: 2000 !important;
+}
+
 #logoBox {
   z-index: 1;
   position: absolute;
@@ -385,7 +417,8 @@ container {
   font-family: "Bebas Neue", cursive !important;
   left: 4%;
   min-height: 50vh;
-
+  max-height: 50vh;
+  overflow-y: scroll;
   position: absolute;
   z-index: 100;
   padding: 20px;
@@ -402,6 +435,9 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  overflow-y: scroll;
+  min-height: 50vh;
+  max-height: 50vh;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 22%;
@@ -410,7 +446,6 @@ container {
   padding: 20px;
   flex-wrap: wrap;
   top: 250px;
-  min-height: 50vh;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -428,6 +463,8 @@ container {
   position: absolute;
   z-index: 100;
   padding: 20px;
+  overflow-y: scroll;
+  max-height: 50vh;
   min-height: 50vh;
   flex-wrap: wrap;
   top: 250px;
@@ -595,4 +632,192 @@ container {
 #wordBox {
   position: absolute;
   bottom: 80px;
+}
+
+.gitHub {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.footer-text {
+  position: relative;
+  bottom: 10px;
+}
+
+#logoBox {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 500px;
+}
+
+.footer-link {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  color: rgba(0, 0, 0, 0.616);
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  #nav-links {
+    display: none;
+  }
+
+  #papers {
+    right: 0;
+  }
+
+  #word-list li {
+    font-size: 10px;
+  }
+  #word-list2 li {
+    font-size: 10px;
+  }
+  #word-list3 li {
+    font-size: 10px;
+  }
+
+  #inputForm {
+    left: 290px;
+    width: 120px;
+    display: block;
+    padding: 10px;
+    top: 280px;
+    position: fixed;
+  }
+
+  .word-cell::placeholder {
+    width: 100%;
+    font-size: 8px !important;
+  }
+
+  .word-cell {
+    font-size: 10px;
+  }
+
+  .input-cell::placeholder {
+    font-size: 8px !important;
+  }
+
+  #input-list {
+    width: 100%;
+  }
+
+  #word-list-container {
+    left: 1%;
+    bottom: 20px;
+    position: absolute;
+    width: 90px;
+    top: 300px;
+  }
+
+  #word-list-container2 {
+    left: 24%;
+    bottom: 20px;
+    position: absolute;
+    width: 90px;
+    top: 300px;
+  }
+
+  #word-list-container3 {
+    left: 47%;
+    bottom: 20px;
+    position: absolute;
+    width: 90px;
+    top: 300px;
+  }
+
+  #user-info {
+    width: 30vw;
+    height: 6.5vh !important;
+  }
+
+  #createNewRoom {
+    width: 150px !important;
+    right: 3px;
+  }
+
+  #logoBox {
+    width: 200px;
+    position: absolute;
+    right: 0;
+    z-index: 200;
+  }
+
+  .gitHub {
+    height: 10px;
+    width: 10px;
+  }
+
+  .footer-link {
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 10px;
+  }
+
+  #friend-title {
+    display: block;
+    text-align: center;
+  }
+
+  #friendsOnline {
+    text-align: center;
+  }
+
+  .friendlistLogo {
+    width: 0px;
+    height: 0px;
+  }
+
+  #friend-title h4 {
+    font-size: 12px;
+  }
+
+  .waves-effect {
+    top: 20px;
+  }
+
+  .profile-holder {
+    font-size: 10px;
+  }
+
+  .profilepic {
+    top: 0px;
+    width: 15px;
+    height: 15px;
+  }
+
+  #play-box {
+    width: 80vw;
+    margin: auto;
+    left: 0;
+  }
+
+  #rooms h5 {
+    font-size: 12px;
+  }
+
+  .active-button {
+    height: 10px;
+    width: 10px;
+    left: 0px;
+  }
+
+  #instructions {
+    left: 0px;
+    width: 90%;
+    margin: auto;
+  }
+
+  .connected {
+    bottom: 0px;
+    left: 0px;
+  }
+
+  .user-box {
+    width: 100px !important;
+    top: 150px;
+    display: none;
+  }
 }

@@ -10,15 +10,20 @@ function getRandomInt(min, max) {
 }
 
 auth.onAuthStateChanged((user) => {
-  if (user) {
+  if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
       "  " +
       user.displayName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    console.log(auth.currentUser.email);
-    startGame();
+  } else {
+    userName.innerHTML =
+      "Hello," +
+      "  " +
+      user.displayName +
+      `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
+  startGame();
 });
 
 function arraysEqual(a, b) {
@@ -214,8 +219,11 @@ document.body.addEventListener("click", function (e) {
 
     if (validInputs.length < inputList.length) {
       let list_three = {};
-      console.log("need all cells");
-      warningBox.innerHTML = "Need All Cells";
+      warningBox.style.display = "block";
+      warningBox.innerHTML = "All cells must be filled before continuing";
+      setTimeout(() => {
+        warningBox.style.display = "none";
+      }, 4000);
       return false;
     } else {
       //here is the problem

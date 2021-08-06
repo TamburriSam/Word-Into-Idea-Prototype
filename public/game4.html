@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-    
-    <!--     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
-        <script defer src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script -->
         <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
         <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
@@ -21,7 +17,12 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
       />
-        <title>Roofs</title>
+      <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="logos/logoStandalone.png"
+    />
+        <title>Word Into Idea</title>
 </head>
 <body>
 
@@ -39,7 +40,7 @@
             <div class="switch">
               <label>
                 <span class="solo">Solo Mode</span>
-                <input type="checkbox" checked/>
+                <input type="checkbox" checked disabled/>
                 <span class="lever"></span>
                 <span class="collaborative">Collaborative Mode</span>
               </label>
@@ -52,25 +53,34 @@
         </div>
       </nav>
 
-      <div class="user-box">
-        <img class="redBtn" src="logos/red.png" alt="" />
-        <img class="yellowBtn" src="logos/yellow.png" alt="" />
-  
-        <img class="greenBtn" src="logos/green.png" alt="" />
-  
-        <div id="friend-title">
-          <img class="friendlistlogo" src="logos/friendsHug.png" alt="" />
-  
-          <h4>Friend List</h4>
-        </div>
-  
-        <h5>
-          Friends Online
-          <img class="active-button" src="logos/GPCX4030.webp" alt="" />
-          <span class="connected">connected</span>
-        </h5>
-        <ul id="user-list"></ul>
+       <div class="user-box">
+      <img class="redBtn" src="logos/red.png" alt="" />
+      <img class="yellowBtn" src="logos/yellow.png" alt="" />
+
+      <img class="greenBtn" src="logos/green.png" alt="" />
+
+      <div id="friend-title">
+        <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" />
+
+        <h4>Friend List</h4>
       </div>
+
+      <div id="friendsOnline">
+      <h5>
+        Friends Online
+      </h5>
+        <div id="connectedMockPic">
+        <img class="active-button" src="logos/GPCX4030.webp" alt="" />
+        <span class="connected">connected</span>
+        </div>
+
+
+      </div>
+
+
+ 
+      <ul id="user-list"></ul>
+    </div>
 
       <div id="instructions">
         <div id="timer"></div>
@@ -113,7 +123,14 @@
     </div>
 
     <div id="warningBox"></div>
-
+    <a class="footer-link" href="https://github.com/TamburriSam">
+        <footer>
+     
+            <img class="gitHub" src="logos/ghicon.png" alt=""
+          />
+          <span class="footer-text"></span>Created by Sam Tamburri </span>
+        </footer>
+      </a>
 
 <script src="/firebase.js"></script>
 <script src="/game4.js"></script>
