@@ -467,7 +467,7 @@ function startGame(room) {
           console.log(`wanted list`, wantedList);
         })
         .then(() => {
-          noDuplicates(secondList, wantedList);
+          noDuplicates(wantedList, secondList);
           getRoomCountForInput(docRef);
           console.log("HERE");
         })
@@ -476,7 +476,7 @@ function startGame(room) {
 }
 
 document.getElementById("timer").innerHTML = 01 + ":" + 59;
-//startTimer();
+startTimer();
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;

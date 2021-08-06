@@ -13,7 +13,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
 
 * {
-  font-family: "Bebas Neue", cursive;
 }
 
 #comingSoon {
@@ -56,6 +55,7 @@ th {
 #RoomBody {
   background-color: #399e3c56;
   background-size: cover;
+  background-image: url("/logos/green3.jpg");
   background-repeat: no-repeat;
   font-family: "KoHo", sans-serif !important;
   overflow-x: hidden;
@@ -72,9 +72,10 @@ nav {
   background-color: white;
   color: black;
   border-radius: 5px;
+
   z-index: 10 !important;
   font-size: 20px;
-  font-family: "Caveat", cursive;
+  font-family: "Bebas Neue", cursive;
   width: 97vw;
   justify-content: space-between;
   margin: auto;
@@ -233,6 +234,7 @@ nav {
 
 #fast-facts {
   width: 40vw;
+  font-family: "Bebas Neue", cursive;
 
   background-color: rgb(240, 240, 240);
   margin-top: 20px;
@@ -274,6 +276,7 @@ nav {
 
 #waiting {
   display: none;
+  font-family: "Bebas Neue", cursive;
 }
 
 #col {
@@ -438,6 +441,8 @@ div#rooms {
   left: 0;
   z-index: 10;
   padding-top: 1px;
+  font-family: "Bebas Neue", cursive;
+
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
@@ -459,6 +464,8 @@ div#rooms {
 .user-box {
   background-color: rgb(240, 240, 240);
   text-align: left;
+  font-family: "Bebas Neue", cursive;
+
   position: absolute;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -508,6 +515,7 @@ div#rooms {
 
 #waiting {
   font-size: 32px;
+  color: white;
 }
 
 #warningBox2 {
@@ -526,15 +534,15 @@ div#rooms {
     text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
   }
   40% {
-    color: black;
+    color: white;
     text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
   }
   60% {
-    text-shadow: 0.25em 0 0 rgb(0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
   }
   80%,
   100% {
-    text-shadow: 0.25em 0 0 black, 0.5em 0 0 black;
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
   }
 }
 
@@ -550,7 +558,7 @@ div#rooms {
 }
 
 #logoBox {
-  z-index: 100;
+  z-index: 1 !important;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -560,19 +568,70 @@ div#rooms {
 .footer-link {
   position: absolute;
   bottom: 0;
-  left: 20px;
+  left: 0px;
+  padding: 1px;
   color: rgba(0, 0, 0, 0.616);
+  border-radius: 3px;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+
+  background-color: white;
 }
 
 /* Media Queries */
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+@media screen and (min-width: 100px) and (max-width: 910px) {
   #nav-links {
     display: none;
   }
 
   #user-info {
-    width: 30vw;
-    height: 6.5vh !important;
+    width: auto;
+    padding: 5px;
+    right: 0px;
+    font-size: 20px;
+    height: 6.3vh !important;
+    margin-right: 3px;
+    top: 2px;
+    line-height: 3;
+  }
+
+  #mainLogo {
+    width: 210px;
+  }
+
+  #papers {
+    right: 0;
+  }
+
+  #inputForm {
+    right: 5px;
+    width: 150px;
+    display: block;
+    padding: 10px;
+  }
+
+  .input-cell {
+    width: 100%;
+    font-size: 10px;
+  }
+
+  .input-cell::placeholder {
+    font-size: 8px;
+  }
+
+  #input-list {
+    width: 100%;
+  }
+
+  #word-list-container {
+    left: 3%;
+  }
+
+  .photoURL {
+    height: 20px;
+    width: 20px;
+    top: 3px;
   }
 
   #createNewRoom {
@@ -581,8 +640,10 @@ div#rooms {
   }
 
   #logoBox {
-    width: 300px;
-    margin: auto;
+    width: 200px;
+    position: absolute;
+    right: 0;
+    z-index: 200;
   }
 
   .gitHub {
@@ -593,7 +654,6 @@ div#rooms {
   .footer-link {
     color: rgba(0, 0, 0, 0.25);
     font-size: 10px;
-    left: 0;
   }
 
   #friend-title {
@@ -605,6 +665,11 @@ div#rooms {
     text-align: center;
   }
 
+  .friendlistLogo {
+    width: 0px;
+    height: 0px;
+  }
+
   #friend-title h4 {
     font-size: 12px;
   }
@@ -613,15 +678,16 @@ div#rooms {
     font-size: 10px;
   }
 
-  .friendlistlogo {
-    width: 100%;
-    height: 100%;
-  }
-
   .profilepic {
     top: 0px;
     width: 15px;
     height: 15px;
+  }
+
+  #play-box {
+    width: 80vw;
+    margin: auto;
+    left: 0;
   }
 
   #rooms h5 {
@@ -634,6 +700,16 @@ div#rooms {
     left: 0px;
   }
 
+  #instructions {
+    left: 0px;
+    width: 90%;
+    margin: auto;
+  }
+
+  #word-list li {
+    font-size: 10px;
+  }
+
   .connected {
     bottom: 0px;
     left: 0px;
@@ -642,5 +718,6 @@ div#rooms {
   .user-box {
     width: 100px !important;
     top: 150px;
+    display: none;
   }
 }

@@ -18,6 +18,7 @@ auth.onAuthStateChanged((user) => {
       user.displayName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
+  startGame();
 });
 
 //can use transaction here since we aren't changing anything
@@ -201,7 +202,7 @@ function updateUserInputList() {
 }
 
 document.getElementById("timer").innerHTML = 01 + ":" + 59;
-//startTimer();
+startTimer();
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;

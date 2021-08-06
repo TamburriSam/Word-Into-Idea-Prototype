@@ -18,6 +18,12 @@
 body {
   background-color: #399e3c56;
   background-size: cover;
+  background-image: url("/logos/green3.jpg");
+  background-repeat: no-repeat;
+  font-family: "KoHo", sans-serif !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -80,7 +86,6 @@ body {
 #input-list {
   grid-column: 3 !important;
   position: relative;
-  top: 20%;
   width: 200px;
 }
 
@@ -361,10 +366,9 @@ container {
   border: 2px solid red;
   display: none;
   /* height: 50px; */
-  position: absolute;
   text-align: center;
-  left: 40%;
-  top: 70px;
+  bottom: 0;
+  margin: auto;
   border-radius: 5px;
   padding: 3px;
   z-index: 2000 !important;
@@ -476,7 +480,6 @@ container {
 
 #word-list {
   position: relative;
-  top: 18%;
 }
 
 #word-list li {
@@ -486,7 +489,6 @@ container {
 
 #word-list2 {
   position: relative;
-  top: 18%;
 }
 
 #word-list2 li {
@@ -496,7 +498,6 @@ container {
 
 #word-list3 {
   position: relative;
-  top: 18%;
 }
 
 #word-list3 li {
@@ -656,17 +657,40 @@ container {
 .footer-link {
   position: absolute;
   bottom: 0;
-  right: 20px;
+  right: 0px;
+  border-radius: 3px;
+
+  padding: 3px;
   color: rgba(0, 0, 0, 0.616);
+  background-color: white;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+.nav-link {
+  margin-right: 15px;
+}
+
+@media screen and (min-width: 100px) and (max-width: 1070px) {
   #nav-links {
     display: none;
   }
 
   #papers {
     right: 0;
+  }
+
+  #mainLogo {
+    width: 210px;
+  }
+
+  #user-info {
+    width: auto;
+    padding: 5px;
+    right: 0px;
+    font-size: 20px;
+    height: 6.3vh !important;
+    margin-right: 3px;
+    top: 4px;
+    line-height: 3;
   }
 
   #word-list li {
@@ -679,13 +703,21 @@ container {
     font-size: 10px;
   }
 
+  .photoURL {
+    height: 20px;
+    width: 20px;
+    top: 3px;
+  }
+
   #inputForm {
-    left: 290px;
-    width: 120px;
+    width: 25vw;
+    left: 73%;
     display: block;
-    padding: 10px;
     top: 280px;
-    position: fixed;
+    padding: 10px;
+    position: absolute;
+    max-height: 50vh;
+    min-height: 50vh;
   }
 
   .word-cell::placeholder {
@@ -709,41 +741,35 @@ container {
     left: 1%;
     bottom: 20px;
     position: absolute;
-    width: 90px;
+    width: 20vw;
     top: 300px;
+    max-height: 50vh;
+    min-height: 50vh;
   }
 
   #word-list-container2 {
     left: 24%;
     bottom: 20px;
     position: absolute;
-    width: 90px;
+    width: 20vw;
     top: 300px;
+    max-height: 50vh;
+    min-height: 50vh;
   }
 
   #word-list-container3 {
     left: 47%;
     bottom: 20px;
     position: absolute;
-    width: 90px;
+    width: 20vw;
     top: 300px;
-  }
-
-  #user-info {
-    width: 30vw;
-    height: 6.5vh !important;
+    max-height: 50vh;
+    min-height: 50vh;
   }
 
   #createNewRoom {
     width: 150px !important;
     right: 3px;
-  }
-
-  #logoBox {
-    width: 200px;
-    position: absolute;
-    right: 0;
-    z-index: 200;
   }
 
   .gitHub {

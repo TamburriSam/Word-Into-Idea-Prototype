@@ -15,8 +15,20 @@
 * {
 }
 
+/* body {
+  background-color: #399e3c56;
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
+
 body {
   background-color: #399e3c56;
+  background-size: cover;
+  background-image: url("/logos/green3.jpg");
+  background-repeat: no-repeat;
+  font-family: "KoHo", sans-serif !important;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -81,10 +93,9 @@ body {
   border: 2px solid red;
   display: none;
   /* height: 50px; */
-  position: absolute;
   text-align: center;
-  left: 40%;
-  top: 50px;
+  bottom: 0;
+  margin: auto;
   border-radius: 5px;
   padding: 3px;
   z-index: 2000 !important;
@@ -532,11 +543,19 @@ container {
 .footer-link {
   position: absolute;
   bottom: 0;
-  right: 20px;
+  right: 0px;
+  border-radius: 3px;
+
+  padding: 3px;
   color: rgba(0, 0, 0, 0.616);
+  background-color: white;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+.nav-link {
+  margin-right: 15px;
+}
+
+@media screen and (min-width: 100px) and (max-width: 812px) {
   #nav-links {
     display: none;
   }
@@ -550,6 +569,8 @@ container {
     width: 150px;
     display: block;
     padding: 10px;
+    max-height: 35vh;
+    min-height: 30vh;
   }
 
   .input-cell {
@@ -567,11 +588,29 @@ container {
 
   #word-list-container {
     left: 3%;
+    max-height: 35vh;
+    min-height: 30vh;
+  }
+
+  #mainLogo {
+    width: 210px;
   }
 
   #user-info {
-    width: 30vw;
-    height: 6.5vh !important;
+    width: auto;
+    padding: 5px;
+    right: 0px;
+    font-size: 20px;
+    height: 6.3vh !important;
+    margin-right: 3px;
+    top: 2px;
+    line-height: 3;
+  }
+
+  .photoURL {
+    height: 20px;
+    width: 20px;
+    top: 3px;
   }
 
   #createNewRoom {
@@ -628,6 +667,8 @@ container {
     width: 80vw;
     margin: auto;
     left: 0;
+    min-height: 35vh;
+    max-height: 35vh;
   }
 
   #rooms h5 {

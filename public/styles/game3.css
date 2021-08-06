@@ -18,6 +18,12 @@
 body {
   background-color: #399e3c56;
   background-size: cover;
+  background-image: url("/logos/green3.jpg");
+  background-repeat: no-repeat;
+  font-family: "KoHo", sans-serif !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -186,10 +192,9 @@ textarea.materialize-textarea {
   border: 2px solid red;
   display: none;
   /* height: 50px; */
-  position: absolute;
   text-align: center;
-  left: 40%;
-  top: 70px;
+  bottom: 0;
+  margin: auto;
   border-radius: 5px;
   padding: 3px;
   z-index: 2000 !important;
@@ -239,6 +244,10 @@ container {
   position: relative;
   bottom: 5px;
   cursor: pointer;
+}
+
+.nav-link {
+  margin-right: 15px;
 }
 
 .yellowBtn {
@@ -530,14 +539,22 @@ container {
   width: 500px;
 }
 
+.nav-link {
+  margin-right: 15px;
+}
+
 .footer-link {
   position: absolute;
   bottom: 0;
-  right: 20px;
+  right: 0px;
+  border-radius: 3px;
+
+  padding: 3px;
   color: rgba(0, 0, 0, 0.616);
+  background-color: white;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+@media screen and (min-width: 100px) and (max-width: 900px) {
   #nav-links {
     display: none;
   }
@@ -554,12 +571,14 @@ container {
   }
 
   #inputForm {
-    left: 260px;
-    width: 140px;
+    width: 30vw;
+    left: 65%;
     display: block;
-    padding: 10px;
     top: 280px;
-    position: fixed;
+    padding: 10px;
+    position: absolute;
+    max-height: 35vh;
+    min-height: 30vh;
   }
 
   .word-cell::placeholder {
@@ -579,25 +598,45 @@ container {
     width: 100%;
   }
 
+  .photoURL {
+    height: 20px;
+    width: 20px;
+    top: 3px;
+  }
+
   #word-list-container {
     left: 3%;
     bottom: 20px;
     position: absolute;
-    width: 100px;
+    width: 23vw;
     top: 300px;
+    max-height: 35vh;
+    min-height: 30vh;
   }
 
   #word-list-container2 {
     left: 33%;
     bottom: 20px;
     position: absolute;
-    width: 100px;
+    width: 23vw;
     top: 300px;
+    max-height: 35vh;
+    min-height: 30vh;
+  }
+
+  #mainLogo {
+    width: 210px;
   }
 
   #user-info {
-    width: 30vw;
-    height: 6.5vh !important;
+    width: auto;
+    padding: 5px;
+    right: 0px;
+    font-size: 20px;
+    height: 6.3vh !important;
+    margin-right: 3px;
+    top: 2px;
+    line-height: 3;
   }
 
   #createNewRoom {

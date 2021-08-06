@@ -264,7 +264,10 @@ function roomFullDisableButton() {
           doc.data().total_count === doc.data().favorite_letters.length
         ) {
           document.getElementById(doc.id).disabled = true;
+          document.getElementById(doc.id).classList.add("disabled");
           document.getElementById(doc.id).innerHTML = "In Session";
+
+          console.log(document.getElementById(doc.id));
         }
       });
     });
@@ -309,20 +312,21 @@ function watchForCount(room) {
     .runTransaction((transaction) => {
       return transaction.get(docref).then((doc) => {
         //right here we need to add something else that denies user another click if their username is found
-        if (doc.data().active_count < doc.data().total_count) {
-          if (!doc.data().users.includes(auth.currentUser.displayName)) {
-            let newCount = doc.data().active_count + 1;
-            transaction.update(docref, { active_count: newCount });
-            transaction.update(docref, {
-              users: firebase.firestore.FieldValue.arrayUnion(
-                firebase.auth().currentUser.displayName
-              ),
-            });
-            makeItModal();
-          } else {
-            console.log("didnt go up");
-            checkForLetter();
-          }
+        if (
+          doc.data().active_count < doc.data().total_count &&
+          !doc.data().users.includes(auth.currentUser.displayName)
+        ) {
+          let newCount = doc.data().active_count + 1;
+          transaction.update(docref, { active_count: newCount });
+          transaction.update(docref, {
+            users: firebase.firestore.FieldValue.arrayUnion(
+              firebase.auth().currentUser.displayName
+            ),
+          });
+          makeItModal();
+        } else if (doc.data().users.includes(auth.currentUser.displayName)) {
+          console.log("didnt go up");
+          checkForLetter();
         }
       });
     })
@@ -399,10 +403,13 @@ const checkForLetter = () => {
     .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
-      console.log(`HERE WE GO`, doc.data().favorite_letter);
+      console.log(`HERE WE GO`, doc.data());
 
       if (!doc.data().favorite_letter) {
         makeItModal();
+        console.log(`HERE WE GsO`, doc.data());
+      } else {
+        console.log("booyah");
       }
     });
 };
@@ -676,3 +683,9 @@ function rejoin() {
       }
     });
 }
+
+document
+  .querySelector(".about-link")
+  .addEventListener("mouseover", function () {
+    console.log("ok");
+  });

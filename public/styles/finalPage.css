@@ -18,6 +18,12 @@
 body {
   background-color: #399e3c56;
   background-size: cover;
+  background-image: url("/logos/green3.jpg");
+  background-repeat: no-repeat;
+  font-family: "KoHo", sans-serif !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -192,6 +198,10 @@ container {
     0 1px 5px 0 rgb(0 0 0 / 20%);
   position: relative;
   top: 10px;
+}
+
+.nav-link {
+  margin-right: 15px;
 }
 
 /* FRIEND LIST */
@@ -547,7 +557,7 @@ container {
   padding: 10px;
   min-height: 10vh;
   max-height: 20vh;
-  top: 54%;
+  top: 50%;
   left: 40px;
   text-align: center;
   background: white;
@@ -569,7 +579,7 @@ container {
   padding: 10px;
   min-height: 10vh;
   flex-wrap: wrap;
-  top: 70%;
+  top: 65%;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -578,7 +588,6 @@ container {
 
 #fourth-column {
   left: 40px;
-
   text-align: center;
   grid-column: 2 !important;
   border: none !important;
@@ -591,7 +600,7 @@ container {
   padding: 10px;
   min-height: 10vh;
   flex-wrap: wrap;
-  top: 85%;
+  top: 80%;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -739,11 +748,17 @@ container {
 .footer-link {
   position: absolute;
   bottom: 0;
-  right: 20px;
+  left: 0px;
+  padding: 3px;
   color: rgba(0, 0, 0, 0.616);
+  background-color: white;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+@media screen and (min-width: 100px) and (max-width: 812px) {
+  body {
+    background-repeat: repeat;
+  }
+
   #nav-links {
     display: none;
   }
@@ -762,6 +777,12 @@ container {
     font-size: 10px;
   }
 
+  .photoURL {
+    height: 20px;
+    width: 20px;
+    top: 3px;
+  }
+
   #inputForm {
     left: 290px;
     width: 120px;
@@ -769,6 +790,10 @@ container {
     padding: 10px;
     top: 280px;
     position: fixed;
+  }
+
+  #textArea {
+    width: 90vw;
   }
 
   .word-cell::placeholder {
@@ -805,9 +830,10 @@ container {
   }
 
   #textArea {
-    width: 100vw;
+    width: 90vw;
     left: 0;
     right: 0;
+    margin: auto;
     top: 500px;
   }
 
@@ -820,20 +846,18 @@ container {
   }
 
   #user-info {
-    width: 30vw;
-    height: 6.5vh !important;
+    width: auto;
+    padding: 5px;
+    right: 0px;
+    font-size: 20px;
+    height: 6.3vh !important;
+    margin-right: 3px;
+    top: 4px;
+    line-height: 3;
   }
-
   #createNewRoom {
     width: 150px !important;
     right: 3px;
-  }
-
-  #logoBox {
-    width: 200px;
-    position: absolute;
-    right: 0;
-    z-index: 200;
   }
 
   .gitHub {
@@ -955,6 +979,15 @@ container {
   .connected {
     bottom: 0px;
     left: 0px;
+  }
+
+  #tryBox {
+    width: 100vw;
+    text-align: center;
+  }
+
+  #mainLogo {
+    width: 210px;
   }
 
   .user-box {

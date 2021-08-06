@@ -1,5 +1,4 @@
 const user = firebase.auth().currentUser;
-console.log(user);
 
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
@@ -19,7 +18,7 @@ var uiConfig = {
     },
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  signInFlow: "popup",
+  signInFlow: "redirect",
   signInSuccessUrl: "rooms.html",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.

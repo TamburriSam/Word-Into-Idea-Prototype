@@ -32,7 +32,7 @@
 }
 
 #indexBody {
-  background-image: url("/logos/photo-boards-KZNTEn2r6tw-unsplash (1).jpg") !important;
+  background-image: url("/logos/green3.jpg") !important;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -40,30 +40,31 @@
 }
 
 #firebaseui-auth-container {
-  top: 70px;
+  top: 70px !important;
   position: relative;
 }
 
 #sign-inForm {
   padding: 15px;
   margin: auto;
-  margin-top: 30%;
-  width: 350px;
-  height: 400px;
-  /*   border: 5px solid black;
- */
+  /* margin-top: 30%; */
+  width: 340px;
+  /* height: 320px; */
+  /* border: 5px solid black; */
   background-color: white;
   font-size: 20px;
-  /*   box-shadow: 5px 5px 0px 0px #000000;
- */
+  /* box-shadow: 5px 5px 0px 0px #000000; */
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999;
-
   border-radius: 3px;
   text-align: center;
   z-index: 3;
   right: 10px;
-  top: 50%;
+  margin: auto;
+  /* top: 400px; */
+  margin-top: 245px;
+  /* position: relative; */
+  /* top: 26%; */
 }
 
 #firebaseui-auth-container
@@ -78,11 +79,11 @@
 }
 
 .firebaseui-idp-text {
-  color: black;
+  color: white;
 }
 
 .firebaseui-idp-text-long {
-  color: black;
+  color: white;
 }
 
 #firebaseui-auth-container
@@ -92,8 +93,11 @@
   > ul
   > li:nth-child(1)
   > button {
+  background-color: black !important;
+  color: white !important;
   border-radius: 10px;
-  border: 2px solid black;
+  border: 2px solid white;
+  bottom: 65px;
 }
 
 #firebaseui-auth-container
@@ -103,10 +107,11 @@
   > ul
   > li:nth-child(2)
   > button {
-  background-color: rgb(214, 214, 214) !important;
-  color: black;
+  background-color: black !important;
+  color: white !important;
   border-radius: 10px;
-  border: 2px solid black;
+  border: 2px solid white;
+  bottom: 62px;
 }
 
 #firebaseui-auth-container
@@ -185,10 +190,15 @@
   cursor: pointer; /* Add a pointer on hover */
 }
 
+#firebaseui-auth-container {
+  top: 70px;
+  position: relative;
+}
+
 #logo-alone {
   max-width: 50%;
   position: relative;
-  top: 50px;
+  top: 0px;
 }
 
 #divide {
@@ -205,6 +215,10 @@
   font-family: "Baloo Chettan 2", cursive;
 }
 
+.firebaseui-idp-google > .firebaseui-idp-text {
+  color: white !important;
+}
+
 #divide {
   position: absolute;
   right: 20px;
@@ -215,18 +229,11 @@
   font-weight: 400;
 }
 
-@media only screen and (min-device-width: 813px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 3) {
-  #overlay {
-    display: none !important;
-  }
-
-  #sign-inForm {
-    display: none;
-  }
-}
-
 /* Media Queries */
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+
+/* styles */
+
+@media screen and (min-width: 100px) and (max-width: 812px) {
   .logo {
     width: 50%;
   }
@@ -240,12 +247,12 @@
   }
 
   #overlay {
-    position: absolute !important;
+    position: fixed !important;
     z-index: 100 !important;
-    width: 0;
-    top: 50%;
-    height: 0;
-    left: 200px !important;
+    width: 100vw;
+    height: 10vh;
+    padding: 5px;
+    bottom: 0;
     background-color: transparent !important;
   }
 
@@ -254,20 +261,23 @@
   }
 
   #blurbBox {
-    width: 100%;
+    width: 100vw;
     text-align: center;
+  }
+
+  .blurb {
+    width: 550px;
   }
 
   #overlay-black {
     text-align: center;
-    width: 100vw;
+    width: auto;
   }
 
   .firebaseui-idp-list {
-    position: relative;
-    bottom: 100px;
     width: 300px;
-    right: 70px;
+    position: absolute;
+    bottom: -580px;
   }
 
   #indexBody {
@@ -285,22 +295,130 @@
     > ul
     > li:nth-child(2)
     > button:hover {
-    background-color: grey !important;
+    background-color: white !important;
+    color: white;
   }
 
   li.firebaseui-list-item:nth-child(2) {
   }
 
   #sign-inForm {
-    width: 250px;
-    height: 120px;
-    top: 100px;
-    right: 120px;
-    border: 2px solid white;
-    border-radius: 10px;
-    position: relative;
-    z-index: 1000 !important;
-    background-color: transparent !important;
+    margin-top: 0;
+    padding: 0px;
+    background: transparent;
     box-shadow: none;
+    height: 100px;
+  }
+
+  /*   #firebaseui-auth-container
+    > div
+    > div.firebaseui-card-content
+    > form
+    > ul
+    > li:nth-child(1)
+    > button {
+    border-radius: 10px;
+    border: 2px solid black;
+
+    bottom: 65px;
+  }
+
+  #firebaseui-auth-container
+    > div
+    > div.firebaseui-card-content
+    > form
+    > ul
+    > li:nth-child(2)
+    > button {
+    background-color: rgb(214, 214, 214) !important;
+    color: black;
+    border-radius: 10px;
+    border: 2px solid black;
+    bottom: 62px;
+  } */
+}
+
+@media screen and (min-width: 812px) and (max-width: 910px) {
+  .firebaseui-idp-list {
+    width: 300px;
+    position: absolute;
+    bottom: -680px;
+  }
+
+  #blurbBox {
+    width: 100vw;
+  }
+
+  .blurb {
+    width: 80%;
+  }
+
+  #overlay {
+    position: fixed !important;
+    z-index: 100 !important;
+    width: 100vw;
+    height: 10vh;
+    padding: 5px;
+    bottom: 0;
+    background-color: transparent !important;
+  }
+
+  #title {
+    display: none;
+  }
+
+  #blurbBox {
+    width: 100vw;
+    text-align: center;
+  }
+
+  .blurb {
+    width: 550px;
+  }
+
+  #overlay-black {
+    text-align: center;
+    width: auto;
+  }
+
+  .firebaseui-idp-google > span:nth-child(2) {
+    color: white !important;
+  }
+
+  .firebaseui-idp-google > .firebaseui-idp-text {
+    color: none !important;
+  }
+
+  .firebaseui-idp-google > span:nth-child(3) {
+    color: white !important;
+  }
+
+  #indexBody {
+    background-image: none !important;
+    background-size: none !important;
+    background-position: none;
+    background-repeat: none;
+    background-color: black;
+  }
+
+  #firebaseui-auth-container
+    > div
+    > div.firebaseui-card-content
+    > form
+    > ul
+    > li:nth-child(2)
+    > button:hover {
+    background-color: white !important;
+  }
+
+  li.firebaseui-list-item:nth-child(2) {
+  }
+
+  #sign-inForm {
+    margin-top: 0;
+    padding: 0px;
+    background: transparent;
+    box-shadow: none;
+    height: 100px;
   }
 }
