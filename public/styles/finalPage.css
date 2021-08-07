@@ -21,8 +21,7 @@ body {
   background-image: url("/logos/green3.jpg");
   background-repeat: no-repeat;
   font-family: "KoHo", sans-serif !important;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -347,6 +346,52 @@ container {
   position: relative;
   border: none !important;
   top: 10px;
+}
+
+#tables {
+  height: 70vh;
+  width: 40vw;
+  padding: 10px;
+  top: 30%;
+  overflow-y: scroll;
+  height: fit-content;
+  background-color: white;
+  font-family: "Bebas Neue", cursive !important;
+  left: 40px;
+  display: inline-block;
+  position: absolute;
+  z-index: 100;
+  text-align: left;
+  background: white;
+  max-height: 70vh;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+
+  display: flex;
+}
+
+#table1 {
+  width: 10vw;
+  background-color: white;
+}
+
+#table2 {
+  width: 10vw;
+
+  background-color: white;
+}
+
+#table3 {
+  width: 10vw;
+
+  background-color: white;
+}
+
+#table4 {
+  width: 10vw;
+
+  background-color: white;
 }
 
 #logoBox {

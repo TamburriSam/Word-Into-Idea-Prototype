@@ -25,23 +25,26 @@ function populateListOneOnCreation() {
   let roomCode = "";
   let roomCount = "";
 
-  // Uncomment to initialize the doc.
-  // sfDocRef.set({ population: 0 });
-
   return db.runTransaction((transaction) => {
     // This code may get re-run multiple times if there are conflicts.
     return transaction
       .get(userRef)
       .then((doc) => {
+        console.log(doc.data().rooms_joined);
         roomCode = doc.data().rooms_joined;
       })
+      .catch((err) => {
+        console.log("err", err);
+      })
       .then(() => {
-        roomRef = db
-          .collection("rooms")
+        db.collection("rooms")
           .doc(roomCode)
           .get()
           .then((doc) => {
             roomCount = doc.data().total_count;
+          })
+          .catch((err) => {
+            console.log("err", err);
           });
       })
       .then(() => {
@@ -65,6 +68,9 @@ function populateListOneOnCreation() {
         return roomRef.update({
           list_one,
         });
+      })
+      .catch((err) => {
+        console.log(`err on line 69`, err);
       });
   });
 }
@@ -104,10 +110,11 @@ function algorithm(num, position) {
   huhArray[huhArray.length - 2][3] = 4;
 
   console.log(huhArray[huhArray.length - 4][3]);
+  let wantedArr = huhArray[position];
 
   console.log(`TARGET NUM`);
+  console.log(wantedArr);
 
-  let wantedArr = huhArray[position];
   var userRef = db.collection("users").doc(auth.currentUser.uid);
 
   return userRef
@@ -118,17 +125,17 @@ function algorithm(num, position) {
       console.log("doc success");
     })
     .catch((err) => {
-      console.error(err);
+      console.error(`erroir line 125`, err);
     });
 }
 
 function findIndex() {
   let roomCode = "";
-  let position = "";
 
   let room = db.collection("users").doc(auth.currentUser.uid);
   let user_name = "";
   let roomCount = "";
+  let position = "";
 
   console.log(`doc`, auth.currentUser.uid);
 
@@ -150,10 +157,23 @@ function findIndex() {
           position = doc.data().users.length;
           roomCount = doc.data().total_count;
           console.log(`POSITION`, position);
-          algorithm(roomCount, position);
-          populateListOneOnCreation();
-          return addIndexToUserProfile(position);
         });
+    })
+    .then(() => {
+      db.collection("users")
+        .doc(auth.currentUser.uid)
+        .get()
+        .then((doc) => {
+          console.log(`DOC DOC `, doc.data());
+          console.log("POSITION", position);
+          console.log(roomCount, "roomcount");
+          console.log(typeof position);
+          //algorithm(roomCount, position);
+          addIndexToUserProfile(position);
+        });
+    })
+    .then(() => {
+      populateListOneOnCreation();
     });
 }
 
@@ -174,17 +194,20 @@ function addIndexToUserProfile(indice) {
 }
 
 auth.onAuthStateChanged((user) => {
+  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
       "  " +
-      user.displayName +
+      firstName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
+    console.log(user.displayName.length);
+
     userName.innerHTML =
       "Hello," +
       "  " +
-      user.displayName +
+      firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
 
@@ -229,13 +252,14 @@ document.body.addEventListener("click", function (e) {
       .doc(uid)
       .set({
         favorite_letter: "",
-        uid: auth.currentUser.uid,
+        uid: uid,
         flag: parseInt(0),
         rooms_joined: id,
         user_name: email,
         list_one_input: [],
         list_two_input: [],
         list_three_input: [],
+        recipients: [],
         list_four_input: [],
         list_one_received: [],
         list_two_received: [],
@@ -250,7 +274,7 @@ document.body.addEventListener("click", function (e) {
         findIndex();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`Err on line 254`, err);
       });
   }
 });
@@ -288,12 +312,26 @@ function watchForCount(room) {
   liveRoomBox.style.display = "none";
 
   let paragraphs = [
-    `Word into idea is inspired by an aleatory (art involving random choice) literary technique popularized in the late 1950's by American writer William S. Burroughs called the Cut-up technique. `,
+    `"I wish I was like you, easily amused
+    Find my nest to salt, everything's my fault
+    I'll take all the blame, aqua seafoam shame
+    Sunburn, freezer burn, choking on the ashes of her enemy"`,
 
-    `Word into idea is inspired by "the Cut-up technique"- an aleatory (random choice) literary technique popularized in the late 1950's by American writer William S. Burroughs.`,
-    `David Bowie used cut-ups in the 1970's to help construct his lyrics `,
-    `Thom Yorke, lead singer of the rock band Radiohead, borrowed elements from the technique- writing single lyric lines, placing them into a hat, and drawing them out randomly while the band rehearsed. `,
-    `The technique is known to aide in creative flow and writer's block relief.`,
+    `"The girls eat morning <br>
+    Dying peoples to a white bone monkey <br>
+    in the Winter sun<br>
+    touching tree of the house."`,
+    `"Sell me a coat with buttons of silver<br>
+    Sell me a coat that's red or gold<br>
+    Sell me a coat with little patch pockets<br>
+    Sell me a coat because I feel cold"`,
+    `"at land coccus germs<br>
+    by a bacilmouth Jersy phenicol bitoics<br>
+    the um vast and varied that<br>
+    specific target was the vast popul" `,
+    `She eyes me like a Pisces when I am weak<br>
+    I've been locked inside your heart-shaped box for weeks<br>
+    I've been drawn into your magnet tar pit trap<br>`,
   ];
 
   console.log(paragraphs);
@@ -307,7 +345,7 @@ function watchForCount(room) {
     if (count === 5) {
       count = 0;
     }
-  }, 5000);
+  }, 10000);
 
   return db
     .runTransaction((transaction) => {

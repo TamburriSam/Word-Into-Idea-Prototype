@@ -5,17 +5,20 @@ const auth = firebase.auth();
 let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
 auth.onAuthStateChanged((user) => {
+  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
       "  " +
-      user.displayName +
+      firstName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
+    console.log(user.displayName.length);
+
     userName.innerHTML =
       "Hello," +
       "  " +
-      user.displayName +
+      firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
   loadColumns(auth.currentUser.uid);
@@ -47,13 +50,15 @@ const watchForZeroCount = (roomCode) => {
     });
 };
 
+/* const li = `<tr><td>${room.name}</td> <td>${room.active_count}/${room.total_count} Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`; */
+
 let allInputs = [];
 let wordBox = document.querySelector("#wordBox");
 function loadColumns(id) {
-  let firstCol = document.getElementById("first-list");
-  let secondCol = document.getElementById("second-list");
-  let thirdCol = document.getElementById("third-list");
-  let fourthCol = document.getElementById("fourth-list");
+  let firstCol = document.getElementById("tbody1");
+  let secondCol = document.getElementById("tbody2");
+  let thirdCol = document.getElementById("tbody3");
+  let fourthCol = document.getElementById("tbody4");
 
   db.collection("users")
     .doc(id)
@@ -76,9 +81,7 @@ function loadColumns(id) {
     });
 }
 
-function doSomething() {}
-
-let firstCol = document.getElementById("first-list");
+let firstCol = document.getElementById("table1");
 let secondCol = document.getElementById("second-list");
 let thirdCol = document.getElementById("third-list");
 let fourthCol = document.getElementById("fourth-list");
@@ -91,14 +94,15 @@ function populate(htmlList, dbList) {
       return transaction.get(userRef).then((doc) => {
         let html = "";
         dbList.forEach((word) => {
-          html += `<li class="listItems">${word}</li><br>`;
+          /*           html += `<li class="listItems">${word}</li><br>`;
+           */
+          html += `<tr><td class="listItems">${word}</td></tr>`;
         });
         htmlList.innerHTML = html;
       });
     })
     .then(() => {
       let listItems = document.querySelectorAll(".listItems");
-      well();
       console.log(listItems.length);
     })
     .catch((error) => {

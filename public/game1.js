@@ -5,17 +5,20 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 
 auth.onAuthStateChanged((user) => {
+  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
       "  " +
-      user.displayName +
+      firstName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
+    console.log(user.displayName.length);
+
     userName.innerHTML =
       "Hello," +
       "  " +
-      user.displayName +
+      firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
   startGame();

@@ -32,3 +32,15 @@ var uiConfig = {
 };
 
 ui.start("#firebaseui-auth-container", uiConfig);
+
+/* #firebaseui-auth-container > div > form > div.firebaseui-card-actions > div > button.firebaseui-id-secondary-link.firebaseui-button.mdl-button.mdl-js-button.mdl-button--primary
+ */
+const signInBtns = document.getElementsByTagName("button");
+
+console.log(signInBtns);
+
+let boo = document.getElementsByClassName(
+  "<firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button"
+);
+
+console.log(boo.innerHtml);
