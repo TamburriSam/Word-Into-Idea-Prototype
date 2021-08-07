@@ -228,6 +228,7 @@ document.body.addEventListener("click", function (e) {
     db.collection("users")
       .doc(uid)
       .set({
+        favorite_letter: "",
         uid: auth.currentUser.uid,
         flag: parseInt(0),
         rooms_joined: id,
@@ -316,6 +317,7 @@ function watchForCount(room) {
           doc.data().active_count < doc.data().total_count &&
           !doc.data().users.includes(auth.currentUser.displayName)
         ) {
+          console.log("HUH232222222");
           let newCount = doc.data().active_count + 1;
           transaction.update(docref, { active_count: newCount });
           transaction.update(docref, {
@@ -323,17 +325,20 @@ function watchForCount(room) {
               firebase.auth().currentUser.displayName
             ),
           });
-          makeItModal();
-        } else if (doc.data().users.includes(auth.currentUser.displayName)) {
+          checkForLetter();
+        } /* else if (doc.data().users.includes(auth.currentUser.displayName)) {
           console.log("didnt go up");
           checkForLetter();
-        }
+        } */
       });
     })
     .then((doc) => {
-      console.log("done");
+      console.log("done HERE");
       getUsers(docref);
       isRoomFull(room);
+    })
+    .catch((err) => {
+      console.log("err on line 341", err);
     });
 }
 
@@ -398,6 +403,7 @@ function isRoomFull(room) {
     });
 }
 
+//its here because it hasnt been added yet
 const checkForLetter = () => {
   db.collection("users")
     .doc(auth.currentUser.uid)
