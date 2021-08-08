@@ -560,7 +560,6 @@ div#rooms {
 #logoBox {
   z-index: 1 !important;
   position: absolute;
-  right: 0;
   bottom: 0;
   width: 500px;
 }
@@ -568,13 +567,10 @@ div#rooms {
 .footer-link {
   position: absolute;
   bottom: 0;
-  left: 0px;
+  right: 0px;
   padding: 1px;
   color: rgba(0, 0, 0, 0.616);
   border-radius: 3px;
-
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
 
   background-color: white;
 }

@@ -67,6 +67,10 @@
   /* top: 26%; */
 }
 
+#mobile-logo {
+  display: none;
+}
+
 #firebaseui-auth-container
   > div
   > div.firebaseui-card-content
@@ -98,6 +102,11 @@
   border-radius: 10px;
   border: 2px solid white;
   bottom: 65px;
+}
+
+#construction {
+  background-color: white;
+  z-index: 1000;
 }
 
 #firebaseui-auth-container
@@ -164,7 +173,7 @@
 
 .blurb {
   margin: auto;
-  width: 70%;
+  width: 540px;
   position: relative;
   top: 70px;
 }
@@ -239,8 +248,16 @@
 /* styles */
 
 @media screen and (min-width: 100px) and (max-width: 812px) {
-  .logo {
-    width: 50%;
+  /* ß */
+
+  #mobile-logo {
+    display: block;
+    /* width: 50%; */
+    width: 70px;
+    margin: auto;
+    margin-top: 50px;
+    z-index: 2000 !important;
+    position: relative;
   }
 
   #blurbBox {
@@ -248,7 +265,11 @@
   }
 
   .blurb {
-    width: 80%;
+    margin: auto;
+    width: 450px;
+    position: relative;
+    top: 70px;
+    left: 10px;
   }
 
   #overlay {
@@ -270,10 +291,6 @@
     text-align: center;
   }
 
-  .blurb {
-    width: 550px;
-  }
-
   #overlay-black {
     text-align: center;
     width: auto;
@@ -282,7 +299,7 @@
   .firebaseui-idp-list {
     width: 300px;
     position: absolute;
-    bottom: -580px;
+    bottom: -480px;
   }
 
   #indexBody {
@@ -300,15 +317,14 @@
     > ul
     > li:nth-child(2)
     > button:hover {
-    background-color: white !important;
-    color: white;
+    background-color: gray !important;
+    color: gray;
   }
 
   li.firebaseui-list-item:nth-child(2) {
   }
 
   #sign-inForm {
-    margin-top: 0;
     padding: 0px;
     background: transparent;
     box-shadow: none;
@@ -347,7 +363,7 @@
   .firebaseui-idp-list {
     width: 300px;
     position: absolute;
-    bottom: -680px;
+    bottom: -480px !important;
   }
 
   #blurbBox {
@@ -413,14 +429,13 @@
     > ul
     > li:nth-child(2)
     > button:hover {
-    background-color: white !important;
+    background-color: gray !important;
   }
 
   li.firebaseui-list-item:nth-child(2) {
   }
 
   #sign-inForm {
-    margin-top: 0;
     padding: 0px;
     background: transparent;
     box-shadow: none;
