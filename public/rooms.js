@@ -52,7 +52,7 @@ function populateListOneOnCreation() {
 
         let wordsWeWant = [];
 
-        for (let i = 0; i < roomCount; i++) {
+        for (let i = 0; i < 27; i++) {
           let randomInt = Math.floor(Math.random() * 90);
 
           wordsWeWant.push(randomWords[randomInt]);
@@ -430,10 +430,7 @@ function isRoomFull(room) {
     .onSnapshot((snapshot) => {
       let data = snapshot.data();
 
-      if (
-        data.active_count === data.total_count &&
-        data.total_count === data.favorite_letters.length
-      ) {
+      if (data.active_count === data.total_count) {
         document.getElementById(snapshot.id).disabled = true;
         document.getElementById(snapshot.id).innerHTML = "In Session";
         startCountdown(9);

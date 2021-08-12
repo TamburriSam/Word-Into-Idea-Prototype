@@ -34,6 +34,8 @@ const watchForZeroCount = (roomCode) => {
         .get(userRef)
         .then((doc) => {
           roomCode = doc.data().rooms_joined;
+
+          console.log(doc.data());
         })
         .then(() => {
           let docRef = db.collection("rooms").doc(roomCode);
@@ -69,6 +71,8 @@ function loadColumns(id) {
       let list3 = doc.data().list_three_input;
       let list4 = doc.data().list_four_input;
 
+      console.log(list1);
+
       allInputs = [list1, list2, list3, list4];
       allInputs = allInputs.flat();
       populate(firstCol, list1);
@@ -92,7 +96,9 @@ function populate(htmlList, dbList) {
   return db
     .runTransaction((transaction) => {
       return transaction.get(userRef).then((doc) => {
+        console.log(doc.data());
         let html = "";
+        console.log(dbList);
         dbList.forEach((word) => {
           /*           html += `<li class="listItems">${word}</li><br>`;
            */
@@ -160,7 +166,13 @@ function tryit(e) {
       console.log(`LAST WORD`, lastWord);
 
       for (let i = 0; i < listItems.length; i++) {
-        if (listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase()) {
+        console.log(listItems[i].innerHTML.toLowerCase() + ".".length);
+        console.log(lastWord.toLowerCase() + ".".length);
+        if (
+          listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase() ||
+          listItems[i].innerHTML.toLowerCase() + "." ===
+            lastWord.toLowerCase() + "."
+        ) {
           listItems[i].classList.add("listItemComplete");
 
           //listener for cccongratulations and encouragement to print to PDF

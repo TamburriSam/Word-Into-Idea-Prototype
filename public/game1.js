@@ -53,7 +53,7 @@ function startGame() {
             let listofInp = document.querySelector("#input-list");
             let html = "";
 
-            for (let i = 0; i < doc.data().total_count; i++) {
+            for (let i = 0; i < 26; i++) {
               html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
             }
 
@@ -64,10 +64,33 @@ function startGame() {
   });
 }
 
+function shuffle(array) {
+  var currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
+
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   let roomCode = "";
   let alphabetList = document.querySelector("#alphabet-list");
+  let alphabet = "abcdefghijklmnopqrstuvwxyzz".split("");
+
+  console.log(alphabet);
 
   return db
     .runTransaction((transaction) => {
@@ -81,8 +104,11 @@ function populateAlphabet() {
         .doc(roomCode)
         .get()
         .then((doc) => {
+          shuffle(alphabet);
+
           let html = "";
-          doc.data().favorite_letters.forEach((letter) => {
+          alphabet.forEach((letter) => {
+            console.log(letter);
             html += `<li class="collection-item">${letter}</li>`;
           });
           alphabetList.innerHTML = html;

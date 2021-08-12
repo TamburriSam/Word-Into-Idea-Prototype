@@ -126,8 +126,7 @@ function startGame(room) {
                 yourRoomList[1].list_one_input,
                 thirdList
               );
-              getReceivedListOne();
-              getReceivedListTwo();
+
               getRoomCountForInput(docRef);
             });
         });
@@ -157,37 +156,6 @@ function getUsers(room) {
   });
 }
 
-function getReceivedListOne() {
-  let wordList2 = document.querySelector("#word-list");
-  let userRef = db.collection("users").doc(auth.currentUser.uid);
-  userRef
-    .get()
-    .then((doc) => {
-      let list_one_received = doc.data().list_one_received;
-      let html = "";
-      list_one_received.forEach((word) => {
-        html += `<li>${word}</li> <hr>`;
-      });
-      wordList2.innerHTML = html;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-function getReceivedListTwo() {
-  let wordList2 = document.querySelector("#word-list2");
-  let userRef = db.collection("users").doc(auth.currentUser.uid);
-  userRef.get().then((doc) => {
-    let list_two_received = doc.data().list_two_received;
-    let html = "";
-    list_two_received.forEach((word) => {
-      html += `<li>${word}</li> <hr>`;
-    });
-    wordList2.innerHTML = html;
-  });
-}
-
 function getRoomCountForInput(room) {
   db.collection("rooms")
     .doc(room)
@@ -197,8 +165,8 @@ function getRoomCountForInput(room) {
       let listofInp = document.querySelector("#input-list");
       let html = "";
 
-      for (let i = 0; i < doc.data().total_count; i++) {
-        html += `<li><input type="text" placeholder="enter word" class="word-cell" </input> </li>`;
+      for (let i = 0; i < 26; i++) {
+        html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
       }
 
       html += `<a data-id="next-4"class="waves-effect waves-light btn next-4" id="${doc.id}">Continue</a>`;
@@ -218,7 +186,7 @@ function arraysEqual(a, b) {
 }
 
 function noDuplicates(list, secondList, thirdList) {
-  let inputList = document.querySelector("#word-list3");
+  let inputList = document.querySelector("#word-list");
   let indices = [];
 
   let room = db.collection("users").doc(auth.currentUser.uid);
@@ -352,7 +320,7 @@ document.body.addEventListener("click", function (e) {
   e.preventDefault();
   if (e.target.dataset.id === "next-4") {
     let targetId = e.target.id;
-    let inputList = document.querySelectorAll(".word-cell");
+    let inputList = document.querySelectorAll(".input-cell");
 
     console.log("here");
 
@@ -408,7 +376,7 @@ document.body.addEventListener("click", function (e) {
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
 
-  let inputList = document.querySelectorAll(".word-cell");
+  let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
     if (cell.value === "") {
       console.log("must enter all cells");
@@ -462,7 +430,7 @@ function checkSecond(sec) {
 }
 
 function checkToSeeIfAllHasBeenEntered() {
-  let inputList = document.querySelectorAll(".word-cell");
+  let inputList = document.querySelectorAll(".input-cell");
   let emptywords = [];
   inputList.forEach((word) => {
     let randomInt = Math.floor(Math.random() * 90);

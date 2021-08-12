@@ -27,10 +27,10 @@ body {
   background-image: url("/logos/green3.jpg");
   background-repeat: no-repeat;
   font-family: "KoHo", sans-serif !important;
-  overflow-x: hidden;
-  overflow-y: auto;
+  min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
+  padding-bottom: 50px;
 }
 
 #timer {
@@ -67,14 +67,13 @@ body {
   text-align: center;
   grid-column: 2 !important;
   border: none !important;
+  height: 770px;
   width: 200px;
-  min-height: 50vh;
-  overflow-y: scroll;
   background-color: white;
   padding: 20px;
   font-family: "Bebas Neue", cursive !important;
   left: 58%;
-  top: 100px;
+  top: 60px;
   display: inline-block;
   position: relative;
   z-index: 100;
@@ -82,7 +81,7 @@ body {
   flex-wrap: wrap;
   text-align: center;
   background: white;
-  max-height: 40vh;
+
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -264,7 +263,6 @@ container {
   border: 2px solid black;
   max-height: 80vh;
   padding: 5px;
-  overflow-y: scroll;
 }
 
 #user-list li {
@@ -362,17 +360,21 @@ container {
   top: 10px;
 }
 
+#space {
+  height: 200px;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
 #logoBox {
-  z-index: 1;
-  position: absolute;
+  position: fixed;
   left: 0px;
   bottom: 0;
+
   width: 500px;
 }
 
-.waves-effect {
-  top: 10%;
-}
 /* Instructions */
 
 #instructions {
@@ -408,17 +410,15 @@ container {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
-  max-height: 40vh;
-  overflow-y: scroll;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 25%;
-  min-height: 50vh;
+  height: 773px;
   position: absolute;
   z-index: 100;
   padding: 20px;
   flex-wrap: wrap;
-  top: 100px;
+  top: 60px;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -467,7 +467,6 @@ container {
 
 #word-list {
   position: relative;
-  top: 18%;
 }
 
 #word-list li {
@@ -498,6 +497,7 @@ container {
 #papers {
   position: relative;
   right: 130px;
+  padding-bottom: 100px !important;
 }
 
 /* Paper Design */
@@ -533,15 +533,14 @@ container {
 }
 
 #logoBox {
-  z-index: 100;
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   width: 500px;
 }
 
 .footer-link {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0px;
   border-radius: 3px;
@@ -556,6 +555,10 @@ container {
 }
 
 @media screen and (min-width: 100px) and (max-width: 812px) {
+  body {
+    background-repeat: repeat;
+  }
+
   #nav-links {
     display: none;
   }
@@ -569,8 +572,9 @@ container {
     width: 150px;
     display: block;
     padding: 10px;
-    max-height: 35vh;
-    min-height: 30vh;
+    height: 420px;
+    overflow-y: scroll;
+    left: 55%;
   }
 
   .input-cell {
@@ -584,16 +588,14 @@ container {
 
   #input-list {
     width: 100%;
+    top: 15px;
   }
 
   #word-list-container {
     left: 3%;
-    max-height: 35vh;
-    min-height: 30vh;
-  }
-
-  #mainLogo {
-    width: 210px;
+    overflow-y: scroll;
+    width: 175px;
+    height: 420px;
   }
 
   #user-info {
@@ -604,7 +606,7 @@ container {
     height: 6.3vh !important;
     margin-right: 3px;
     top: 2px;
-    line-height: 3;
+    line-height: 2.5;
   }
 
   .photoURL {
@@ -620,9 +622,8 @@ container {
 
   #logoBox {
     width: 200px;
-    position: absolute;
+    position: fixed;
     right: 0;
-    z-index: 200;
   }
 
   .gitHub {

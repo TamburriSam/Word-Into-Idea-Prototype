@@ -289,7 +289,7 @@ function getRoomCountForInput(room) {
       let listofInp = document.querySelector("#input-list");
       let html = "";
 
-      for (let i = 0; i < doc.data().total_count; i++) {
+      for (let i = 0; i < 26; i++) {
         html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
       }
 
@@ -470,7 +470,7 @@ function startGame(room) {
           console.log(`wanted list`, wantedList);
         })
         .then(() => {
-          noDuplicates(wantedList, secondList);
+          noDuplicates(secondList, wantedList);
           getRoomCountForInput(docRef);
           console.log("HERE");
         })

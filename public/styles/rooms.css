@@ -577,6 +577,10 @@ div#rooms {
 
 /* Media Queries */
 @media screen and (min-width: 100px) and (max-width: 910px) {
+  #RoomBody {
+    background-repeat: repeat;
+  }
+
   #nav-links {
     display: none;
   }
@@ -594,6 +598,10 @@ div#rooms {
 
   #mainLogo {
     width: 210px;
+  }
+
+  .liveRoom {
+    height: 600px;
   }
 
   #papers {
@@ -638,7 +646,7 @@ div#rooms {
   #logoBox {
     width: 200px;
     position: absolute;
-    right: 0;
+    left: 0;
     z-index: 200;
   }
 

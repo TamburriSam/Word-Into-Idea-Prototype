@@ -20,7 +20,6 @@ body {
   background-size: cover;
   background-image: url("/logos/green3.jpg");
   background-repeat: no-repeat;
-  overflow-y: hidden;
   font-family: "KoHo", sans-serif !important;
   background-size: cover;
   background-repeat: no-repeat;
@@ -348,12 +347,10 @@ container {
   top: 10px;
 }
 #tables {
-  height: 51vh;
+  height: 900px;
   width: 49vw;
   padding: 10px;
   top: 30%;
-  overflow-y: scroll;
-  height: fit-content;
   background-color: white;
   font-family: "Bebas Neue", cursive !important;
   left: 40px;
@@ -362,7 +359,6 @@ container {
   z-index: 100;
   text-align: left;
   background: white;
-  max-height: 70vh;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;
@@ -372,22 +368,26 @@ container {
 #table1 {
   width: 10vw;
   background-color: white;
+  line-height: 0.2;
 }
 
 #table2 {
   width: 10vw;
+  line-height: 0.2;
 
   background-color: white;
 }
 
 #table3 {
   width: 10vw;
+  line-height: 0.2;
 
   background-color: white;
 }
 
 #table4 {
   width: 10vw;
+  line-height: 0.2;
 
   background-color: white;
 }
@@ -568,7 +568,6 @@ container {
   border: none !important;
   grid-column: 1 / span 2;
   grid-row: 2 / span 1;
-  overflow-x: scroll;
 
   width: 50vw;
   background-color: white;
@@ -607,6 +606,11 @@ container {
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
 }
+
+/* td,
+th {
+  padding: 0px !important;
+} */
 
 #third-column {
   left: 40px;
@@ -749,13 +753,13 @@ container {
 }
 
 #tryBox {
-  position: absolute;
+  position: fixed;
   top: 30%;
   right: 2%;
 }
 
 #pdfButtons {
-  position: absolute;
+  position: fixed;
   top: 610px;
 
   right: 0;
@@ -844,11 +848,10 @@ container {
   }
 
   #tables {
-    height: 70vh;
     width: 90vw;
     padding: 10px;
     top: 30%;
-    overflow-y: auto;
+    height: 950px;
     height: fit-content;
     background-color: white;
     font-family: "Bebas Neue", cursive !important;
@@ -858,7 +861,6 @@ container {
     z-index: 100;
     text-align: left;
     background: white;
-    max-height: 70vh;
     box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
       4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
     /* padding: 10px; */

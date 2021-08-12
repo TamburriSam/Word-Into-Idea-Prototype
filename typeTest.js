@@ -82,3 +82,25 @@ function consoleThis() {
 
 //filter
 //
+
+
+function populate(){
+// Create a reference to the SF doc.
+var userRef = db.collection("users").doc(auth.currentUser.uid);
+let roomCode = "";
+let roomCount = "";
+// Uncomment to initialize the doc.
+// sfDocRef.set({ population: 0 });
+
+return db.runTransaction((transaction) => {
+    return transaction.get(userRef).then((doc) => {
+      roomCode = doc.data().rooms_joined;
+
+}).then(() => {
+    console.log("Transaction successfully committed!");
+}).catch((error) => {
+    console.log("Transaction failed: ", error);
+});
+
+})
+}
