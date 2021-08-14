@@ -51,6 +51,7 @@ function startGame(room) {
   let myIndex = "";
   let recipients = "";
   let thirdList = "";
+  let list_one = "";
 
   return db
     .runTransaction((transaction) => {
@@ -59,7 +60,7 @@ function startGame(room) {
         user_name = doc.data().user_name;
         myIndex = doc.data().index;
         recipients = doc.data().recipients;
-
+        list_one = doc.data().list_one_input;
         docRef = doc.data().rooms_joined;
         id = doc.id;
       });
@@ -79,13 +80,24 @@ function startGame(room) {
           const propertyValues = Object.values(data);
           let randomInt = getRandomInt(0, propertyValues.length - 1);
 
+          console.log(doc.data().list_two[1]);
+          let pregeneratedList = Object.values(data);
+
+          console.log("DATA DATA", doc.data().list_two[1]);
+          console.log(`NEW PROP VAL`, propertyValues);
+
           console.log(`property values`, propertyValues[randomInt]);
 
           console.log(`random int`, randomInt);
 
           //HAS TO BE CHANGED
-
           wantedList = propertyValues[randomInt];
+
+          if (wantedList === list_one) {
+            wantedList = doc.data().list_two[1];
+          } else {
+            wantedList = propertyValues[randomInt];
+          }
           thirdList = propertyValues[randomInt];
 
           console.log(`wanted list`, wantedList);
@@ -108,6 +120,8 @@ function startGame(room) {
                   console.log(`DATA`, doc.data().uid);
 
                   yourRoomList.push(doc.data());
+
+                  console.log(`YOUR ROOM LIST`, yourRoomList);
 
                   console.log(`USER WE WANT 2`, yourRoomList[0].uid);
 
@@ -135,7 +149,7 @@ function startGame(room) {
               noDuplicates(
                 wantedList,
                 yourRoomList[0].list_one_input,
-                thirdList
+                yourRoomList[1].list_one_input
               );
               getRoomCountForInput(docRef);
             });
@@ -453,7 +467,7 @@ function checkToSeeIfAllHasBeenEntered() {
         list_three_input: firebase.firestore.FieldValue.arrayUnion(word.value),
       })
       .then(() => {
-        window.location = "game3.html";
+        window.location = "game4.html";
       });
   });
 }

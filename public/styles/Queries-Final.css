@@ -47,16 +47,21 @@
     font-size: 8px !important;
   }
 
+  #user {
+    width: 30vw;
+  }
+
   #tables {
     width: 30vw;
     padding: 10px;
     top: 30%;
     height: 500px;
-    height: fit-content;
+
     background-color: white;
     font-family: "Bebas Neue", cursive !important;
     /* left: 40px; */
     /* display: inline-block; */
+    overflow-y: scroll;
     position: absolute;
     z-index: 100;
     text-align: left;
@@ -275,7 +280,7 @@
   }
 
   #mainLogo {
-    width: auto;
+    width: 50vw;
   }
 
   .user-box {

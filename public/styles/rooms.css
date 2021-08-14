@@ -577,7 +577,7 @@ div#rooms {
 }
 
 /* Media Queries */
-@media screen and (min-width: 100px) and (max-width: 910px) {
+@media screen and (min-width: 100px) and (max-width: 812px) {
   #RoomBody {
     background-repeat: repeat;
   }
@@ -724,6 +724,6 @@ div#rooms {
   }
 
   #mainLogo {
-    width: 210px;
+    width: 30vw;
   }
 }

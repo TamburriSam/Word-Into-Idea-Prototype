@@ -160,6 +160,7 @@ function arraysEqual(a, b) {
     }
   });
 } */
+
 function noDuplicates(list, secondList) {
   let inputList = document.querySelector("#word-list");
 
@@ -432,6 +433,7 @@ function startGame(room) {
   let user_name = "";
   let myIndex = "";
   let recipients = "";
+  let list_one = "";
 
   return db
     .runTransaction((transaction) => {
@@ -442,6 +444,7 @@ function startGame(room) {
         recipients = doc.data().recipients;
         docRef = doc.data().rooms_joined;
         id = doc.id;
+        list_one = doc.data().list_one_input;
       });
     })
     .then(() => {
@@ -454,6 +457,9 @@ function startGame(room) {
           let usersRef = db.collection("rooms").doc(docRef);
           getUsers(usersRef);
           let data = doc.data().list_one;
+
+          console.log(doc.data().list_one[0]);
+
           let inputList = document.querySelector("#input-list");
           const propertyValues = Object.values(data);
           let randomInt = getRandomInt(0, propertyValues.length - 1);
@@ -467,10 +473,13 @@ function startGame(room) {
           wantedList = propertyValues[randomInt];
           secondList = propertyValues[0];
 
+          if (wantedList === list_one) {
+          }
+
           console.log(`wanted list`, wantedList);
         })
         .then(() => {
-          noDuplicates(wantedList, secondList);
+          noDuplicates(secondList, wantedList);
           getRoomCountForInput(docRef);
           console.log("HERE");
         })

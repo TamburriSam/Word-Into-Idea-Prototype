@@ -40,6 +40,7 @@ function startGame(room) {
   let user_name = "";
   let myIndex = "";
   let recipients = "";
+  let list_two = "";
 
   return db
     .runTransaction((transaction) => {
@@ -48,6 +49,7 @@ function startGame(room) {
         user_name = doc.data().user_name;
         myIndex = doc.data().index;
         recipients = doc.data().recipients;
+        list_two = doc.data().list_two_input;
 
         docRef = doc.data().rooms_joined;
         id = doc.id;
@@ -76,10 +78,13 @@ function startGame(room) {
           //its better bc its recursive so itll keep calling it
           //ugh
           //like properttyvalue[randomINt] as the second list
-
-          //HAS TO BE CHANGED
-
           wantedList = propertyValues[randomInt];
+          //HAS TO BE CHANGED
+          if (wantedList === list_two) {
+            wantedList = doc.data().list_two[0];
+          } else {
+            wantedList = propertyValues[randomInt];
+          }
           thirdList = propertyValues[randomInt];
 
           console.log(`wanted list`, wantedList);
@@ -123,7 +128,9 @@ function startGame(room) {
               //if you get an error here remember the person has to have input
               noDuplicates(
                 wantedList,
-                yourRoomList[1].list_one_input,
+                yourRoomList[2].list_one_input,
+                yourRoomList[3].list_one_input,
+
                 thirdList
               );
 

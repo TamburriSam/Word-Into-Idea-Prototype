@@ -51,24 +51,50 @@ function populateListOneOnCreation() {
         let roomRef = db.collection("rooms").doc(roomCode);
 
         let wordsWeWant = [];
+        let wordsWeWant1 = [];
+        let wordsWeWant2 = [];
+        let wordsWeWant3 = [];
 
         for (let i = 0; i < 27; i++) {
           let randomInt = Math.floor(Math.random() * 90);
+          let randomInt1 = Math.floor(Math.random() * 90);
+          let randomInt2 = Math.floor(Math.random() * 90);
+          let randomInt3 = Math.floor(Math.random() * 90);
 
           wordsWeWant.push(randomWords[randomInt]);
+          wordsWeWant1.push(randomWords[randomInt1]);
+          wordsWeWant2.push(randomWords[randomInt2]);
+          wordsWeWant3.push(randomWords[randomInt3]);
         }
 
         console.log(wordsWeWant);
 
         console.log(`ROOM COUNT`, roomCount);
+
         list_one = {
           0: wordsWeWant,
         };
 
+        list_two = {
+          1: wordsWeWant1,
+        };
+
+        list_three = {
+          1: wordsWeWant2,
+        };
+
+        list_four = {
+          1: wordsWeWant3,
+        };
+
         return roomRef.update({
           list_one,
+          list_two,
+          list_three,
+          list_four,
         });
       })
+      .then(() => {})
       .catch((err) => {
         console.log(`err on line 69`, err);
       });
