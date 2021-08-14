@@ -226,7 +226,7 @@ function tryit(e) {
           // or if user copys and pastes
 
           if (listItems.length === textArea.value.split(" ").length + 1) {
-            console.log("congratulations!! Youve won");
+            Alert("congratulations!! Youve won");
           }
         }
       }
