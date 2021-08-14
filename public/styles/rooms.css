@@ -55,6 +55,7 @@ th {
 #RoomBody {
   background-color: #399e3c56;
   background-size: cover;
+  display: grid;
   background-image: url("/logos/green3.jpg");
   background-repeat: no-repeat;
   font-family: "KoHo", sans-serif !important;
@@ -442,7 +443,7 @@ div#rooms {
   z-index: 10;
   padding-top: 1px;
   font-family: "Bebas Neue", cursive;
-
+  overflow-y: scroll;
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
@@ -596,12 +597,9 @@ div#rooms {
     line-height: 3;
   }
 
-  #mainLogo {
-    width: 210px;
-  }
-
   .liveRoom {
-    height: 600px;
+    height: fit-content;
+    overflow-y: scroll;
   }
 
   #papers {
@@ -723,5 +721,9 @@ div#rooms {
     width: 100px !important;
     top: 150px;
     display: none;
+  }
+
+  #mainLogo {
+    width: 210px;
   }
 }

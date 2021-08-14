@@ -430,7 +430,10 @@ function isRoomFull(room) {
     .onSnapshot((snapshot) => {
       let data = snapshot.data();
 
-      if (data.active_count === data.total_count) {
+      if (
+        data.active_count === data.total_count &&
+        data.favorite_letters.length === data.total_count
+      ) {
         document.getElementById(snapshot.id).disabled = true;
         document.getElementById(snapshot.id).innerHTML = "In Session";
         startCountdown(9);

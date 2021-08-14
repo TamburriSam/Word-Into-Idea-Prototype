@@ -14,23 +14,6 @@
 
 /* Index Page */
 
-#w3review {
-  right: 0;
-  position: absolute;
-  bottom: 10px;
-  background-color: green;
-}
-
-#testbox {
-  right: 50px;
-  position: absolute;
-  bottom: 100px;
-  z-index: 500;
-  background-color: blue;
-  width: 50px;
-  color: white;
-}
-
 #indexBody {
   background-image: url("/logos/green3.jpg") !important;
   background-size: cover;
@@ -172,7 +155,7 @@
 }
 
 .blurb {
-  margin: auto;
+  margin: 62px auto auto auto;
   width: 540px;
   position: relative;
   top: 70px;
@@ -247,9 +230,7 @@
 
 /* styles */
 
-@media screen and (min-width: 100px) and (max-width: 812px) {
-  /* ß */
-
+@media screen and (min-width: 100px) and (max-width: 910px) {
   #mobile-logo {
     display: block;
     /* width: 50%; */
@@ -319,117 +300,6 @@
     > button:hover {
     background-color: gray !important;
     color: gray;
-  }
-
-  li.firebaseui-list-item:nth-child(2) {
-  }
-
-  #sign-inForm {
-    padding: 0px;
-    background: transparent;
-    box-shadow: none;
-    height: 100px;
-  }
-
-  /*   #firebaseui-auth-container
-    > div
-    > div.firebaseui-card-content
-    > form
-    > ul
-    > li:nth-child(1)
-    > button {
-    border-radius: 10px;
-    border: 2px solid black;
-
-    bottom: 65px;
-  }
-
-  #firebaseui-auth-container
-    > div
-    > div.firebaseui-card-content
-    > form
-    > ul
-    > li:nth-child(2)
-    > button {
-    background-color: rgb(214, 214, 214) !important;
-    color: black;
-    border-radius: 10px;
-    border: 2px solid black;
-    bottom: 62px;
-  } */
-}
-
-@media screen and (min-width: 812px) and (max-width: 910px) {
-  .firebaseui-idp-list {
-    width: 300px;
-    position: absolute;
-    bottom: -480px !important;
-  }
-
-  #blurbBox {
-    width: 100vw;
-  }
-
-  .blurb {
-    width: 80%;
-  }
-
-  #overlay {
-    position: fixed !important;
-    z-index: 100 !important;
-    width: 100vw;
-    height: 10vh;
-    padding: 5px;
-    bottom: 0;
-    background-color: transparent !important;
-  }
-
-  #title {
-    display: none;
-  }
-
-  #blurbBox {
-    width: 100vw;
-    text-align: center;
-  }
-
-  .blurb {
-    width: 550px;
-  }
-
-  #overlay-black {
-    text-align: center;
-    width: auto;
-  }
-
-  .firebaseui-idp-google > span:nth-child(2) {
-    color: white !important;
-  }
-
-  .firebaseui-idp-google > .firebaseui-idp-text {
-    color: none !important;
-  }
-
-  .firebaseui-idp-google > span:nth-child(3) {
-    color: white !important;
-  }
-
-  #indexBody {
-    background-image: none !important;
-    background-size: none !important;
-    background-position: none;
-    background-repeat: none;
-    background-color: black;
-  }
-
-  #firebaseui-auth-container
-    > div
-    > div.firebaseui-card-content
-    > form
-    > ul
-    > li:nth-child(2)
-    > button:hover {
-    background-color: gray !important;
   }
 
   li.firebaseui-list-item:nth-child(2) {

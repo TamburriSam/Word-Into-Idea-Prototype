@@ -725,4 +725,8 @@ container {
     top: 150px;
     display: none;
   }
+
+  #mainLogo {
+    width: 210px;
+  }
 }

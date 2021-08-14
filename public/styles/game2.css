@@ -15,12 +15,6 @@
 * {
 }
 
-/* body {
-  background-color: #399e3c56;
-  background-size: cover;
-  background-repeat: no-repeat;
-} */
-
 body {
   background-color: #399e3c56;
   background-size: cover;
@@ -28,6 +22,7 @@ body {
   background-repeat: no-repeat;
   font-family: "KoHo", sans-serif !important;
   min-height: 100vh;
+
   background-size: cover;
   background-repeat: no-repeat;
   padding-bottom: 50px;
@@ -223,7 +218,7 @@ container {
   font-family: "Bebas Neue", cursive !important;
 
   text-align: left;
-  position: absolute;
+  position: fixed;
   max-height: 80vh;
   top: 90px;
   background: white;
@@ -250,6 +245,24 @@ container {
   position: relative;
   bottom: 5px;
   cursor: pointer;
+}
+
+#word {
+  height: 20px;
+  position: relative;
+  left: 20px;
+}
+
+#into {
+  height: 20px;
+  position: relative;
+  left: 270px;
+}
+
+#idea {
+  height: 20px;
+  position: relative;
+  left: 540px;
 }
 
 .yellowBtn {
@@ -370,9 +383,11 @@ container {
 #logoBox {
   position: fixed;
   left: 0px;
-  bottom: 0;
+  display: grid;
 
-  width: 500px;
+  bottom: 0;
+  right: 0;
+  width: 200px;
 }
 
 /* Instructions */
@@ -532,11 +547,13 @@ container {
   bottom: 10px;
 }
 
-#logoBox {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  width: 500px;
+#friendsOnline {
+  display: flex;
+}
+
+#connectedMockPic {
+  top: 17px;
+  position: relative;
 }
 
 .footer-link {
@@ -695,6 +712,10 @@ container {
   .connected {
     bottom: 0px;
     left: 0px;
+  }
+
+  #mainLogo {
+    width: 210px;
   }
 
   .user-box {

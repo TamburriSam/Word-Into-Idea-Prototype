@@ -126,34 +126,78 @@ function populateListWithInputValue(htmlList, dbList) {
     htmlList.innerHTML = html;
   });
 }
+let symbols = [
+  ".",
+  ",",
+  "?",
+  "!",
+  ":",
+  ":",
+  "-",
+  "_",
+  "*",
+  "&",
+  "%",
+  "$",
+  "#",
+  "@",
+];
 
 textArea.addEventListener("keydown", tryit);
 
-textArea.addEventListener("keydown", function () {
-  console.log(textArea.value.length);
+//TEST CASE FOR IF NOTHING IS IN BOX AND GENERAL CHECKER
+textArea.addEventListener("keydown", function (e) {
   let listItems = document.querySelectorAll(".listItems");
 
   //compare it
 
   let words = textArea.value.split(" ");
   let lowercasedWords = [];
-  words.forEach((word) => {
-    lowercasedWords.push(word.toLowerCase());
+  words.forEach((word, index) => {
+    /*  lowercasedWords.push(word.toLowerCase());
+
+    if (word.includes(".")) {
+      words.splice(word, 1);
+
+      let position = index;
+
+      word = word.split("");
+      word.splice(-1, 1);
+      word = word.join("");
+
+      words.splice(position, 0, word);
+    } */
+
+    for (let i = 0; i < symbols.length; i++)
+      if (word.includes(symbols[i])) {
+        word = word.split("");
+        word.splice(-1, 1);
+        word = word.join("");
+
+        lowercasedWords.push(word.toLowerCase());
+      } else {
+        lowercasedWords.push(word.toLowerCase());
+      }
   });
 
   console.log(words);
 
-  if (textArea.value.length == 0) {
-    for (let i = 0; i < listItems.length; i++) {
+  for (let i = 0; i < listItems.length; i++)
+    if (textArea.value.length == 0) {
+      listItems[i].classList.remove("listItemComplete");
+    } else if (
+      !lowercasedWords.includes(listItems[i].innerHTML.toLowerCase())
+    ) {
+      /*   if (lowercasedWords[i].includes(".")) {
+        let lastWord = lowercasedWords[i];
+        lastWord = lastWord.split("");
+        lastWord.splice(-1, 1);
+
+        lastWord = lastWord.join("");
+      } */
+      console.log(lowercasedWords[i]);
       listItems[i].classList.remove("listItemComplete");
     }
-  } else {
-    for (let i = 0; i < listItems.length; i++) {
-      if (!lowercasedWords.includes(listItems[i].innerHTML.toLowerCase())) {
-        listItems[i].classList.remove("listItemComplete");
-      }
-    }
-  }
 });
 
 function tryit(e) {
@@ -163,15 +207,14 @@ function tryit(e) {
       let words = textArea.value.split(" ");
       lastWord = words[words.length - 2];
 
-      console.log(`LAST WORD`, lastWord);
-
       for (let i = 0; i < listItems.length; i++) {
-        console.log(listItems[i].innerHTML.toLowerCase() + ".".length);
-        console.log(lastWord.toLowerCase() + ".".length);
-        if (
-          listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase() ||
-          listItems[i].innerHTML.toLowerCase() + "." ===
-            lastWord.toLowerCase() + "."
+        if (lastWord.toLowerCase().includes(symbols[i])) {
+          lastWord = lastWord.split("");
+          lastWord.splice(-1, 1);
+
+          lastWord = lastWord.join("");
+        } else if (
+          listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase()
         ) {
           listItems[i].classList.add("listItemComplete");
 
@@ -181,10 +224,6 @@ function tryit(e) {
 
           //NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
           // or if user copys and pastes
-
-          console.log(listItems.length);
-
-          console.log(textArea.value.split(" ").length);
 
           if (listItems.length === textArea.value.split(" ").length + 1) {
             console.log("congratulations!! Youve won");
@@ -199,6 +238,8 @@ function tryit(e) {
         if (listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase()) {
           listItems[i].classList.remove("listItemComplete");
           listItems[i].classList.add("listItem");
+        } else {
+          return false;
         }
       }
     }

@@ -174,7 +174,7 @@ container {
   font-family: "Bebas Neue", cursive !important;
 
   text-align: left;
-  position: absolute;
+  position: fixed;
   max-height: 85vh;
   top: 90px;
   background: white;
@@ -297,7 +297,8 @@ container {
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   padding: 10px;
-  height: 820px;
+  height: 400px;
+  overflow-y: scroll;
   display: grid !important;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -351,7 +352,6 @@ container {
   position: fixed;
   left: 0px;
   bottom: 0;
-  width: 500px;
 }
 
 #logoWBox {
@@ -408,7 +408,7 @@ container {
   right: 0;
   bottom: 0;
   margin-top: 30px !important;
-  width: 500px;
+  width: 200px;
 }
 
 .footer-link {
@@ -599,6 +599,10 @@ body {
     width: 100px !important;
     top: 150px;
     display: none;
+  }
+
+  #mainLogo {
+    width: 210px;
   }
 }
 

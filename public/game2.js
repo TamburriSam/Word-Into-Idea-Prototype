@@ -470,7 +470,7 @@ function startGame(room) {
           console.log(`wanted list`, wantedList);
         })
         .then(() => {
-          noDuplicates(secondList, wantedList);
+          noDuplicates(wantedList, secondList);
           getRoomCountForInput(docRef);
           console.log("HERE");
         })
@@ -479,7 +479,7 @@ function startGame(room) {
 }
 
 document.getElementById("timer").innerHTML = 01 + ":" + 59;
-startTimer();
+//startTimer();
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;
@@ -636,3 +636,11 @@ let words = [
   "afraid",
   "planned",
 ];
+
+let cells = document.querySelectorAll(".input-cell");
+
+cells.forEach((cell) => {
+  cell.addEventListener("focus", function () {
+    console.log("ok");
+  });
+});
