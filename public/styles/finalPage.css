@@ -354,7 +354,7 @@ container {
   padding: 10px;
   top: 32%;
   background-color: white;
-  font-family: "Bebas Neue", cursive !important;
+  font-family: "Times New Roman", Times, serif;
   left: 40px;
   display: inline-block;
   position: absolute;
@@ -737,6 +737,10 @@ th {
   text-decoration: line-through;
 }
 
+th {
+  font-family: "Bebas Neue", cursive !important;
+}
+
 #textArea {
   grid-column: 2 !important;
   border: none !important;
@@ -750,8 +754,7 @@ th {
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   width: 40vw;
   height: 43vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
 #tryBox {

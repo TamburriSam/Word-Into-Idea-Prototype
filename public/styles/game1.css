@@ -66,6 +66,7 @@ body {
 #input-list {
   grid-column: 3 !important;
   position: relative;
+  text-align: center;
   top: 50px;
 }
 
@@ -277,6 +278,7 @@ container {
   height: 15px !important;
   font-size: 12px !important;
   letter-spacing: 2px;
+  text-align: center;
 }
 
 .collection-item {
@@ -287,7 +289,7 @@ container {
 #play-box {
   width: 50vw;
   background-color: white;
-  font-family: "Bebas Neue", cursive !important;
+  font-family: "Times New Roman", Times, serif !important;
   left: 50px;
   top: 80px;
   position: relative;
@@ -388,7 +390,9 @@ container {
 
 #instruction-text {
   width: 95%;
+  position: relative;
   letter-spacing: 2px;
+  top: 8px;
 }
 
 .gitHub {

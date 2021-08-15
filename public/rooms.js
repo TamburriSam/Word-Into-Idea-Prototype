@@ -24,7 +24,10 @@ function populateListOneOnCreation() {
   var userRef = db.collection("users").doc(auth.currentUser.uid);
   let roomCode = "";
   let roomCount = "";
-
+  let roomOneArray = [];
+  let roomTwoArray = [];
+  let roomThreeArray = [];
+  let roomFourArray = [];
   return db.runTransaction((transaction) => {
     // This code may get re-run multiple times if there are conflicts.
     return transaction
@@ -49,42 +52,45 @@ function populateListOneOnCreation() {
       })
       .then(() => {
         let roomRef = db.collection("rooms").doc(roomCode);
+        let wordsRef = db.collection("words").doc("words");
 
-        let wordsWeWant = [];
-        let wordsWeWant1 = [];
-        let wordsWeWant2 = [];
-        let wordsWeWant3 = [];
+        wordsRef
+          .get()
+          .then((doc) => {
+            console.log(doc.data().words);
 
-        for (let i = 0; i < 27; i++) {
-          let randomInt = Math.floor(Math.random() * 90);
-          let randomInt1 = Math.floor(Math.random() * 90);
-          let randomInt2 = Math.floor(Math.random() * 90);
-          let randomInt3 = Math.floor(Math.random() * 90);
-
-          wordsWeWant.push(randomWords[randomInt]);
-          wordsWeWant1.push(randomWords[randomInt1]);
-          wordsWeWant2.push(randomWords[randomInt2]);
-          wordsWeWant3.push(randomWords[randomInt3]);
-        }
-
-        console.log(wordsWeWant);
-
-        console.log(`ROOM COUNT`, roomCount);
+            for (let i = 0; i < 27; i++) {
+              let randomInt = Math.floor(Math.random() * 1200);
+              let randomInt1 = Math.floor(Math.random() * 1200);
+              let randomInt2 = Math.floor(Math.random() * 1200);
+              let randomInt3 = Math.floor(Math.random() * 1200);
+              roomOneArray.push(doc.data().words[randomInt]);
+              roomTwoArray.push(doc.data().words[randomInt1]);
+              roomThreeArray.push(doc.data().words[randomInt2]);
+              roomFourArray.push(doc.data().words[randomInt3]);
+            }
+          })
+          .then(() => {
+            console.log("fetched");
+          })
+          .catch((err) => {
+            console.log(`err ${err} on line 76`);
+          });
 
         list_one = {
-          0: wordsWeWant,
+          0: roomOneArray,
         };
 
         list_two = {
-          1: wordsWeWant1,
+          1: roomTwoArray,
         };
 
         list_three = {
-          1: wordsWeWant2,
+          1: roomThreeArray,
         };
 
         list_four = {
-          1: wordsWeWant3,
+          1: roomFourArray,
         };
 
         return roomRef.update({
@@ -94,7 +100,9 @@ function populateListOneOnCreation() {
           list_four,
         });
       })
-      .then(() => {})
+      .then(() => {
+        console.log("YEEHAH");
+      })
       .catch((err) => {
         console.log(`err on line 69`, err);
       });

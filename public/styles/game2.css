@@ -97,7 +97,7 @@ body {
 #input-list {
   grid-column: 3 !important;
   position: relative;
-
+  font-family: "Times New Roman", Times, serif !important;
   width: 200px;
 }
 
@@ -114,7 +114,6 @@ input[type="tel"]:not(.browser-default),
 input[type="number"]:not(.browser-default),
 input[type="search"]:not(.browser-default),
 textarea.materialize-textarea {
-  border-bottom: 1px solid navy !important;
 }
 
 .switch {
@@ -326,10 +325,16 @@ container {
 /* PLAY BOX */
 
 .input-cell {
-  height: 15px !important;
+  height: 13px !important;
   width: 50% !important;
   font-size: 12px !important;
+  text-align: center;
   letter-spacing: 2px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.input-cell text {
+  color: green;
 }
 
 .collection-item {
@@ -415,7 +420,9 @@ container {
 
 #instruction-text {
   width: 95%;
+  position: relative;
   letter-spacing: 2px;
+  top: 8px;
 }
 
 /* Word Box */
@@ -426,7 +433,9 @@ container {
   border: none !important;
   width: 200px;
   background-color: white;
-  font-family: "Bebas Neue", cursive !important;
+  /* font-family: "Bebas Neue", cursive !important; */
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
   left: 25%;
   height: 773px;
   position: absolute;
