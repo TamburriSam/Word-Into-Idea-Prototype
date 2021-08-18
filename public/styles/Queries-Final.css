@@ -54,8 +54,8 @@
   #tables {
     width: 30vw;
     padding: 10px;
-    top: 30%;
-    height: 500px;
+    top: 32%;
+    height: 505px;
 
     background-color: white;
     font-family: "Bebas Neue", cursive !important;
@@ -274,7 +274,7 @@
   }
 
   #tryBox {
-    position: absolute;
+    position: fixed;
 
     right: 6%;
   }

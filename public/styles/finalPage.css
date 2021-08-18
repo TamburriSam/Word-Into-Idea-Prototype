@@ -745,6 +745,7 @@ th {
   grid-column: 2 !important;
   border: none !important;
   position: relative;
+  right: 10px;
   z-index: 900;
   top: 15px;
   padding: 20px;

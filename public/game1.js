@@ -172,6 +172,8 @@ document.body.addEventListener("click", function (e) {
       let list_one = {};
       console.log("need all cells");
       warningBox.style.display = "block";
+      document.getElementById("play-box").scrollTop = 0;
+      warningBox.style.height = "fit-content";
       warningBox.innerHTML = "All cells must be filled before continuing";
       setTimeout(() => {
         warningBox.style.display = "none";

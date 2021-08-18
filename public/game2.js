@@ -194,7 +194,7 @@ function noDuplicates(list, secondList) {
 
       let html = "";
       list.forEach((word) => {
-        html += `<li>${word}</li> <hr>`;
+        html += `<li class="passed-words">${word}</li> <hr>`;
       });
       inputList.innerHTML = html;
       console.log("good");
@@ -282,6 +282,8 @@ function noDuplicates(list, secondList) {
 }
 
 function getRoomCountForInput(room) {
+  let passedWords = document.querySelectorAll(".passed-words");
+  let currentNumber = "";
   db.collection("rooms")
     .doc(room)
     .get()
@@ -289,13 +291,21 @@ function getRoomCountForInput(room) {
       console.log(doc.data());
       let listofInp = document.querySelector("#input-list");
       let html = "";
+      let count = 0;
 
       for (let i = 0; i < 26; i++) {
-        html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
+        html += `<li><input type="text" data-id="${count}" placeholder="enter word" class="input-cell" </input> </li>`;
+        count++;
       }
 
       html += `<a data-id="next-2"class="waves-effect waves-light btn next-2" id="${doc.id}">Continue</a>`;
       listofInp.innerHTML = html;
+    })
+    .then((e) => {
+      magnifyWords(e);
+    })
+    .then(() => {
+      console.log("what the heck");
     });
 }
 
@@ -348,6 +358,8 @@ document.body.addEventListener("click", function (e) {
     if (validInputs.length < inputList.length) {
       console.log("need all cells");
       warningBox.style.display = "block";
+      document.getElementById("inputForm").scrollTop = 0;
+
       warningBox.innerHTML = "All cells must be filled before continuing";
       setTimeout(() => {
         warningBox.style.display = "none";
@@ -522,26 +534,74 @@ function checkSecond(sec) {
 function checkToSeeIfAllHasBeenEntered() {
   let inputList = document.querySelectorAll(".input-cell");
   let emptywords = [];
-  inputList.forEach((word) => {
-    let randomInt = Math.floor(Math.random() * 90);
+  let userRef = db.collection("users").doc(auth.currentUser.uid);
+  let wordsRef = db.collection("words").doc("words");
+  let words = "";
+  wordsRef
+    .get()
+    .then((doc) => {
+      words = doc.data().words;
+    })
+    .then(() => {
+      inputList.forEach((word) => {
+        let randomInt = Math.floor(Math.random() * 1200);
+        let allWords = [];
 
-    console.log(`word count`, inputList.length);
-    if (word.value === "") {
-      word.value = words[randomInt];
-      emptywords.push(word.value);
+        if (word.value == "") {
+          word.value = words[randomInt];
+        }
+      });
+    })
+    .then(() => {
+      inputList.forEach((word) => {
+        userRef
+          .update({
+            list_two_input: firebase.firestore.FieldValue.arrayUnion(
+              word.value
+            ),
+          })
+          .then(() => {
+            window.location = "game3.html";
+          });
+      });
+    });
+}
+
+const magnifyWords = (e) => {
+  document.body.addEventListener("click", function (e) {
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
+
+    if (e.target.className == "input-cell") {
+      passedWords[currentNumber].className = "passed-words selected-text";
+      for (i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        selected[i].className = "passed-words";
+      }
     }
 
-    let userRef = db.collection("users").doc(auth.currentUser.uid);
-
-    userRef
-      .update({
-        list_two_input: firebase.firestore.FieldValue.arrayUnion(word.value),
-      })
-      .then(() => {
-        window.location = "game3.html";
-      });
+    magnifyWordsWithTab(passedWords, currentNumber);
   });
-}
+};
+
+const magnifyWordsWithTab = (list, number) => {
+  document.addEventListener("keydown", function (e) {
+    if (e.keyCode == "9") {
+      console.log(e.target);
+      let number = parseInt(e.target.dataset.id) + 1;
+      if (e.target.className == "input-cell") {
+        list[number].className = "passed-words selected-text";
+        number;
+        list.forEach((word, index) => {
+          if (word !== list[number]) {
+            word.classList.remove("selected-text");
+          }
+        });
+      }
+    }
+  });
+};
 
 let words = [
   "trouble",
@@ -646,10 +706,16 @@ let words = [
   "planned",
 ];
 
-let cells = document.querySelectorAll(".input-cell");
+let inputContainer = document.getElementById("inputForm");
+let wordList = document.getElementById("word-list-container");
+function inputOnScroll() {
+  inputContainer.scrollTop = wordList.scrollTop;
+}
 
-cells.forEach((cell) => {
-  cell.addEventListener("focus", function () {
-    console.log("ok");
-  });
+inputContainer.addEventListener("scroll", function () {
+  wordList.scrollTop = inputContainer.scrollTop;
+});
+
+wordList.addEventListener("scroll", function () {
+  inputContainer.scrollTop = wordList.scrollTop;
 });

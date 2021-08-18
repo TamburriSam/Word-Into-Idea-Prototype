@@ -147,9 +147,9 @@ function startGame(room) {
 
               //CHANGE THE 0 IN ROOM LIST TO MATCH RECIPIENT NUMBER ON ACTUAL GAME EXECUTION
               noDuplicates(
-                wantedList,
-                yourRoomList[0].list_one_input,
-                yourRoomList[1].list_one_input
+                wantedList
+                /*   yourRoomList[0].list_one_input,
+                yourRoomList[1].list_one_input */
               );
               getRoomCountForInput(docRef);
             });
@@ -189,15 +189,55 @@ function getRoomCountForInput(room) {
       console.log(doc.data());
       let listofInp = document.querySelector("#input-list");
       let html = "";
+      let count = 0;
 
       for (let i = 0; i < 26; i++) {
-        html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
+        html += `<li><input type="text" data-id="${count}" placeholder="enter word" class="input-cell" </input> </li>`;
+        count++;
       }
 
       html += `<a data-id="next-3"class="waves-effect waves-light btn next-3" id="${doc.id}">Continue</a>`;
       listofInp.innerHTML = html;
+    })
+    .then((e) => {
+      magnifyWords(e);
     });
 }
+
+const magnifyWords = (e) => {
+  document.body.addEventListener("click", function (e) {
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
+
+    if (e.target.className == "input-cell") {
+      passedWords[currentNumber].className = "passed-words selected-text";
+      for (i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        selected[i].className = "passed-words";
+      }
+    }
+    magnifyWordsWithTab(passedWords, currentNumber);
+  });
+};
+
+const magnifyWordsWithTab = (list, number) => {
+  document.addEventListener("keydown", function (e) {
+    if (e.keyCode == "9") {
+      console.log(e.target);
+      let number = parseInt(e.target.dataset.id) + 1;
+      if (e.target.className == "input-cell") {
+        list[number].className = "passed-words selected-text";
+        number;
+        list.forEach((word, index) => {
+          if (word !== list[number]) {
+            word.classList.remove("selected-text");
+          }
+        });
+      }
+    }
+  });
+};
 
 //event listener for next that stores input list three
 document.body.addEventListener("click", function (e) {
@@ -223,6 +263,8 @@ document.body.addEventListener("click", function (e) {
     if (validInputs.length < inputList.length) {
       let list_three = {};
       warningBox.style.display = "block";
+      document.getElementById("inputForm").scrollTop = 0;
+
       warningBox.innerHTML = "All cells must be filled before continuing";
       setTimeout(() => {
         warningBox.style.display = "none";
@@ -323,7 +365,7 @@ function noDuplicates(list, secondList, thirdList) {
 
       let html = "";
       list.forEach((word) => {
-        html += `<li>${word}</li> <hr>`;
+        html += `<li class="passed-words">${word}</li> <hr>`;
       });
       inputList.innerHTML = html;
       console.log("good");
@@ -451,25 +493,37 @@ function checkSecond(sec) {
 function checkToSeeIfAllHasBeenEntered() {
   let inputList = document.querySelectorAll(".input-cell");
   let emptywords = [];
-  inputList.forEach((word) => {
-    let randomInt = Math.floor(Math.random() * 90);
+  let userRef = db.collection("users").doc(auth.currentUser.uid);
+  let wordsRef = db.collection("words").doc("words");
+  let words = "";
+  wordsRef
+    .get()
+    .then((doc) => {
+      words = doc.data().words;
+    })
+    .then(() => {
+      inputList.forEach((word) => {
+        let randomInt = Math.floor(Math.random() * 1200);
+        let allWords = [];
 
-    console.log(`word count`, inputList.length);
-    if (word.value === "") {
-      word.value = words[randomInt];
-      emptywords.push(word.value);
-    }
-
-    let userRef = db.collection("users").doc(auth.currentUser.uid);
-
-    userRef
-      .update({
-        list_three_input: firebase.firestore.FieldValue.arrayUnion(word.value),
-      })
-      .then(() => {
-        window.location = "game4.html";
+        if (word.value == "") {
+          word.value = words[randomInt];
+        }
       });
-  });
+    })
+    .then(() => {
+      inputList.forEach((word) => {
+        userRef
+          .update({
+            list_three_input: firebase.firestore.FieldValue.arrayUnion(
+              word.value
+            ),
+          })
+          .then(() => {
+            window.location = "game4.html";
+          });
+      });
+    });
 }
 
 let words = [
@@ -574,3 +628,17 @@ let words = [
   "afraid",
   "planned",
 ];
+
+let inputContainer = document.getElementById("inputForm");
+let wordList = document.getElementById("word-list-container");
+function inputOnScroll() {
+  inputContainer.scrollTop = wordList.scrollTop;
+}
+
+inputContainer.addEventListener("scroll", function () {
+  wordList.scrollTop = inputContainer.scrollTop;
+});
+
+wordList.addEventListener("scroll", function () {
+  inputContainer.scrollTop = wordList.scrollTop;
+});

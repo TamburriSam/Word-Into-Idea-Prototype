@@ -334,7 +334,7 @@ container {
 #warningBox {
   border: 2px solid red;
   display: none;
-  height: 50px;
+  height: fit-content;
   text-align: center;
   border-radius: 5px;
   padding: 3px;
@@ -370,7 +370,7 @@ container {
   background-color: rgb(240, 240, 240);
   left: 50px;
   width: 300px;
-  width: 800px;
+  width: 62vw;
   font-family: "Bebas Neue", cursive !important;
   display: flex;
   text-align: left;
@@ -485,6 +485,14 @@ body {
     display: none;
   }
 
+  #warningBox {
+    height: 150px;
+  }
+
+  #instruction-text {
+    top: 3px;
+  }
+
   body {
     background-repeat: repeat;
     overflow-x: hidden;
@@ -497,7 +505,7 @@ body {
     font-size: 16px;
     height: 6.3vh !important;
     margin-right: 3px;
-    top: 7px;
+    top: 3px;
     line-height: 3;
   }
 
@@ -554,6 +562,7 @@ body {
     width: 80vw;
     margin: auto;
     left: 0;
+    top: 70px;
   }
 
   #rooms h5 {

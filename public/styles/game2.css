@@ -62,7 +62,8 @@ body {
   text-align: center;
   grid-column: 2 !important;
   border: none !important;
-  height: 770px;
+  height: 470px;
+  overflow-y: scroll;
   width: 200px;
   background-color: white;
   padding: 20px;
@@ -114,6 +115,12 @@ input[type="tel"]:not(.browser-default),
 input[type="number"]:not(.browser-default),
 input[type="search"]:not(.browser-default),
 textarea.materialize-textarea {
+}
+
+.selected-text {
+  font-size: 16px;
+  background-color: #399e3c9a;
+  border-radius: 5px;
 }
 
 .switch {
@@ -437,7 +444,8 @@ container {
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
   left: 25%;
-  height: 773px;
+  overflow-y: scroll;
+  height: 473px;
   position: absolute;
   z-index: 100;
   padding: 20px;
@@ -585,6 +593,9 @@ container {
     background-repeat: repeat;
   }
 
+  #instruction-text {
+    top: 3px;
+  }
   #nav-links {
     display: none;
   }
@@ -595,10 +606,11 @@ container {
 
   #inputForm {
     right: 5px;
-    width: 150px;
+    width: 155px;
     display: block;
     padding: 10px;
     height: 420px;
+    top: 37px;
     overflow-y: scroll;
     left: 55%;
   }
@@ -618,10 +630,11 @@ container {
   }
 
   #word-list-container {
-    left: 3%;
+    left: 5%;
     overflow-y: scroll;
-    width: 175px;
+    width: 170px;
     height: 420px;
+    top: 35px;
   }
 
   #user-info {
