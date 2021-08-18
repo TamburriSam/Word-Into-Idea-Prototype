@@ -74,7 +74,7 @@ function populateListOneOnCreation() {
             console.log("fetched");
           })
           .catch((err) => {
-            console.log(`err ${err} on line 76`);
+            console.log("ere on line 76", err);
           });
 
         list_one = {
