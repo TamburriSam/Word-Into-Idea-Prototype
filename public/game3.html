@@ -10,6 +10,8 @@
         <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
         <link rel="stylesheet" href="styles/game2.css" />
+        <link rel="stylesheet" href="styles/game2q.css" />
+
         <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -79,14 +81,22 @@
   </div>
 
   <div id="instructions">
-      <div id="timer"></div>
-  
-      <div id="instruction-text">
-  <h7>You've received a paper with a random classmate's words.</h6><br>
-  <h7>For each word, write the first word that pops into your head.</h6><br>
-  <h7>The word you choose doesn't have to be related to the word given.</h4>
-  </div>
-  
+    <div id="timer"></div>
+
+    <div id="instruction-text">
+      <div id="instruction-one"></div>
+
+      <div id="instruction-two"></div>
+
+      <div id="instruction-three"></div>
+
+      <!--  <h7>You've received a paper with a random classmate's words.</h7><br />
+      <h7>For each word, write the first word that pops into your head.</h7
+      ><br />
+      <h7
+        >The word you choose doesn't have to be related to the word given.</h7
+      > -->
+    </div>
   </div>
 
 
@@ -94,6 +104,9 @@
        <div id="papers">
       
       <div id="inputForm" action="">
+        <button id="scroll-down" class="btn-floating pulse scroll-down">
+          <span>Scroll</span>
+        </button>
         <div id="warningBox"></div>
 
             <ul id="input-list"></ul>
@@ -102,6 +115,7 @@
 
 
 </div>
+<div id="button-container"></div>
 
 
 <div id="word-list-container">

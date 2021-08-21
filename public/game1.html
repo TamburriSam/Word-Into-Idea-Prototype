@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles/game2.css" />
+    <link rel="stylesheet" href="styles/game2q.css" />
 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-        <link rel="stylesheet" href="styles/game1.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link
-        rel="shortcut icon"
-        type="image/jpg"
-        href="logos/logoStandalone.png"
-      />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="logos/logoStandalone.png"
+    />
 
-        <title>Word Into Idea</title>
-</head>
-<body>
-
-
+    <title>Word Into Idea</title>
+  </head>
+  <body>
     <nav id="roomNav">
-        <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
-  
-        <ul id="nav-links">
-          <li class="nav-link about-link">About</li>
-          <li>| &nbsp;</li>
-          <li class="nav-link rooms-link">Rooms</li>
-          <li>| &nbsp;</li>
-  
-          <li>
-            <div class="switch">
-              <label>
-                <span class="solo">Solo Mode</span>
-                <input type="checkbox" checked disabled/>
-                <span class="lever"></span>
-                <span class="collaborative">Collaborative Mode</span>
-              </label>
-            </div>
-          </li>
-        </ul>
-  
-        <div id="user-info">
-          <div id="user"></div>
-        </div>
-      </nav>
+      <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
 
-      
+      <ul id="nav-links">
+        <li class="nav-link about-link">About</li>
+        <li>| &nbsp;</li>
+        <li class="nav-link rooms-link">Rooms</li>
+        <li>| &nbsp;</li>
+
+        <li>
+          <div class="switch">
+            <label>
+              <span class="solo">Solo Mode</span>
+              <input type="checkbox" checked disabled />
+              <span class="lever"></span>
+              <span class="collaborative">Collaborative Mode</span>
+            </label>
+          </div>
+        </li>
+      </ul>
+
+      <div id="user-info">
+        <div id="user"></div>
+      </div>
+    </nav>
 
     <div class="user-box">
       <img class="redBtn" src="logos/red.png" alt="" />
@@ -62,78 +65,69 @@
       </div>
 
       <div id="friendsOnline">
-      <h5>
-        Friends Online
-      </h5>
+        <h5>Friends Online</h5>
         <div id="connectedMockPic">
-        <img class="active-button" src="logos/GPCX4030.webp" alt="" />
-        <span class="connected">connected</span>
+          <img class="active-button" src="logos/GPCX4030.webp" alt="" />
+          <span class="connected">connected</span>
         </div>
-
-
       </div>
 
-
- 
       <ul id="user-list"></ul>
     </div>
 
+    <div id="instructions">
+      <div id="timer"></div>
 
+      <div id="instruction-text">
+        <div id="instruction-one"></div>
 
-<div id="instructions">
-    <div id="timer"></div>
+        <div id="instruction-two"></div>
 
-    <div id="instruction-text">
-<h7>You've received a compiled list of your classmates' favorite letters.</h6><br>
-<h7>For each letter, write the first word that pops into your head.</h6><br>
-<h7>The word does not have to contain or start with the letter.</h4>
-</div>
+        <div id="instruction-three"></div>
 
-</div>
-
-
-<div id="play-box">
-
-  <div id="warningBox">
-        
-  </div>
- 
-    <div id="inputForm"action="">
-        
-        <ul class="collection with-header" id="alphabet-list">        
-        </ul>
-
-    </div>
-<ul id="input-list"></ul>
-
-
-
-
-    
-</div>
-
-<br>
-<br>
-<br>
-<br>
-
-<div id="logoBox">
-    <img src="logos/whiteTextLogoOnly.png" alt="">
+        <!--  <h7>You've received a paper with a random classmate's words.</h7><br />
+        <h7>For each word, write the first word that pops into your head.</h7
+        ><br />
+        <h7
+          >The word you choose doesn't have to be related to the word given.</h7
+        > -->
+      </div>
     </div>
 
+    <div id="papers">
+      <div id="inputForm" action="">
+        <button id="scroll-down" class="btn-floating pulse scroll-down">
+          <span>Scroll</span>
+        </button>
 
+        <div id="warningBox"></div>
+
+        <ul id="input-list"></ul>
+      </div>
+      <div id="button-container"></div>
+
+      <div id="word-list-container">
+        <ul id="word-list"></ul>
+      </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div id="logoBox">
+      <img src="logos/whiteTextLogoOnly.png" alt="" />
+    </div>
 
     <a class="footer-link" href="https://github.com/TamburriSam">
-        <footer>
-     
-            <img class="gitHub" src="logos/ghicon.png" alt=""
-          />
-          <span class="footer-text"></span>Created by Sam Tamburri </span>
-        </footer>
-      </a>
+      <footer>
+        <img class="gitHub" src="logos/ghicon.png" alt="" />
+        <span class="footer-text">Created by Sam Tamburri </span>
+      </footer>
+    </a>
 
-<script src="/firebase.js"></script>
-<script src="/game1.js"></script>
-
-</body>
+    <script src="/firebase.js"></script>
+    <script src="/game1.js"></script>
+  </body>
 </html>

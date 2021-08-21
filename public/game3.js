@@ -2,6 +2,11 @@ const db = firebase.firestore();
 const userName = document.querySelector("#user");
 
 const auth = firebase.auth();
+let directionOne = `You've received a paper with a random classmate's words.`;
+
+const directionTwo =
+  "For each word, write the first word that pops into your head.";
+const directionThree = `The word you choose doesn't have to be related to the word given.`;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -17,6 +22,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    showInstructions();
   } else {
     console.log(user.displayName.length);
 
@@ -28,6 +34,59 @@ auth.onAuthStateChanged((user) => {
   }
   startGame();
 });
+
+const showInstructions = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionOne;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-one").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    showInstructionsTwo();
+  }, 1000);
+};
+
+const showInstructionsTwo = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionTwo;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-two").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    showInstructionsThree();
+  }, 4000);
+};
+
+const showInstructionsThree = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionThree;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-three").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+  }, 6000);
+};
 
 function arraysEqual(a, b) {
   if (a === b) return true;
@@ -196,7 +255,8 @@ function getRoomCountForInput(room) {
         count++;
       }
 
-      html += `<a data-id="next-3"class="waves-effect waves-light btn next-3" id="${doc.id}">Continue</a>`;
+      let buttonContainer = document.querySelector("#button-container");
+      buttonContainer.innerHTML = `<a data-id="next-3"class="next waves-effect  waves-light btn next-3" id="${doc.id}">Continue</a>`;
       listofInp.innerHTML = html;
     })
     .then((e) => {
@@ -636,9 +696,21 @@ function inputOnScroll() {
 }
 
 inputContainer.addEventListener("scroll", function () {
-  wordList.scrollTop = inputContainer.scrollTop;
+  console.log(`input`, inputContainer.scrollTop);
+  console.log(`word list`, wordList.scrollTop);
+
+  if (inputContainer.scrollTop > 150) {
+    console.log("here");
+    wordList.scrollTop = wordList.scrollHeight;
+  } else {
+    wordList.scrollTop = inputContainer.scrollTop;
+  }
 });
 
 wordList.addEventListener("scroll", function () {
-  inputContainer.scrollTop = wordList.scrollTop;
+  if (wordList.scrollTop < 150) {
+    inputContainer.scrollTop = wordList.scrollTop;
+  } else {
+    inputContainer.scrollTop = inputContainer.scrollHeight;
+  }
 });

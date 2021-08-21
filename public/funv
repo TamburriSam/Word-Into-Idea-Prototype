@@ -1,0 +1,118 @@
+function noDuplicates(list, secondList) {
+  let inputList = document.querySelector("#word-list");
+
+  let currentUser = db.collection("users").doc(auth.currentUser.uid);
+
+  currentUser.get().then((doc) => {
+    console.log(`data received`, doc.data().list_one_received);
+
+    list_one_received = list;
+
+    console.log(
+      `game 1 words that you input- so these shouldnt match`,
+      doc.data().list_one_input
+    );
+
+    //check if the page has run already
+    //aka check if theres already something in that users list one db
+    //if there is- simple- just set up the list and save whats there
+    /*     if (
+      doc.data().list_one_received &&
+      doc.data().list_one_received.length > 0
+    ) {
+      console.log("ok"); */
+    //set with merge overwrites the field we want
+    //without merge it would override the whole document
+    /*    currentUser.set(
+        {
+          list_one_received,
+        },
+        { merge: true }
+      );
+
+      let html = "";
+      list.forEach((word) => {
+        html += `<li class="passed-words">${word}</li> <hr>`;
+      });
+      inputList.innerHTML = html;
+    } */
+
+    if (arraysEqual(list, doc.data().list_one_input) == true) {
+      noDuplicates(secondList);
+      secondList.forEach((word) => {
+        currentUser
+          .update({
+            list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
+          })
+          .then(() => {
+            console.log("list two received added");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        console.log("fetched from list_two");
+      });
+    } else {
+      list.forEach((word) => {
+        currentUser
+          .update({
+            list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
+          })
+          .then(() => {
+            console.log("list one received added");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        console.log("fetched from list_two");
+      });
+    }
+    if (!(doc.data().list_one_received.length > 0)) {
+      console.log("yeah");
+      //DELETE WHATS IN THE RECEIVED LIST FIRST
+      //THEN ADD
+
+      let html = "";
+      list.forEach((word) => {
+        html += `<li>${word}</li>`;
+      });
+      inputList.innerHTML = html;
+      console.log("good");
+
+      if (arraysEqual(list, doc.data().list_one_input) == true) {
+        console.log("trueeeeee");
+
+        noDuplicates(secondList);
+        secondList.forEach((word) => {
+          currentUser
+            .update({
+              list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
+            })
+            .then(() => {
+              console.log("list two received added");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          console.log("fetched from list_two");
+        });
+      } else {
+        list.forEach((word) => {
+          currentUser
+            .update({
+              list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
+            })
+            .then(() => {
+              console.log("list one received added");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          console.log("fetched from list_two");
+        });
+      }
+
+      console.log(arraysEqual(list, doc.data().list_one_input));
+    }
+  });
+}

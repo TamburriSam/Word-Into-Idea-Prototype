@@ -3,7 +3,8 @@ const userName = document.querySelector("#user");
 const db = firebase.firestore();
 
 const auth = firebase.auth();
-
+let inputContainer = document.getElementById("inputForm");
+let wordList = document.getElementById("word-list-container");
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
@@ -21,14 +22,75 @@ auth.onAuthStateChanged((user) => {
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
+  showInstructions();
   startGame();
 });
+
+let directionOne = `You've received a paper with a random classmate's words.`;
+
+const directionTwo =
+  "For each word, write the first word that pops into your head.";
+const directionThree = `The word you choose doesn't have to be related to the word given.`;
+
+const showInstructions = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionOne;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-one").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    showInstructionsTwo();
+  }, 1000);
+};
+
+const showInstructionsTwo = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionTwo;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-two").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    showInstructionsThree();
+  }, 4000);
+};
+
+const showInstructionsThree = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionThree;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-three").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+  }, 6000);
+};
 
 //can use transaction here since we aren't changing anything
 //i actually think we can use transactions if we just take it slow
 
 function startGame() {
   room = db.collection("users").doc(auth.currentUser.uid);
+  let count = 0;
 
   let docRef = "";
   let id = "";
@@ -54,10 +116,12 @@ function startGame() {
             let html = "";
 
             for (let i = 0; i < 26; i++) {
-              html += `<li><input type="text" placeholder="enter word" class="input-cell" </input> </li>`;
+              html += `<li><input type="text" data-id="${count}" placeholder="enter word" class="input-cell" </input> </li>`;
+              count++;
             }
 
-            html += `<a data-id="next-1"class="waves-effect waves-light btn next-1" id="${doc.id}">Continue</a>`;
+            let buttonContainer = document.querySelector("#button-container");
+            buttonContainer.innerHTML = `<a data-id="next-1"class="next waves-effect waves-light btn next-1" id="${doc.id}">Continue</a>`;
             listofInp.innerHTML = html;
           });
       });
@@ -68,6 +132,7 @@ function shuffle(array) {
   var currentIndex = array.length,
     randomIndex;
 
+  console.log(array.length);
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
     // Pick a remaining element...
@@ -87,8 +152,8 @@ function shuffle(array) {
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   let roomCode = "";
-  let alphabetList = document.querySelector("#alphabet-list");
-  let alphabet = "abcdefghijklmnopqrstuvwxyzz".split("");
+  let alphabetList = document.querySelector("#word-list");
+  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
   console.log(alphabet);
 
@@ -109,13 +174,17 @@ function populateAlphabet() {
           let html = "";
           alphabet.forEach((letter) => {
             console.log(letter);
-            html += `<li class="collection-item">${letter}</li>`;
+            html += `<li class="passed-words">${letter}</li> <hr>`;
           });
           alphabetList.innerHTML = html;
         });
     })
     .catch((error) => {
       console.log("Transaction failed: ", error);
+    })
+    .then((e) => {
+      console.log("here");
+      magnifyWords(e);
     });
 }
 
@@ -390,3 +459,62 @@ let words = [
   "afraid",
   "planned",
 ];
+
+inputContainer.addEventListener("scroll", function () {
+  console.log(`input`, inputContainer.scrollTop);
+  console.log(`word list`, wordList.scrollTop);
+
+  if (inputContainer.scrollTop > 150) {
+    console.log("here");
+    wordList.scrollTop = wordList.scrollHeight;
+  } else {
+    wordList.scrollTop = inputContainer.scrollTop;
+  }
+});
+
+wordList.addEventListener("scroll", function () {
+  if (wordList.scrollTop < 150) {
+    inputContainer.scrollTop = wordList.scrollTop;
+  } else {
+    inputContainer.scrollTop = inputContainer.scrollHeight;
+  }
+});
+
+const magnifyWords = (e) => {
+  document.body.addEventListener("click", function (e) {
+    console.log(e.target);
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
+
+    if (e.target.className == "input-cell") {
+      console.log("ok");
+      console.log(e.target.dataset.id);
+      passedWords[currentNumber].className = "passed-words selected-text";
+      for (i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        selected[i].className = "passed-words";
+      }
+    }
+
+    magnifyWordsWithTab(passedWords, currentNumber);
+  });
+};
+
+const magnifyWordsWithTab = (list, number) => {
+  document.addEventListener("keydown", function (e) {
+    if (e.keyCode == "9") {
+      console.log(e.target);
+      let number = parseInt(e.target.dataset.id) + 1;
+      if (e.target.className == "input-cell") {
+        list[number].className = "passed-words selected-text";
+        number;
+        list.forEach((word, index) => {
+          if (word !== list[number]) {
+            word.classList.remove("selected-text");
+          }
+        });
+      }
+    }
+  });
+};

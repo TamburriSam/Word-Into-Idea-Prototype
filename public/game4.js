@@ -2,6 +2,11 @@ const db = firebase.firestore();
 const userName = document.querySelector("#user");
 
 const auth = firebase.auth();
+let directionOne = `You've received a paper with a random classmate's words.`;
+
+const directionTwo =
+  "For each word, write the first word that pops into your head.";
+const directionThree = `The word you choose doesn't have to be related to the word given.`;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -17,6 +22,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    showInstructions();
   } else {
     console.log(user.displayName.length);
 
@@ -28,6 +34,59 @@ auth.onAuthStateChanged((user) => {
   }
   startGame();
 });
+
+const showInstructions = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionOne;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-one").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    showInstructionsTwo();
+  }, 1000);
+};
+
+const showInstructionsTwo = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionTwo;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-two").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    showInstructionsThree();
+  }, 4000);
+};
+
+const showInstructionsThree = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionThree;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-three").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+  }, 6000);
+};
 
 function startGame(room) {
   room = db.collection("users").doc(auth.currentUser.uid);
@@ -123,13 +182,13 @@ function startGame(room) {
 
               //console.log(`ROOM LIST`,yourRoomList[recipients[3]])
               //console.log(`THE THING YOU WANT`, yourRoomList[0].list_three_input)
-              console.log("I DONT GET IT", yourRoomList[1].list_two_input);
-
+              /*               console.log("I DONT GET IT", yourRoomList[1].list_two_input);
+               */
               //if you get an error here remember the person has to have input
               noDuplicates(
                 wantedList,
-                yourRoomList[2].list_one_input,
-                yourRoomList[3].list_one_input,
+                /*               yourRoomList[2].list_one_input,
+                yourRoomList[3].list_one_input, */
 
                 thirdList
               );
@@ -178,7 +237,8 @@ function getRoomCountForInput(room) {
         count++;
       }
 
-      html += `<a data-id="next-4"class="waves-effect waves-light btn next-4" id="${doc.id}">Continue</a>`;
+      let buttonContainer = document.querySelector("#button-container");
+      buttonContainer.innerHTML = `<a data-id="next-4"class="next next-2 waves-effect  waves-light btn" id="${doc.id}">Continue</a>`;
       listofInp.innerHTML = html;
     })
     .then((e) => {
@@ -514,109 +574,6 @@ function checkToSeeIfAllHasBeenEntered() {
     });
 }
 
-let words = [
-  "trouble",
-  "straight",
-  "improve",
-  "red",
-  "tide",
-  "dish",
-  "dried",
-  "police",
-  "prize",
-  "addition",
-  "tonight",
-  "quick",
-  "child",
-  "apartment",
-  "sister",
-  "could",
-  "feet",
-  "passage",
-  "tobacco",
-  "thou",
-  "leg",
-  "lady",
-  "excellent",
-  "fifth",
-  "lake",
-  "plural",
-  "influence",
-  "hurry",
-  "river",
-  "treated",
-  "slightly",
-  "else",
-  "create",
-  "live",
-  "cool",
-  "ought",
-  "observe",
-  "pass",
-  "attack",
-  "angle",
-  "battle",
-  "touch",
-  "goes",
-  "steady",
-  "discussion",
-  "cloth",
-  "corner",
-  "ordinary",
-  "dozen",
-  "soldier",
-  "pride",
-  "shells",
-  "remarkable",
-  "prevent",
-  "nearly",
-  "movie",
-  "usual",
-  "circle",
-  "cover",
-  "bottle",
-  "machinery",
-  "planet",
-  "product",
-  "nose",
-  "as",
-  "stopped",
-  "hang",
-  "time",
-  "fight",
-  "garden",
-  "bar",
-  "rapidly",
-  "none",
-  "question",
-  "paint",
-  "seven",
-  "language",
-  "dropped",
-  "excellent",
-  "porch",
-  "club",
-  "slip",
-  "powder",
-  "steam",
-  "which",
-  "before",
-  "island",
-  "deeply",
-  "board",
-  "notice",
-  "his",
-  "railroad",
-  "slabs",
-  "particular",
-  "bee",
-  "rule",
-  "sheet",
-  "determine",
-  "afraid",
-  "planned",
-];
-
 let inputContainer = document.getElementById("inputForm");
 let wordList = document.getElementById("word-list-container");
 function inputOnScroll() {
@@ -624,9 +581,21 @@ function inputOnScroll() {
 }
 
 inputContainer.addEventListener("scroll", function () {
-  wordList.scrollTop = inputContainer.scrollTop;
+  console.log(`input`, inputContainer.scrollTop);
+  console.log(`word list`, wordList.scrollTop);
+
+  if (inputContainer.scrollTop > 150) {
+    console.log("here");
+    wordList.scrollTop = wordList.scrollHeight;
+  } else {
+    wordList.scrollTop = inputContainer.scrollTop;
+  }
 });
 
 wordList.addEventListener("scroll", function () {
-  inputContainer.scrollTop = wordList.scrollTop;
+  if (wordList.scrollTop < 150) {
+    inputContainer.scrollTop = wordList.scrollTop;
+  } else {
+    inputContainer.scrollTop = inputContainer.scrollHeight;
+  }
 });

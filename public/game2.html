@@ -3,20 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <link rel="stylesheet" href="styles/game2.css" />
+    <link rel="stylesheet" href="styles/game2q.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <link
-    rel="shortcut icon"
-    type="image/jpg"
-    href="logos/logoStandalone.png"
-  />
+      rel="shortcut icon"
+      type="image/jpg"
+      href="logos/logoStandalone.png"
+    />
     <title>Word Into Idea</title>
   </head>
   <body>
@@ -33,7 +43,7 @@
           <div class="switch">
             <label>
               <span class="solo">Solo Mode</span>
-              <input type="checkbox" checked disabled/>
+              <input type="checkbox" checked disabled />
               <span class="lever"></span>
               <span class="collaborative">Collaborative Mode</span>
             </label>
@@ -59,77 +69,63 @@
       </div>
 
       <div id="friendsOnline">
-      <h5>
-        Friends Online
-      </h5>
+        <h5>Friends Online</h5>
         <div id="connectedMockPic">
-        <img class="active-button" src="logos/GPCX4030.webp" alt="" />
-        <span class="connected">connected</span>
+          <img class="active-button" src="logos/GPCX4030.webp" alt="" />
+          <span class="connected">connected</span>
         </div>
-
-
       </div>
 
-
- 
       <ul id="user-list"></ul>
     </div>
 
+    <!--     <div id="button-container"></div>
+ -->
     <div id="instructions">
-        <div id="timer"></div>
-    
-        <div id="instruction-text">
-    <h7>You've received a paper with a random classmate's words.</h6><br>
-    <h7>For each word, write the first word that pops into your head.</h6><br>
-    <h7>The word you choose doesn't have to be related to the word given.</h4>
+      <div id="timer"></div>
+
+      <div id="instruction-text">
+        <div id="instruction-one"></div>
+
+        <div id="instruction-two"></div>
+
+        <div id="instruction-three"></div>
+
+        <!--  <h7>You've received a paper with a random classmate's words.</h7><br />
+        <h7>For each word, write the first word that pops into your head.</h7
+        ><br />
+        <h7
+          >The word you choose doesn't have to be related to the word given.</h7
+        > -->
+      </div>
     </div>
-    
-    </div>
 
+    <div id="papers">
+      <div id="inputForm" action="">
+        <button id="scroll-down" class="btn-floating pulse scroll-down">
+          <span>Scroll</span>
+        </button>
 
-            
-         <div id="papers">
-        
-        <div id="inputForm" action="" >
-          <div id="warningBox"></div>
+        <div id="warningBox"></div>
 
-              <ul id="input-list"  ></ul>
+        <ul id="input-list"></ul>
+      </div>
+      <div id="button-container"></div>
 
-            
-
-
-  </div>
-
-
-<div id="word-list-container" >
-              <ul id="word-list"></ul>
-              </div>
-     
-        
-        
-
-
-
-
-
+      <div id="word-list-container">
+        <ul id="word-list"></ul>
+      </div>
     </div>
     <div id="logoBox">
-      <img src="logos/whiteTextLogoOnly.png" alt=""> 
-   <!--  <img id="word" src="logos/word.png" alt="">
-        <img id="into" src="logos/into.png" alt="">
-        <img id="idea" src="logos/idea.png" alt="">  -->
-        </div>
+      <img src="logos/whiteTextLogoOnly.png" alt="" />
+    </div>
 
-        <a class="footer-link" href="https://github.com/TamburriSam">
-            <footer>
-         
-                <img class="gitHub" src="logos/ghicon.png" alt=""
-              />
-              <span class="footer-text"></span>Created by Sam Tamburri </span>
-            </footer>
-          </a>
-
-
+    <a class="footer-link" href="https://github.com/TamburriSam">
+      <footer>
+        <img class="gitHub" src="logos/ghicon.png" alt="" />
+        <span class="footer-text">Created by Sam Tamburri </span>
+      </footer>
+    </a>
 
     <script src="/firebase.js"></script>
     <script src="/game2.js"></script>
