@@ -16,19 +16,18 @@
 * {
 }
 
+/* BEAUTIFUL COLOR - #80a9a9 */
+
 body {
   background-color: #399e3c56;
   background-size: cover;
   background-image: url("/logos/green3.jpg");
-  background-repeat: no-repeat;
   font-family: "KoHo", sans-serif !important;
   min-height: 100vh;
-
-  background-size: cover;
+  overflow-x: hidden !important;
   background-repeat: no-repeat;
   padding-bottom: 50px;
 }
-
 #timer {
   top: px;
   width: 100px;
@@ -59,21 +58,17 @@ body {
 }
 
 #inputForm {
-  margin-top: 20px;
   text-align: center;
   grid-column: 2 !important;
   border: none !important;
-  height: 470px;
   overflow-y: scroll;
+  height: 93vh;
   width: 200px;
   overflow-x: hidden;
   background-color: white;
   padding: 20px;
-  /*   font-family: "Bebas Neue", cursive !important;
- */
+  /* font-family: "Bebas Neue", cursive !important; */
   font-family: "Montserrat", sans-serif;
-  left: 58%;
-  top: 60px;
   display: inline-block;
   position: relative;
   z-index: 100;
@@ -81,7 +76,6 @@ body {
   flex-wrap: wrap;
   text-align: center;
   background: white;
-
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -103,7 +97,7 @@ body {
   grid-column: 3 !important;
   height: 473px;
   position: relative;
-  font-family: "Times New Roman", Times, serif !important;
+
   width: 200px;
 }
 
@@ -137,6 +131,13 @@ textarea.materialize-textarea {
   z-index: 2;
 }
 
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.507);
+}
+
 .solo {
   color: #000000;
 }
@@ -149,9 +150,14 @@ textarea.materialize-textarea {
   color: #399e3c9a !important;
 }
 
+nav {
+  z-index: 100 !important;
+}
 #mainLogo {
+  z-index: 100 !important;
   bottom: 8px;
   top: -5px;
+  max-height: 7vh;
 }
 
 #user {
@@ -190,13 +196,14 @@ textarea.materialize-textarea {
   background-color: white;
   color: black;
   border-radius: 5px;
+  position: relative;
   font-family: "Bebas Neue", cursive !important;
-  z-index: 10 !important;
+  z-index: 100 !important;
   font-size: 20px;
-  width: 97vw;
+  width: 34vw;
   height: 53px;
   justify-content: space-between;
-  margin: auto;
+  /* margin: auto; */
   display: flex !important;
 }
 
@@ -216,20 +223,20 @@ textarea.materialize-textarea {
 
 /* FRIEND LIST */
 .user-box {
+  display: none !important;
   background-color: rgb(240, 240, 240);
   margin-top: 20px;
-  font-family: "Bebas Neue", cursive !important;
-
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif !important;
   text-align: left;
   position: fixed;
   max-height: 80vh;
-  top: 90px;
+  top: 62px;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   right: 25px;
-  /*   bottom: 40px;
-   */ /*   outline: solid 20px rgb(155, 155, 155);
-   */
+  /* bottom: 40px; */
+  /* outline: solid 20px rgb(155, 155, 155); */
   z-index: 510;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
@@ -276,7 +283,8 @@ textarea.materialize-textarea {
 }
 
 #user-list {
-  border: 2px solid black;
+  border: 1px solid #399e3c9a;
+  border-radius: 3px;
   max-height: 80vh;
   padding: 5px;
 }
@@ -286,34 +294,40 @@ textarea.materialize-textarea {
 }
 
 #friend-title {
-  display: flex;
-  border: 2px solid black;
+  text-align: center;
+}
+
+#friend-title h4 {
+  text-align: center;
+  /* display: flex; */
+  border: 1px solid #399e3c9a;
   padding: 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 .friendlistlogo {
-  width: 40px;
   height: 40px;
   position: relative;
-  top: 17px;
   margin-right: 10px;
+  top: 7px;
 }
-
 .active-button {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  bottom: 2px;
+  height: 15px;
   position: relative;
-  left: 10px;
+  left: 5px;
 }
 
 .connected {
-  font-size: 12px;
+  font-size: 9px;
   color: #399e3c9a;
   position: relative;
-  left: 10px;
-  bottom: 5px;
+  left: 5px;
+  bottom: 7px;
 }
-
 .profile-holder {
   margin-bottom: 10px;
   position: relative;
@@ -321,20 +335,26 @@ textarea.materialize-textarea {
 
 .profilepic {
   top: 8px;
-  width: 30px;
-  height: 30px;
+  width: auto;
+  margin-right: 8px;
+  height: 26px;
   position: relative;
 }
 
 /* PLAY BOX */
 
 .input-cell {
-  height: 11px !important;
-  width: 50% !important;
+  height: 15px !important;
+  width: 97% !important;
   font-size: 12px !important;
   text-align: center;
   letter-spacing: 2px;
-  font-family: "Times New Roman", Times, serif;
+  font-size: 17px !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.input-cell::placeholder {
+  font-size: 10px;
 }
 
 .input-cell text {
@@ -403,21 +423,19 @@ textarea.materialize-textarea {
 
 #instructions {
   background-color: rgb(240, 240, 240);
-  left: 50px;
-  width: 70vw;
-  /*   font-family: "Bebas Neue", cursive !important;
- */
+  left: 25px;
+  width: 30vw;
+  /* font-family: "Bebas Neue", cursive !important; */
   font-family: "Montserrat", sans-serif;
   display: flex;
   text-align: left;
-  position: relative;
-  top: 40px;
-
+  position: fixed;
+  top: 89px;
+  font-size: 12px;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  /*   bottom: 40px;
-   */ /*   outline: solid 20px rgb(155, 155, 155);
-   */
+  /* bottom: 40px; */
+  /* outline: solid 20px rgb(155, 155, 155); */
   z-index: 500;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
@@ -429,7 +447,7 @@ textarea.materialize-textarea {
   position: relative;
   /*   letter-spacing: 2px;
  */
-  top: 8px;
+  top: 2px;
 }
 
 /* Word Box */
@@ -439,20 +457,17 @@ textarea.materialize-textarea {
   grid-column: 2 !important;
   border: none !important;
   width: 200px;
+  height: 93vh;
   background-color: white;
   /* font-family: "Bebas Neue", cursive !important; */
-  /*   font-family: "Times New Roman", Times, serif;
- */
+  /* font-family: "Times New Roman", Times, serif; */
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
-  left: 25%;
   overflow-y: scroll;
-  height: 473px;
   position: absolute;
   z-index: 100;
   padding: 20px;
   flex-wrap: wrap;
-  top: 60px;
   text-align: center;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -506,6 +521,7 @@ textarea.materialize-textarea {
 #word-list li {
   letter-spacing: 2px;
   line-height: 25px;
+  font-size: 16px !important;
 }
 
 #word-list2 {
@@ -529,10 +545,14 @@ textarea.materialize-textarea {
 }
 
 #papers {
-  background-color: wh;
   position: relative;
-  right: 130px;
-  padding-bottom: 100px !important;
+  left: 320px;
+  display: flex;
+  bottom: 27px;
+  height: 90vh;
+  justify-content: space-around;
+  /* right: 130px; */
+  /* padding-bottom: 100px !important; */
 }
 
 /* Paper Design */
@@ -568,6 +588,13 @@ textarea.materialize-textarea {
 
 #friendsOnline {
   display: flex;
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+#friendsOnline h5 {
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 #connectedMockPic {
@@ -620,7 +647,7 @@ textarea.materialize-textarea {
 }
 
 #inputForm::-webkit-scrollbar-thumb:hover {
-  background: #009eb3;
+  background: #399e3cc0;
 }
 
 #inputForm #scroll-down {
@@ -629,6 +656,8 @@ textarea.materialize-textarea {
   z-index: 40;
   line-height: 2;
   width: 30px;
+  background-color: #399e3c9a !important;
+
   font-size: 10px;
   height: 30px;
 }
@@ -671,7 +700,7 @@ textarea.materialize-textarea {
 }
 
 #word-list-container::-webkit-scrollbar-thumb:hover {
-  background: #009eb3;
+  background: #399e3cc0;
 }
 
 #button-container {
@@ -684,12 +713,26 @@ textarea.materialize-textarea {
 }
 
 .next {
-  width: 193px;
+  width: 133px;
   text-align: center;
-  height: 25px !important;
-  font-size: 10px !important;
-  background-color: teal;
-  border: 2px solid white !important;
+  height: 30px !important;
+  font-size: 12px !important;
+  border: 3px solid #43c548 !important;
   line-height: 2 !important;
   font-family: "Montserrat", sans-serif;
+  color: black !important;
+  background-color: rgba(255, 255, 255, 0.938) !important;
+  border-radius: 10px !important;
+}
+.next:hover {
+  background-color: #399e3c9a !important;
+  color: white !important;
+}
+
+#white-overlay {
+  background-color: violet;
+  width: 500px;
+  height: 500px;
+  z-index: 1;
+  position: fixed;
 }

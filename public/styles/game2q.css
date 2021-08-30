@@ -1,6 +1,7 @@
 @media screen and (min-width: 100px) and (max-width: 812px) {
   body {
-    background-repeat: repeat;
+    background-repeat: no-repeat;
+    overflow-x: hidden !important;
   }
 
   #instruction-text {
@@ -14,20 +15,38 @@
     right: 0;
   }
 
+  input[type="color"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"],
+  select:focus {
+    font-size: 10px !important;
+  }
+
   #inputForm {
     right: 5px;
     width: 155px;
     display: block;
     padding: 10px;
     height: 420px;
-    top: 37px;
+    top: 20px;
     overflow-y: scroll;
     left: 55%;
   }
 
   .input-cell {
     width: 100%;
-    font-size: 10px;
+    font-size: 16px !important;
   }
 
   .input-cell::placeholder {
@@ -44,11 +63,7 @@
     overflow-y: scroll;
     width: 170px;
     height: 420px;
-    top: 35px;
-  }
-
-  #user {
-    margin-top: 0 !important;
+    top: 20px;
   }
 
   #user-info {
@@ -56,10 +71,13 @@
     padding: 5px;
     right: 0px;
     font-size: 20px;
-    height: 6.3vh !important;
+    height: 5.3vh !important;
     margin-right: 3px;
-    top: 2px;
+    top: 5px;
     line-height: 2.5;
+  }
+  #user {
+    margin-top: -5px !important;
   }
 
   .photoURL {
@@ -139,7 +157,7 @@
     left: 0px;
     width: 90%;
     margin: auto;
-    top: 25px;
+    top: 15px;
   }
 
   #word-list li {
@@ -152,7 +170,10 @@
   }
 
   #mainLogo {
-    width: 50vw;
+    width: unset;
+
+    height: 100%;
+    background-size: contain;
   }
 
   .user-box {
@@ -165,7 +186,7 @@
     /* height: 30px; */
     display: flex;
     left: 62%;
-    top: 47px;
+    top: 35px;
     width: 100vw;
     text-align: center;
   }
@@ -184,6 +205,7 @@
 
   .next {
     width: 100px;
+    z-index: 500;
     text-align: center;
     height: 25px !important;
     font-size: 10px !important;
@@ -191,5 +213,105 @@
     border: 2px solid white !important;
     line-height: 2 !important;
     font-family: "Montserrat", sans-serif;
+  }
+}
+
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+/* Fix Input Zoom on devices older than iPhone 5: */
+@media screen and (device-aspect-ratio: 2/3) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+@media screen and (device-aspect-ratio: 40/71) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+@media screen and (device-aspect-ratio: 375/667) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+@media screen and (device-aspect-ratio: 9/16) {
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"] {
+    font-size: 16px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Safari and Chrome */
+  #mainLogo {
+    height: 11vh;
+  }
+
+  /* Safari only override */
+  ::i-block-chrome,
+  #mainLogo {
+    height: 11vh;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 16px;
   }
 }

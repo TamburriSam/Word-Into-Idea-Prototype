@@ -26,12 +26,13 @@ auth.onAuthStateChanged((user) => {
   startGame();
 });
 
-let directionOne = `You've received a paper with a random classmate's words.`;
+let directionOne = `You've received a paper with a random classmate's letters.`;
 
 const directionTwo =
-  "For each word, write the first word that pops into your head.";
-const directionThree = `The word you choose doesn't have to be related to the word given.`;
-
+  "For each word, type the first word that pops into your head.";
+const directionThree = `The word chosen doesn't have to be related to the word given.`;
+const directionFour =
+  "Scroll or use the tab button to navigate the word lists.";
 const showInstructions = () => {
   setTimeout(() => {
     var i = 0;
@@ -65,7 +66,7 @@ const showInstructionsTwo = () => {
     }
     typeWriter();
     showInstructionsThree();
-  }, 4000);
+  }, 2500);
 };
 
 const showInstructionsThree = () => {
@@ -82,7 +83,27 @@ const showInstructionsThree = () => {
       }
     }
     typeWriter();
-  }, 6000);
+    startTimer();
+    showInstructionsFour();
+  }, 3500);
+};
+
+const showInstructionsFour = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionFour;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-four").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    startTimer();
+  }, 4500);
 };
 
 //can use transaction here since we aren't changing anything
@@ -301,8 +322,7 @@ function updateUserInputList() {
   });
 }
 
-document.getElementById("timer").innerHTML = 01 + ":" + 59;
-startTimer();
+document.getElementById("timer").innerHTML = 02 + ":" + 59;
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;

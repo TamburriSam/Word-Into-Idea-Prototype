@@ -47,9 +47,10 @@
         <div id="user"></div>
       </div>
     </nav>
+    <div id="overlay"></div>
 
     <div id="comingSoon">
-      <h1>Coming Soon</h1>
+      <h1>Coming Soon...</h1>
     </div>
 
     <div id="container">
@@ -58,12 +59,13 @@
       </h1>
 
       <div id="fast-facts">
-        <h2>Fast Facts</h2>
-
-        <p class="facts">"The beautiful disease and <br>
-          The government falls <br>
-          along the weed rooms<br>
-          flesh along the weed government"</p>
+        <div id="blurb"></div>
+        <div id="notification">Type your favorite letter of the alphabet</div>
+        <div id="inputContainer">
+        <input id="alphabetInput" type="text" placeholder="favorite letter">
+        </div>
+ 
+        <button id="letterSubmit">submit</button>
       </div>
 
       <div id="rooms">
@@ -107,6 +109,7 @@
           <br>
       </div> -->
 
+
       <div class="liveRoom">
         <div id="active-container">
           <h1>Active Rooms</h1>
@@ -136,8 +139,8 @@
         <table class="table1 centered">
           <thead>
             <tr>
-              <th>Group Name</th>
-              <th>Members Active</th>
+              <th id="group">Group Name</th>
+              <th id="members">Members Active</th>
               <th></th>
             </tr>
           </thead>
@@ -158,15 +161,13 @@
       <button id="myBtn">Open Modal</button> -->
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">
-      <!-- Modal content -->
+   <!--  <div id="myModal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
         <p>What is your favorite letter of the alphabet?</p>
-        <input type="text" id="alphabetInput" placeholder="Favorite Letter" />
+        <input type="text" id="alphabetInput" placeholder="Favorite Letter" required/>
         <button id="modalSubmit">Submit</button>
       </div>
-    </div>
+    </div> -->
 
     <div id="logoBox">
       <img src="logos/whiteTextLogoOnly.png" alt="" />

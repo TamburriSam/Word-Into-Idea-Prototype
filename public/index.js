@@ -31,7 +31,7 @@ var uiConfig = {
   privacyPolicyUrl: "<your-privacy-policy-url>",
 };
 
-ui.start("#firebaseui-auth-container", uiConfig);
+//ui.start("#firebaseui-auth-container", uiConfig);
 
 /* #firebaseui-auth-container > div > form > div.firebaseui-card-actions > div > button.firebaseui-id-secondary-link.firebaseui-button.mdl-button.mdl-js-button.mdl-button--primary
  */

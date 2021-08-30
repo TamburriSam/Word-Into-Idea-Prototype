@@ -1,4 +1,4 @@
-@media screen and (min-width: 100px) and (max-width: 600px) {
+@media screen and (min-width: 100px) and (max-width: 910px) {
   body {
     background-repeat: repeat;
     overflow-y: auto;
@@ -47,23 +47,18 @@
     font-size: 8px !important;
   }
 
-  #user {
-    width: 30vw;
-  }
-
   #tables {
     width: 30vw;
     padding: 10px;
-    top: 32%;
-    height: 505px;
-
+    top: 34%;
+    height: 527px;
     background-color: white;
-    font-family: "Bebas Neue", cursive !important;
+    /* font-family: "Bebas Neue", cursive !important; */
     /* left: 40px; */
     /* display: inline-block; */
     overflow-y: scroll;
     position: absolute;
-    z-index: 100;
+    z-index: 500;
     text-align: left;
     background: white;
     box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -100,6 +95,12 @@
     top: 300px;
   }
 
+  #tryBox {
+    position: fixed;
+    top: 264px;
+    right: 2%;
+  }
+
   #word-list-container2 {
     left: 24%;
     bottom: 20px;
@@ -128,10 +129,13 @@
     padding: 5px;
     right: 0px;
     font-size: 20px;
-    height: 6.3vh !important;
+    height: 5.3vh !important;
     margin-right: 3px;
-    top: 4px;
-    line-height: 3;
+    top: 5px;
+    line-height: 2.5;
+  }
+  #user {
+    margin-top: -5px !important;
   }
   #createNewRoom {
     width: 150px !important;
@@ -146,6 +150,12 @@
   .footer-link {
     color: rgba(0, 0, 0, 0.25);
     font-size: 10px;
+  }
+
+  .col-title {
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 13px;
+    line-height: 1;
   }
 
   #friend-title {
@@ -181,7 +191,7 @@
     background-color: white !important;
     color: black;
     width: auto;
-    font-size: 10px;
+    font-size: 7px;
   }
 
   #pdfButtons > a:nth-child(1) {
@@ -190,13 +200,13 @@
     width: auto;
     margin-right: 5px;
     content: "words";
-    font-size: 10px;
+    font-size: 7px;
   }
 
   #pdfButtons {
     width: 61vw;
     height: 16vh;
-    top: 598px;
+    top: 629px;
     /* bottom: -50px; */
     /* top: 584px; */
     /* position: fixed; */
@@ -208,6 +218,10 @@
     /* margin-bottom: 10px; */
     /* margin: auto; */
     /* align-items: flex-end; */
+  }
+
+  #user {
+    margin-top: 0;
   }
 
   .profilepic {
@@ -280,7 +294,10 @@
   }
 
   #mainLogo {
-    width: 50vw;
+    width: unset;
+
+    height: 100%;
+    background-size: contain;
   }
 
   .user-box {

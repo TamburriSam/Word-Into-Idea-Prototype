@@ -3,6 +3,13 @@ const userName = document.querySelector("#user");
 
 const auth = firebase.auth();
 
+let directionOne = `You've received a paper with a random classmate's words.`;
+
+const directionTwo =
+  "For each word, type the first word that pops into your head.";
+const directionThree = `The word chosen doesn't have to be related to the word given.`;
+const directionFour =
+  "Scroll or use the tab button to navigate the word lists.";
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -17,7 +24,6 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    showInstructions();
   } else {
     console.log(user.displayName.length);
 
@@ -27,6 +33,8 @@ auth.onAuthStateChanged((user) => {
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
+  showInstructions();
+  console.log("wtf");
   startGame();
 });
 
@@ -63,7 +71,7 @@ const showInstructionsTwo = () => {
     }
     typeWriter();
     showInstructionsThree();
-  }, 4000);
+  }, 2500);
 };
 
 const showInstructionsThree = () => {
@@ -80,7 +88,27 @@ const showInstructionsThree = () => {
       }
     }
     typeWriter();
-  }, 6000);
+    //startTimer();
+    showInstructionsFour();
+  }, 3500);
+};
+
+const showInstructionsFour = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionFour;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-four").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    //startTimer();
+  }, 4500);
 };
 
 function arraysEqual(a, b) {
@@ -94,189 +122,14 @@ function arraysEqual(a, b) {
   return true;
 }
 
-/* function noDuplicates(list, secondList) {
+function listUp(list) {
   let inputList = document.querySelector("#word-list");
 
-  let room = db.collection("users").doc(auth.currentUser.uid);
-
-  room.get().then((doc) => {
-    console.log(`my list length`, doc.data().list_one_input.length);
-
-    console.log(`your list two input from rooms db`, doc.data().list_one_input);
-
-    console.log(`random list_two from db`, list);
-
-    list_one_received = list;
-
-    console.log(`HUH`, doc.data().list_one_received);
-    console.log(`WHAT`, doc.data().list_one_received.length > 0);
-
-    if (doc.data().list_one_received) {
-      if (doc.data().list_one_received.length > 0) {
-        console.log("ok");
-        //set with merge overwrites the field we want
-        //without merge it would override the whole document
-        room.set(
-          {
-            list_one_received,
-          },
-          { merge: true }
-        );
-
-        let html = "";
-        list.forEach((word) => {
-          html += `<li>${word}</li>`;
-        });
-        inputList.innerHTML = html;
-        console.log("good");
-
-        if (arraysEqual(list, doc.data().list_one_input) == true) {
-          console.log("trueeeeee");
-
-          noDuplicates(secondList);
-          secondList.forEach((word) => {
-            room
-              .update({
-                list_one_received:
-                  firebase.firestore.FieldValue.arrayUnion(word),
-              })
-              .then(() => {
-                console.log("list two received added");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            console.log("fetched from list_two");
-          });
-        } else {
-          list.forEach((word) => {
-            room
-              .update({
-                list_one_received:
-                  firebase.firestore.FieldValue.arrayUnion(word),
-              })
-              .then(() => {
-                console.log("list one received added");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            console.log("fetched from list_two");
-          });
-        }
-      }
-    } else if (!(doc.data().list_one_received.length > 0)) {
-      console.log("yeah");
-      //DELETE WHATS IN THE RECEIVED LIST FIRST
-      //THEN ADD
-
-      let html = "";
-      list.forEach((word) => {
-        html += `<li>${word}</li>`;
-      });
-      inputList.innerHTML = html;
-      console.log("good");
-
-      if (arraysEqual(list, doc.data().list_one_input) == true) {
-        console.log("trueeeeee");
-
-        noDuplicates(secondList);
-        secondList.forEach((word) => {
-          room
-            .update({
-              list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
-            })
-            .then(() => {
-              console.log("list two received added");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          console.log("fetched from list_two");
-        });
-      } else {
-        list.forEach((word) => {
-          room
-            .update({
-              list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
-            })
-            .then(() => {
-              console.log("list one received added");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          console.log("fetched from list_two");
-        });
-      }
-
-      console.log(arraysEqual(list, doc.data().list_one_input));
-    }
+  let html = "";
+  list.forEach((word) => {
+    html += `<li class="passed-words">${word}</li> <hr>`;
   });
-} */
-
-function noDuplicates(list, secondList) {
-  let inputList = document.querySelector("#word-list");
-
-  let currentUser = db.collection("users").doc(auth.currentUser.uid);
-
-  currentUser.get().then((doc) => {
-    console.log(`data received`, doc.data().list_one_received);
-
-    console.log(`data input`, doc.data().list_one_input);
-
-    console.log(`game 1 words that you input- so these shouldnt match`, list);
-
-    //check if the page has run already
-    //aka check if theres already something in that users list one db
-    //if there is- simple- just set up the list and save whats there
-
-    if (arraysEqual(list, doc.data().list_one_input)) {
-      console.log(true);
-      noDuplicates(secondList);
-      let html = "";
-
-      secondList.forEach((word) => {
-        html += `<li class="passed-words">${word}</li> <hr>`;
-
-        currentUser
-          .set(
-            {
-              list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
-            },
-            { merge: true }
-          )
-          .then(() => {
-            console.log("list two received added");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        console.log("fetched from list_two");
-      });
-      inputList.innerHTML = html;
-    } else {
-      console.log(false);
-      let html = "";
-
-      list.forEach((word) => {
-        html += `<li class="passed-words">${word}</li> <hr>`;
-
-        currentUser
-          .update({
-            list_one_received: firebase.firestore.FieldValue.arrayUnion(word),
-          })
-          .then(() => {
-            console.log("list one received added");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        console.log("fetched from list_two");
-      });
-      inputList.innerHTML = html;
-    }
-  });
+  inputList.innerHTML = html;
 }
 
 function getRoomCountForInput(room) {
@@ -286,7 +139,6 @@ function getRoomCountForInput(room) {
     .doc(room)
     .get()
     .then((doc) => {
-      console.log(doc.data());
       let listofInp = document.querySelector("#input-list");
       let html = "";
       let count = 0;
@@ -303,9 +155,7 @@ function getRoomCountForInput(room) {
     .then((e) => {
       magnifyWords(e);
     })
-    .then(() => {
-      console.log("what the heck");
-    });
+    .then(() => {});
 }
 
 function getUsers(room) {
@@ -320,13 +170,11 @@ function getUsers(room) {
     snapshot.data().users.forEach((user) => {
       //GOTTA TAKE OUT THE ZERO
       let randomInt = Math.floor(Math.random() * 19) + 1;
-      console.log(randomInt);
       html += `<li class="profile-holder"> <img
       class="profilepic"
       src="logos/icons/${randomInt}.png"
       alt=""
     />${user}     </li>`;
-      console.log(user);
     });
     inputList.innerHTML = html;
   });
@@ -433,8 +281,8 @@ function updateUserInputList() {
   }
 }
 
-function startGame(room) {
-  room = db.collection("users").doc(auth.currentUser.uid);
+function startGame() {
+  let user = db.collection("users").doc(auth.currentUser.uid);
   let docRef = "";
   let id = "";
   let wantedList = "";
@@ -445,10 +293,11 @@ function startGame(room) {
   let myIndex = "";
   let recipients = "";
   let list_one = "";
+  let defaultList = "";
 
   return db
     .runTransaction((transaction) => {
-      return transaction.get(room).then((doc) => {
+      return transaction.get(user).then((doc) => {
         myCode = doc.data().rooms_joined;
         user_name = doc.data().user_name;
         myIndex = doc.data().index;
@@ -465,38 +314,44 @@ function startGame(room) {
         .doc(docRef)
         .get()
         .then((doc) => {
+          let listOneData = doc.data().list_one;
+
+          //get items from room
           let usersRef = db.collection("rooms").doc(docRef);
           getUsers(usersRef);
-          let data = doc.data().list_one;
 
-          console.log(`DATA111`, doc.data().list_one);
+          //all list one inputs from room values only
+          const propertyValues = Object.values(listOneData);
 
-          let inputList = document.querySelector("#input-list");
-          const propertyValues = Object.values(data);
-          let randomInt = getRandomInt(0, propertyValues.length - 1);
+          //randomint based on amount of list one inputs
+          let randomInt = getRandomInt(0, propertyValues.length - 2);
 
-          console.log("propval", propertyValues[1]);
+          //default list
+          defaultList = propertyValues[0];
 
-          console.log(`PROP LENGTH`, propertyValues.length);
+          //all list one inputs from room except ours
+          let allFiltered = propertyValues.filter((list) => {
+            return !arraysEqual(list, list_one);
+          });
 
-          //HAS TO BE CHANGED
-          console.log("random int", randomInt);
-          wantedList = propertyValues[randomInt];
-          secondList = propertyValues[0];
-          console.log(`second list`, secondList);
-          console.log("wanted list", wantedList);
+          //random list one input that is not ours
+          wantedList = allFiltered[randomInt];
+
+          console.log(wantedList);
         })
         .then(() => {
-          noDuplicates(wantedList, secondList);
-          getRoomCountForInput(docRef);
-          console.log("HERE");
+          if (wantedList) {
+            listUp(wantedList);
+            getRoomCountForInput(docRef);
+          } else {
+            listUp(defaultList);
+          }
         })
         .then(() => {});
     });
 }
 
-document.getElementById("timer").innerHTML = 01 + ":" + 59;
-//startTimer();
+document.getElementById("timer").innerHTML = 02 + ":" + 59;
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;
@@ -570,6 +425,9 @@ const magnifyWords = (e) => {
     let passedWords = document.querySelectorAll(".passed-words");
 
     if (e.target.className == "input-cell") {
+      console.log("ok");
+      console.log(e.target.dataset.id);
+      console.log(typeof parseInt(currentNumber));
       passedWords[currentNumber].className = "passed-words selected-text";
       for (i = 0; i < selected.length; i++) {
         selected[i].classList.remove("selected-text");
@@ -624,9 +482,3 @@ wordList.addEventListener("scroll", function () {
     inputContainer.scrollTop = inputContainer.scrollHeight;
   }
 });
-
-let directionOne = `You've received a paper with a random classmate's words.`;
-
-const directionTwo =
-  "For each word, write the first word that pops into your head.";
-const directionThree = `The word you choose doesn't have to be related to the word given.`;

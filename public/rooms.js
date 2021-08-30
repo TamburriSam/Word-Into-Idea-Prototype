@@ -61,6 +61,9 @@ function populateListOneOnCreation() {
 
             for (let i = 0; i < 26; i++) {
               let randomInt = Math.floor(Math.random() * 1200);
+
+              console.log(`random int`, randomInt);
+
               let randomInt1 = Math.floor(Math.random() * 1200);
               let randomInt2 = Math.floor(Math.random() * 1200);
               let randomInt3 = Math.floor(Math.random() * 1200);
@@ -71,34 +74,34 @@ function populateListOneOnCreation() {
             }
           })
           .then(() => {
-            console.log("fetched");
+            list_one = {
+              0: roomOneArray,
+            };
+
+            list_two = {
+              1: roomTwoArray,
+            };
+
+            list_three = {
+              1: roomThreeArray,
+            };
+
+            list_four = {
+              1: roomFourArray,
+            };
+
+            return roomRef.update({
+              list_one,
+              list_two,
+              list_three,
+              list_four,
+            });
           })
           .catch((err) => {
             console.log("ere on line 76", err);
           });
 
-        list_one = {
-          0: roomOneArray,
-        };
-
-        list_two = {
-          1: roomTwoArray,
-        };
-
-        list_three = {
-          1: roomThreeArray,
-        };
-
-        list_four = {
-          1: roomFourArray,
-        };
-
-        return roomRef.update({
-          list_one,
-          list_two,
-          list_three,
-          list_four,
-        });
+        console.log("fetched here first");
       })
       .then(() => {
         console.log("YEEHAH");
@@ -272,7 +275,7 @@ const setUpRooms = (data) => {
     });
     r.innerHTML = html;
   } else {
-    roomList.innerHTML = `<h5>Log in to view rooms</h5>`;
+    return false;
   }
 };
 
@@ -304,7 +307,6 @@ document.body.addEventListener("click", function (e) {
         console.log("user added");
         console.log(id);
         watchForCount(id);
-        document.querySelector("#waiting").style.display = "block";
         findIndex();
       })
       .catch((err) => {
@@ -318,21 +320,21 @@ function roomFullDisableButton() {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        if (
-          doc.data().active_count === doc.data().total_count &&
-          doc.data().total_count === doc.data().favorite_letters.length
-        ) {
+        if (doc.data().active_count === doc.data().total_count) {
           document.getElementById(doc.id).disabled = true;
           document.getElementById(doc.id).classList.add("disabled");
           document.getElementById(doc.id).innerHTML = "In Session";
 
           console.log(document.getElementById(doc.id));
+        } else {
+          return false;
         }
       });
     });
 }
 
 function watchForCount(room) {
+  console.log("IDIDIDIDIDID");
   let docref = db.collection("rooms").doc(room);
   let inputList = document.querySelector("#user-list");
   let fastfactBox = document.querySelector("#fast-facts");
@@ -340,9 +342,6 @@ function watchForCount(room) {
   let inputHolder = document.querySelector(".user-box");
   let liveRoomBox = document.querySelector(".liveRoom");
   let facts = document.querySelector(".facts");
-  inputList.style.display = "block";
-  fastfactBox.style.display = "block";
-  inputHolder.style.display = "block";
   liveRoomBox.style.display = "none";
 
   let paragraphs = [
@@ -368,7 +367,7 @@ function watchForCount(room) {
     I've been drawn into your magnet tar pit trap<br>`,
   ];
 
-  console.log(paragraphs);
+  /*   console.log(paragraphs);
 
   let count = 0;
 
@@ -379,11 +378,12 @@ function watchForCount(room) {
     if (count === 5) {
       count = 0;
     }
-  }, 10000);
+  }, 10000); */
 
   return db
     .runTransaction((transaction) => {
       return transaction.get(docref).then((doc) => {
+        console.log(doc.data().users.includes(auth.currentUser.displayName));
         //right here we need to add something else that denies user another click if their username is found
         if (
           doc.data().active_count < doc.data().total_count &&
@@ -397,11 +397,12 @@ function watchForCount(room) {
               firebase.auth().currentUser.displayName
             ),
           });
+          console.log("just checking ");
           checkForLetter();
-        } /* else if (doc.data().users.includes(auth.currentUser.displayName)) {
+        } else if (doc.data().users.includes(auth.currentUser.displayName)) {
           console.log("didnt go up");
           checkForLetter();
-        } */
+        }
       });
     })
     .then((doc) => {
@@ -464,13 +465,15 @@ function isRoomFull(room) {
     .onSnapshot((snapshot) => {
       let data = snapshot.data();
 
-      if (
-        data.active_count === data.total_count &&
-        data.favorite_letters.length === data.total_count
-      ) {
-        document.getElementById(snapshot.id).disabled = true;
-        document.getElementById(snapshot.id).innerHTML = "In Session";
-        startCountdown(9);
+      if (data.favorite_letters) {
+        if (
+          data.active_count === data.total_count &&
+          data.favorite_letters.length === data.total_count
+        ) {
+          document.getElementById(snapshot.id).disabled = true;
+          document.getElementById(snapshot.id).innerHTML = "In Session";
+          startCountdown(9);
+        }
       }
     });
 }
@@ -483,11 +486,16 @@ const checkForLetter = () => {
     .then((doc) => {
       console.log(`HERE WE GO`, doc.data());
 
-      if (!doc.data().favorite_letter) {
+      if (doc.data().favorite_letter == "") {
         makeItModal();
         console.log(`HERE WE GsO`, doc.data());
+
+        console.log(doc.data().favorite_letter);
       } else {
+        console.log(doc.data().favorite_letter);
+
         console.log("booyah");
+        return false;
       }
     });
 };
@@ -537,38 +545,57 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on the button, open the modal
 function makeItModal() {
   let modalInput = document.querySelector("#alphabetInput");
-  let modalBtn = document.querySelector("#modalSubmit");
-  let modalContent = document.querySelector(".modal-content");
-
-  modal.style.display = "block";
-  console.log("clicked");
+  let modalBtn = document.querySelector("#letterSubmit");
+  let modalContent = document.querySelector("#notification");
+  let inputList = document.querySelector("#user-list");
+  let fastfactBox = document.querySelector("#fast-facts");
+  let logoW = document.querySelector(".logo-white");
+  let inputHolder = document.querySelector(".user-box");
+  let letterSubmit = document.querySelector("#letterSubmit");
+  let blurb = document.querySelector("#blurb");
+  let inputContainer = document.querySelector("#inputContainer");
+  /*   modal.style.display = "block";
+   */ console.log("clicked");
+  fastfactBox.style.display = "inline-block";
+  let favoriteLetter = "";
 
   modalBtn.addEventListener("click", function () {
-    db.collection("users")
-      .doc(auth.currentUser.uid)
-      .update({
-        favorite_letter: modalInput.value,
-      })
-      .then(() => {
-        addLetterToRoomDb();
+    if (typeof modalInput.value != "") {
+      let favoriteLetter = modalInput.value;
+      db.collection("users")
+        .doc(auth.currentUser.uid)
+        .update({
+          favorite_letter: modalInput.value,
+        })
+        .then(() => {
+          addLetterToRoomDb();
 
-        console.log("fav letter successfully added");
-        modalContent.innerHTML = "Thank You. The Game will begin shortly";
+          console.log("fav letter successfully added");
+          blurb.innerHTML =
+            "Thank You. The game will begin once all classmates have entered the room.";
+          setTimeout(() => {
+            blurb.style.display = "none";
+          }, 2000);
 
-        setTimeout(() => {
-          modal.style.display = "none";
-        }, 2000);
-      })
-      .catch((err) => {
-        console.log(`Error on line 317 ${err}`);
-      });
+          modalContent.innerHTML = "Your Favorite Letter";
+          document.querySelector("#waiting").style.display = "block";
+          inputList.style.display = "block";
+          inputHolder.style.display = "block";
+          inputContainer.innerHTML = favoriteLetter;
+          fastfactBox.style.margin = "unset";
+          fastfactBox.style.height = "74vh";
+          letterSubmit.style.display = "none";
+        })
+        .catch((err) => {
+          console.log(`Error on line 317 ${err}`);
+        });
+    } else {
+      return false;
+    }
   });
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-};
 
 // When the user clicks anywhere outside of the modal, close it
 /* window.onclick = function (event) {
@@ -618,7 +645,7 @@ createForm.addEventListener("click", () => {
 
   console.log(typeof parseInt(roomCount.value));
 
-  if (roomCount.value < 6 || typeof parseInt(roomCount.value) !== "number") {
+  if (roomCount.value < 1 || typeof parseInt(roomCount.value) !== "number") {
     console.log(false);
     warningBox2.style.display = "block";
   } else {
@@ -635,6 +662,8 @@ createForm.addEventListener("click", () => {
         list_four: [],
       })
       .then(() => {
+        rejoin();
+        roomFullDisableButton();
         createBox.style.display = "none";
         warningBox2.style.display = "none";
       })
