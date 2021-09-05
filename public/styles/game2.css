@@ -73,6 +73,7 @@ body {
   position: relative;
   z-index: 100;
   display: flex;
+  margin-right: 150px;
   flex-wrap: wrap;
   text-align: center;
   background: white;
@@ -546,7 +547,7 @@ nav {
 
 #papers {
   position: relative;
-  left: 320px;
+  left: 30%;
   display: flex;
   bottom: 27px;
   height: 90vh;
@@ -670,50 +671,17 @@ nav {
   width: 10px;
 }
 
-#word-list-container::-webkit-scrollbar {
-  width: 5px;
-  margin-top: 10px;
-}
-
-/* Track */
-#word-list-container::-webkit-scrollbar-track {
-  height: 80vh;
-  box-shadow: inset 0 0 2px grey;
-  border-radius: 10px;
-  position: absolute;
-  right: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: solid 3px transparent;
-}
-
-/* Handle */
-#word-list-container::-webkit-scrollbar-thumb {
-  background: #399e3c9a;
-  border-radius: 10px;
-  border: solid 3px transparent;
-
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
-#word-list-container::-webkit-scrollbar-thumb:hover {
-  background: #399e3cc0;
-}
-
 #button-container {
   height: 30px;
   position: relative;
-  left: 58%;
+  margin: auto;
   top: 71px;
-  width: 200px;
   text-align: center;
+  right: 6px;
 }
 
 .next {
-  width: 133px;
+  width: 172px;
   text-align: center;
   height: 30px !important;
   font-size: 12px !important;

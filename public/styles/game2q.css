@@ -298,7 +298,7 @@
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   /* Safari and Chrome */
   #mainLogo {
-    height: 11vh;
+    height: 100%;
   }
 
   /* Safari only override */
