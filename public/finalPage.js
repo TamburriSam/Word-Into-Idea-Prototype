@@ -100,15 +100,21 @@ function populate(htmlList, dbList) {
         let html = "";
         console.log(dbList);
         dbList.forEach((word) => {
-          /*           html += `<li class="listItems">${word}</li><br>`;
-           */
-          html += `<tr><td class="listItems">${word}</td></tr>`;
+          html += `<input class="word-check" type="checkbox"><tr><td class="listItems">${word}</td></tr>`;
         });
         htmlList.innerHTML = html;
       });
     })
     .then(() => {
       let listItems = document.querySelectorAll(".listItems");
+      let wordCheck = document.querySelectorAll(".word-check");
+
+      wordCheck.forEach((check, index) => {
+        check.addEventListener("change", function () {
+          listItems[index].classList.add("listItemComplete");
+        });
+      });
+
       console.log(listItems.length);
     })
     .catch((error) => {
@@ -116,16 +122,6 @@ function populate(htmlList, dbList) {
     });
 }
 
-function populateListWithInputValue(htmlList, dbList) {
-  let userRef = db.collection("users").doc(auth.currentUser.uid);
-  userRef.get().then((doc) => {
-    let html = "";
-    dbList.forEach((word) => {
-      html += `<li class="listItems">${word}</li><br>`;
-    });
-    htmlList.innerHTML = html;
-  });
-}
 let symbols = [
   ".",
   ",",
@@ -143,10 +139,10 @@ let symbols = [
   "@",
 ];
 
-textArea.addEventListener("keydown", tryit);
-
+/* textArea.addEventListener("keydown", tryit);
+ */
 //TEST CASE FOR IF NOTHING IS IN BOX AND GENERAL CHECKER
-textArea.addEventListener("keydown", function (e) {
+/* textArea.addEventListener("keydown", function (e) {
   let listItems = document.querySelectorAll(".listItems");
 
   //compare it
@@ -154,20 +150,6 @@ textArea.addEventListener("keydown", function (e) {
   let words = textArea.value.split(" ");
   let lowercasedWords = [];
   words.forEach((word, index) => {
-    /*  lowercasedWords.push(word.toLowerCase());
-
-    if (word.includes(".")) {
-      words.splice(word, 1);
-
-      let position = index;
-
-      word = word.split("");
-      word.splice(-1, 1);
-      word = word.join("");
-
-      words.splice(position, 0, word);
-    } */
-
     for (let i = 0; i < symbols.length; i++)
       if (word.includes(symbols[i])) {
         word = word.split("");
@@ -181,27 +163,32 @@ textArea.addEventListener("keydown", function (e) {
   });
 
   console.log(words);
+  let wordCheck = document.querySelectorAll(".word-check");
 
   for (let i = 0; i < listItems.length; i++)
     if (textArea.value.length == 0) {
       listItems[i].classList.remove("listItemComplete");
     } else if (
-      !lowercasedWords.includes(listItems[i].innerHTML.toLowerCase())
-    ) {
-      /*   if (lowercasedWords[i].includes(".")) {
+      !lowercasedWords.includes(
+        listItems[i].innerHTML.toLowerCase() && !wordCheck[i].checked
+      )
+    ) { */
+/*   if (lowercasedWords[i].includes(".")) {
         let lastWord = lowercasedWords[i];
         lastWord = lastWord.split("");
         lastWord.splice(-1, 1);
 
         lastWord = lastWord.join("");
       } */
+/*       console.log(wordCheck[i]);
       console.log(lowercasedWords[i]);
       listItems[i].classList.remove("listItemComplete");
     }
-});
+}); */
 
-function tryit(e) {
+/* function tryit(e) {
   let listItems = document.querySelectorAll(".listItems");
+  let checkedIndex = "";
   textArea.addEventListener("keyup", function (e) {
     if (e.keyCode === 32) {
       let words = textArea.value.split(" ");
@@ -211,19 +198,15 @@ function tryit(e) {
         if (lastWord.toLowerCase().includes(symbols[i])) {
           lastWord = lastWord.split("");
           lastWord.splice(-1, 1);
-
           lastWord = lastWord.join("");
         } else if (
           listItems[i].innerHTML.toLowerCase() === lastWord.toLowerCase()
         ) {
           listItems[i].classList.add("listItemComplete");
+          checkedIndex = i;
+          let wordCheck = document.querySelectorAll(".word-check");
 
-          //listener for cccongratulations and encouragement to print to PDF
-          //actually maybe make a timout that when this thing is reached it prints the PDF automatically
-          // we probably also need a way for users to see their words again so yes, might want to add a profilee addition to the nav where users can see their previous word associations as well as their story if it was completed as set by this listener
-
-          //NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
-          // or if user copys and pastes
+          wordCheck[i].checked = true;
 
           if (listItems.length === textArea.value.split(" ").length + 1) {
             Alert("congratulations!! Youve won");
@@ -244,7 +227,7 @@ function tryit(e) {
       }
     }
   });
-}
+} */
 
 document.getElementById("wordsPdf").addEventListener("click", function () {
   const doc = new jsPDF();

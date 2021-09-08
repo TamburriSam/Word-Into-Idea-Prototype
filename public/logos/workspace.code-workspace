@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../../../dESIGN REDO"
+	},
+	{
+		"path": "."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "logos"
+  }
+}

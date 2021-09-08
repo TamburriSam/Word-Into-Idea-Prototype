@@ -26,33 +26,15 @@
     <title>Word Into Idea</title>
   </head>
   <body>
+    <div id="overlay"></div>
+
     <nav id="roomNav">
       <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
-
-      <ul id="nav-links">
-        <li class="nav-link about-link">About</li>
-        <li>| &nbsp;</li>
-        <li class="nav-link rooms-link">Rooms</li>
-        <li>| &nbsp;</li>
-
-        <li>
-          <div class="switch">
-            <label>
-              <span class="solo">Solo Mode</span>
-              <input type="checkbox" checked disabled />
-              <span class="lever"></span>
-              <span class="collaborative">Collaborative Mode</span>
-            </label>
-          </div>
-        </li>
-      </ul>
 
       <div id="user-info">
         <div id="user"></div>
       </div>
     </nav>
-
-    <div id="overlay"></div>
 
     <div class="user-box">
       <img class="redBtn" src="logos/red.png" alt="" />
@@ -98,26 +80,20 @@
     </div>
 
     <div id="papers">
-      <div id="inputForm" action="">
-        <button id="scroll-down" class="btn-floating pulse scroll-down">
-          <span>Scroll</span>
-        </button>
+      <div id="word-list-and-button-container">
+        <div id="inputForm" action="">
+          <div id="warningBox"></div>
 
-        <div id="warningBox"></div>
-
-        <ul id="input-list"></ul>
+          <ul id="input-list"></ul>
+        </div>
       </div>
-      <div id="button-container"></div>
 
       <div id="word-list-container">
         <ul id="word-list"></ul>
       </div>
     </div>
 
-    <br />
-    <br />
-    <br />
-    <br />
+    <div id="button-container"></div>
 
     <div id="logoBox">
       <img src="logos/whiteTextLogoOnly.png" alt="" />

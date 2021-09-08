@@ -365,7 +365,7 @@ function updateUserInputList() {
   });
 }
 
-document.getElementById("timer").innerHTML = 02 + ":" + 59;
+document.getElementById("timer").innerHTML = 04 + ":" + 59;
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;

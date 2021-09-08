@@ -670,14 +670,19 @@ nav {
 #scroll-picture {
   width: 10px;
 }
+#word-list-and-button-container {
+  display: flex;
+  flex-direction: column;
+}
 
 #button-container {
+  width: 50vw;
   height: 30px;
   position: relative;
   margin: auto;
   top: 71px;
   text-align: center;
-  right: 6px;
+  left: 0;
 }
 
 .next {

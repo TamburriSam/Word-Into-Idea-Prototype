@@ -322,7 +322,7 @@ function updateUserInputList() {
   });
 }
 
-document.getElementById("timer").innerHTML = 02 + ":" + 59;
+document.getElementById("timer").innerHTML = 06 + ":" + 59;
 
 function startTimer() {
   var presentTime = document.getElementById("timer").innerHTML;

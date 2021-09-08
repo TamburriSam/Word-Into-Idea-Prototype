@@ -738,7 +738,7 @@ th {
 }
 
 #listItems {
-  margin-right: 10px;
+  margin-right: 90px;
 }
 
 #w3review {
@@ -818,11 +818,11 @@ th {
   bottom: px;
 }
 
-.footer-link {
-  position: fixed;
-  bottom: 0;
-  right: 0px;
-  padding: 3px;
-  color: rgba(0, 0, 0, 0.616);
-  background-color: white;
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  opacity: unset !important;
+  pointer-events: unset !important;
+  margin-left: 50px;
+  margin-top: 10px;
 }
