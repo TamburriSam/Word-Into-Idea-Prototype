@@ -288,7 +288,6 @@ function startGame() {
   let wantedList = "";
   let secondList = "";
   let myCode = "";
-  var usersReference = db.collection("users");
   let user_name = "";
   let myIndex = "";
   let recipients = "";
@@ -308,8 +307,6 @@ function startGame() {
       });
     })
     .then(() => {
-      //get words first
-      //get words from this class' list_one only
       db.collection("rooms")
         .doc(docRef)
         .get()
