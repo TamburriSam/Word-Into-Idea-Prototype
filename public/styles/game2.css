@@ -21,7 +21,9 @@
 body {
   background-color: #399e3c56;
   background-size: cover;
-  background-image: url("/logos/green3.jpg");
+
+  /*   background-image: url("/logos/green3.jpg"); */
+  background-image: url(/logos/halfscreen.png);
   font-family: "KoHo", sans-serif !important;
   min-height: 100vh;
   overflow-x: hidden !important;
