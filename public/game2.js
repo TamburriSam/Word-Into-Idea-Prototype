@@ -17,7 +17,7 @@ function getRandomInt(min, max) {
 }
 
 auth.onAuthStateChanged((user) => {
-  let firstName = user.displayName.split(" ")[0];
+  /*   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
@@ -32,7 +32,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  }
+  } */
   showInstructions();
   console.log("wtf");
   startGame();
@@ -156,30 +156,6 @@ function getRoomCountForInput(room) {
       magnifyWords(e);
     })
     .then(() => {});
-}
-
-function getUsers(room) {
-  let inputList = document.querySelector("#user-list");
-  inputList.style.display = "block";
-  let html;
-  //display the usernames
-  //but we want to set up a listener
-
-  room.onSnapshot((snapshot) => {
-    let html = "";
-    snapshot.data().users.forEach((user) => {
-      //GOTTA TAKE OUT THE ZERO
-      let randomInt = Math.floor(Math.random() * 19) + 1;
-      html += `<li class="profile-holder"> <img
-      class="profilepic"
-      src="logos/icons/${randomInt}.png"
-      alt=""
-    />${user}     </li>`;
-    });
-    inputList.innerHTML = html;
-  });
-
-  console.log(room);
 }
 
 document.body.addEventListener("click", function (e) {
@@ -315,7 +291,6 @@ function startGame() {
 
           //get items from room
           let usersRef = db.collection("rooms").doc(docRef);
-          getUsers(usersRef);
 
           //all list one inputs from room values only
           const propertyValues = Object.values(listOneData);

@@ -1,149 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
-        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-        <link rel="stylesheet" href="styles/game2.css" />
-        <link rel="stylesheet" href="styles/game2q.css" />
-
-        <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-      />
-      <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <!--    <link rel="stylesheet" href="styles/game2.css" />
+    <link rel="stylesheet" href="styles/game2q.css" /> -->
+    <link rel="stylesheet" href="styles/other.css" />
+    <link rel="stylesheet" href="styles/otherquery.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
       rel="shortcut icon"
       type="image/jpg"
       href="logos/logoStandalone.png"
     />
-        <title>Word Into Idea</title>
-</head>
-<body>
+
+    <title>Word Into Idea</title>
+  </head>
+
+  <body>
+    <div id="overlay"></div>
+
+    <!-- NAV -->
+    <nav id="roomNav">
+      <div id="logo-container">
+        <img id="mainLogo" src="logos/logoStandalone.png" alt="" />
+        <img id="logo-text" src="logos/dark_logo_white_background.jpg" alt="">
 
 
-  <nav id="roomNav">
-    <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
-
-    <ul id="nav-links">
-      <li class="nav-link about-link">About</li>
-      <li>| &nbsp;</li>
-      <li class="nav-link rooms-link">Rooms</li>
-      <li>| &nbsp;</li>
-
-      <li>
-        <div class="switch">
-          <label>
-            <span class="solo">Solo Mode</span>
-            <input type="checkbox" checked disabled/>
-            <span class="lever"></span>
-            <span class="collaborative">Collaborative Mode</span>
-          </label>
-        </div>
-      </li>
-    </ul>
-
-    <div id="user-info">
-      <div id="user"></div>
-    </div>
-  </nav>
-  <div id="overlay"></div>
-
-
-  <div class="user-box">
-    <img class="redBtn" src="logos/red.png" alt="" />
-    <img class="yellowBtn" src="logos/yellow.png" alt="" />
-
-    <img class="greenBtn" src="logos/green.png" alt="" />
-
-    <div id="friend-title">
-      <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" />
-
-      <h4>Friend List</h4>
-    </div>
-
-    <div id="friendsOnline">
-    <h5>
-      Friends Online
-    </h5>
-      <div id="connectedMockPic">
-      <img class="active-button" src="logos/GPCX4030.webp" alt="" />
-      <span class="connected">connected</span>
       </div>
+      <div id="instruction-text">
+        <div id="instruction-one"></div>
 
+        <div id="instruction-two"></div>
 
-    </div>
-
-
-
-    <ul id="user-list"></ul>
-  </div>
-
-  <div id="instructions">
-    <div id="timer"></div>
-
-    <div id="instruction-text">
-      <div id="instruction-one"></div>
-
-      <div id="instruction-two"></div>
-
-      <div id="instruction-three"></div>
-      <div id="instruction-four"></div>
-
-
-      <!--  <h7>You've received a paper with a random classmate's words.</h7><br />
-      <h7>For each word, write the first word that pops into your head.</h7
-      ><br />
-      <h7
-        >The word you choose doesn't have to be related to the word given.</h7
-      > -->
-    </div>
-  </div>
-
-          
-       <div id="papers">
-      
-      <div id="inputForm" action="">
-        <button id="scroll-down" class="btn-floating pulse scroll-down">
-          <span>Scroll</span>
-        </button>
+        <div id="instruction-three"></div>
+        <div id="instruction-four"></div>
         <div id="warningBox"></div>
 
-            <ul id="input-list"></ul>
-
-          
-
-
-</div>
-<div id="button-container"></div>
-
-
-<div id="word-list-container">
-            <ul id="word-list"></ul>
-            </div>
-   
-      
-      
-
-
-  </div>
-  <div id="logoBox">
-      <img src="logos/whiteTextLogoOnly.png" alt="">
       </div>
 
-      <a class="footer-link" href="https://github.com/TamburriSam">
-          <footer>
-       
-              <img class="gitHub" src="logos/ghicon.png" alt=""
-            />
-            <span class="footer-text"></span>Created by Sam Tamburri </span>
-          </footer>
-        </a>
-<script src="/firebase.js"></script>
-<script src="/game4.js"></script>
 
-</body>
+    </nav>
+
+
+
+        <div id="timer-container">
+          <div id="timer">4:34</div>
+        </div>
+
+
+      <div id="list-container">
+        <div id="inputForm" action="">
+          <ul id="input-list"></ul>
+          <div id="button-container"></div>
+        </div>
+
+        <div id="word-list-container">
+          <ul id="word-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="bottom-logo">
+      <img id="bottom-logo-img" src="logos/whiteTextLogoOnly.png" alt="" />
+    </div>
+
+    <a class="footer-link" href="https://github.com/TamburriSam">
+      <footer>
+        <img class="gitHub" src="logos/ghicon.png" alt="" />
+        <span class="footer-text">Created by Sam Tamburri </span>
+      </footer>
+    </a>
+
+    <script src="/firebase.js"></script>
+    <script src="/game4.js"></script>
+  </body>
 </html>

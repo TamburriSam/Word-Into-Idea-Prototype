@@ -1,12 +1,12 @@
 //const { default: firebase } = require("firebase");
-const userName = document.querySelector("#user");
+const userName = document.querySelector("#userName");
 const db = firebase.firestore();
 
 const auth = firebase.auth();
 let inputContainer = document.getElementById("inputForm");
 let wordList = document.getElementById("word-list-container");
 auth.onAuthStateChanged((user) => {
-  let firstName = user.displayName.split(" ")[0];
+  /*  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
@@ -21,18 +21,17 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  }
+  } */
   showInstructions();
   startGame();
 });
 
-let directionOne = `You've received a paper with a random classmate's letters.`;
+let directionOne = `Here's a list of letters.`;
 
 const directionTwo =
-  "For each word, type the first word that pops into your head.";
-const directionThree = `The word chosen doesn't have to be related to the word given.`;
-const directionFour =
-  "Scroll or use the tab button to navigate the word lists.";
+  "Replace each letter with a word that you think you might like to write with.";
+const directionThree = `The word can begin with the letter or not.`;
+const directionFour = "Let your mind run free!";
 const showInstructions = () => {
   setTimeout(() => {
     var i = 0;
@@ -83,7 +82,7 @@ const showInstructionsThree = () => {
       }
     }
     typeWriter();
-    startTimer();
+    //startTimer();
     showInstructionsFour();
   }, 3500);
 };
@@ -102,7 +101,7 @@ const showInstructionsFour = () => {
       }
     }
     typeWriter();
-    startTimer();
+    //startTimer();
   }, 4500);
 };
 
@@ -131,8 +130,8 @@ function startGame() {
           .then((doc) => {
             populateAlphabet(docRef);
             let usersRef = db.collection("rooms").doc(docRef);
-            getUsers(usersRef);
-
+            /*             getUsers(usersRef);
+             */
             let listofInp = document.querySelector("#input-list");
             let html = "";
 
@@ -142,7 +141,7 @@ function startGame() {
             }
 
             let buttonContainer = document.querySelector("#button-container");
-            buttonContainer.innerHTML = `<a data-id="next-1"class="next waves-effect waves-light btn next-1" id="${doc.id}">Continue</a>`;
+            buttonContainer.innerHTML = `<button data-id="next-1"class="next" id="${doc.id}">Continue</button>`;
             listofInp.innerHTML = html;
           });
       });
@@ -262,7 +261,6 @@ document.body.addEventListener("click", function (e) {
       let list_one = {};
       console.log("need all cells");
       warningBox.style.display = "block";
-      document.getElementById("play-box").scrollTop = 0;
       warningBox.style.height = "fit-content";
       warningBox.innerHTML = "All cells must be filled before continuing";
       setTimeout(() => {
@@ -502,14 +500,12 @@ wordList.addEventListener("scroll", function () {
 
 const magnifyWords = (e) => {
   document.body.addEventListener("click", function (e) {
-    console.log(e.target);
     let selected = document.querySelectorAll(".selected-text");
     let currentNumber = e.target.dataset.id;
     let passedWords = document.querySelectorAll(".passed-words");
 
     if (e.target.className == "input-cell") {
       console.log("ok");
-      console.log(e.target.dataset.id);
       passedWords[currentNumber].className = "passed-words selected-text";
       for (i = 0; i < selected.length; i++) {
         selected[i].classList.remove("selected-text");

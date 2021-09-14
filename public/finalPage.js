@@ -5,7 +5,7 @@ const auth = firebase.auth();
 let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
 auth.onAuthStateChanged((user) => {
-  let firstName = user.displayName.split(" ")[0];
+  /*  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML =
       "Hello," +
@@ -20,7 +20,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  }
+  } */
   loadColumns(auth.currentUser.uid);
   watchForZeroCount();
 });

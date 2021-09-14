@@ -181,11 +181,13 @@ textarea.materialize-textarea {
   font-family: "Bebas Neue", cursive !important;
   z-index: 10 !important;
   font-size: 20px;
-  width: 97vw;
+  width: 10vw;
   height: 53px;
   justify-content: space-between;
   margin: auto;
   display: flex !important;
+
+  position: absolute;
 }
 
 .photoURL {
@@ -444,13 +446,17 @@ container {
 #instructions {
   background-color: rgb(240, 240, 240);
   margin: auto;
-  width: 95vw;
+  width: 80vw;
+  height: 20vh;
+  overflow-x: scroll;
+  margin-top: 5px;
+  right: 35%;
   /* font-family: "Bebas Neue", cursive !important; */
-  font-family: "Montserrat", sans-serif;
   display: flex;
   text-align: left;
-  position: relative;
-  top: 30px;
+  position: absolute;
+  top: 0px;
+  right: 0;
   font-size: 12px;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
