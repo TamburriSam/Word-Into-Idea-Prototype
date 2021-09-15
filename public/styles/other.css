@@ -75,13 +75,12 @@ body {
   } */
 
 .photoURL {
-  top: 5px;
-  height: 36px;
-  margin-right: 5px;
+  height: 44px;
   width: auto;
-  right: 0;
   position: absolute;
+  margin-top: -2px;
   clip-path: circle(40%);
+  right: 54px;
 }
 
 #nav-links {
@@ -131,12 +130,26 @@ body {
 }
 
 #user {
-  width: fit-content;
-  min-width: 121px;
-  max-width: 400px;
-  align-items: center;
+  color: black !important;
+}
+
+#user a {
+  color: black;
+  position: relative;
+  top: 16px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+#userName {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column-reverse;
+  width: 146px;
+  justify-content: center;
+  align-items: center;
+  background-color: #399e3c9a;
+  clip-path: circle(30%);
 }
 
 /* INSTRUCTION CONTAINER */

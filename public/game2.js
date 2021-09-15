@@ -1,15 +1,14 @@
 const db = firebase.firestore();
 const userName = document.querySelector("#user");
+const userPic = document.querySelector("#photo");
 
 const auth = firebase.auth();
 
 let directionOne = `You've received a paper with a random classmate's words.`;
 
-const directionTwo =
-  "For each word, type the first word that pops into your head.";
-const directionThree = `The word chosen doesn't have to be related to the word given.`;
-const directionFour =
-  "Scroll or use the tab button to navigate the word lists.";
+const directionTwo = "Here's someone else's list from the previous step.";
+const directionThree = `Look at the top word. Then, at the top of the blank column, write the first word that comes into your head. Don't question whether the connection makes sense. Trust your intial response!`;
+const directionFour = "Do the same for every word down the list.";
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -17,13 +16,10 @@ function getRandomInt(min, max) {
 }
 
 auth.onAuthStateChanged((user) => {
-  /*   let firstName = user.displayName.split(" ")[0];
+  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userName.innerHTML = `<a>Sign Out</a>`;
   } else {
     console.log(user.displayName.length);
 
@@ -32,7 +28,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  } */
+  }
   showInstructions();
   console.log("wtf");
   startGame();
@@ -149,7 +145,7 @@ function getRoomCountForInput(room) {
       }
 
       let buttonContainer = document.querySelector("#button-container");
-      buttonContainer.innerHTML = `<a data-id="next-2"class="next next-2 waves-effect  waves-light btn" id="${doc.id}">Continue</a>`;
+      buttonContainer.innerHTML = `<button data-id="next-2"class="next next-2" id="${doc.id}">Continue</button>`;
       listofInp.innerHTML = html;
     })
     .then((e) => {
@@ -262,11 +258,6 @@ function startGame() {
   let docRef = "";
   let id = "";
   let wantedList = "";
-  let secondList = "";
-  let myCode = "";
-  let user_name = "";
-  let myIndex = "";
-  let recipients = "";
   let list_one = "";
   let defaultList = "";
 

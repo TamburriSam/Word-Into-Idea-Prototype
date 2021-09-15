@@ -1,15 +1,13 @@
 const db = firebase.firestore();
 const userName = document.querySelector("#user");
-
+const userPic = document.querySelector("#photo");
 const auth = firebase.auth();
 
-let directionOne = `You've received a paper with a random classmate's words.`;
+let directionOne = `Here's another column`;
 
 const directionTwo =
-  "For each word, type the first word that pops into your head.";
-const directionThree = `The word chosen doesn't have to be related to the word given.`;
-const directionFour =
-  "Scroll or use the tab button to navigate the word lists.";
+  "Do the same as you did in the previous step: create a column of words.";
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -17,13 +15,10 @@ function getRandomInt(min, max) {
 }
 
 auth.onAuthStateChanged((user) => {
-  /*   let firstName = user.displayName.split(" ")[0];
+  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userName.innerHTML = `<a>Sign Out</a>`;
   } else {
     console.log(user.displayName.length);
 
@@ -32,7 +27,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  } */
+  }
   showInstructions();
   startGame();
 });
@@ -213,7 +208,7 @@ function getRoomCountForInput(room) {
       }
 
       let buttonContainer = document.querySelector("#button-container");
-      buttonContainer.innerHTML = `<a data-id="next-3"class="next waves-effect  waves-light btn next-3" id="${doc.id}">Continue</a>`;
+      buttonContainer.innerHTML = `<button data-id="next-3"class="next next-3" id="${doc.id}">Continue</button>`;
       listofInp.innerHTML = html;
     })
     .then((e) => {
