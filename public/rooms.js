@@ -11,8 +11,10 @@ let roomCount = document.querySelector("#room-count");
 
 toggleSwitch.addEventListener("click", function () {
   if (!document.getElementById("check").checked) {
-    document.getElementById("container").style.display = "none";
-    document.getElementById("comingSoon").style.display = "block";
+    document.querySelector("#waiting").style.display = "block";
+    document.querySelector("#waiting").innerHTML = "Game Starting Soon";
+
+    singleMode();
   } else {
     document.getElementById("comingSoon").style.display = "none";
     document.getElementById("container").style.display = "block";
@@ -33,7 +35,7 @@ function populateListOneOnCreation() {
     return transaction
       .get(userRef)
       .then((doc) => {
-        console.log(doc.data().rooms_joined);
+        console.log(`yoooo`, doc.data().rooms_joined);
         roomCode = doc.data().rooms_joined;
       })
       .catch((err) => {
@@ -44,7 +46,10 @@ function populateListOneOnCreation() {
           .doc(roomCode)
           .get()
           .then((doc) => {
+            console.log(`DATAAAAA`, doc.data());
             roomCount = doc.data().total_count;
+
+            console.log(`ROOM COUTN`, parseInt(roomCount));
           })
           .catch((err) => {
             console.log("err", err);
@@ -52,6 +57,7 @@ function populateListOneOnCreation() {
       })
       .then(() => {
         let roomRef = db.collection("rooms").doc(roomCode);
+        console.log("ROOMREF", roomCode);
         let wordsRef = db.collection("words").doc("words");
 
         wordsRef
@@ -251,8 +257,9 @@ auth.onAuthStateChanged((user) => {
   db.collection("rooms").onSnapshot((snapshot) => {
     setUpRooms(snapshot.docs);
   });
-  roomFullDisableButton();
-  rejoin();
+  /* roomFullDisableButton();
+
+  rejoin(); */
 });
 
 const setUpRooms = (data) => {
@@ -261,16 +268,29 @@ const setUpRooms = (data) => {
   if (data.length) {
     let html = "";
     data.forEach((doc) => {
+      if (doc.data().users.includes(auth.currentUser.displayName)) {
+        console.log("TRUEEEEE");
+        rejoin();
+      }
+      roomFullDisableButton();
+
       const room = doc.data();
 
       console.log(doc.id);
       //console.log("Iterated snapshot", room);
       /* const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active<a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </li> <br>
       `; */
-      const li = `<tr><td>${room.name}</td> <td>${room.active_count}/${room.total_count} Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
 
-      html += li;
+      if (room.name.length < 22) {
+        console.log(room.name);
+        const li = `<tr><td>${room.name}</td> <td>${room.active_count}/${room.total_count} Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
 
+        html += li;
+      } else {
+        const li = `<tr><td>Solo Room</td> <td>One Player Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
+
+        html += li;
+      }
       //add event listener that ties the room name with the name in database
     });
     r.innerHTML = html;
@@ -343,42 +363,6 @@ function watchForCount(room) {
   let liveRoomBox = document.querySelector(".liveRoom");
   let facts = document.querySelector(".facts");
   liveRoomBox.style.display = "none";
-
-  let paragraphs = [
-    `"I wish I was like you, easily amused
-    Find my nest to salt, everything's my fault
-    I'll take all the blame, aqua seafoam shame
-    Sunburn, freezer burn, choking on the ashes of her enemy"`,
-
-    `"The girls eat morning <br>
-    Dying peoples to a white bone monkey <br>
-    in the Winter sun<br>
-    touching tree of the house."`,
-    `"Sell me a coat with buttons of silver<br>
-    Sell me a coat that's red or gold<br>
-    Sell me a coat with little patch pockets<br>
-    Sell me a coat because I feel cold"`,
-    `"at land coccus germs<br>
-    by a bacilmouth Jersy phenicol bitoics<br>
-    the um vast and varied that<br>
-    specific target was the vast popul" `,
-    `She eyes me like a Pisces when I am weak<br>
-    I've been locked inside your heart-shaped box for weeks<br>
-    I've been drawn into your magnet tar pit trap<br>`,
-  ];
-
-  /*   console.log(paragraphs);
-
-  let count = 0;
-
-  setInterval(() => {
-    facts.innerHTML = paragraphs[count];
-    count++;
-
-    if (count === 5) {
-      count = 0;
-    }
-  }, 10000); */
 
   return db
     .runTransaction((transaction) => {
@@ -662,8 +646,8 @@ createForm.addEventListener("click", () => {
         list_four: [],
       })
       .then(() => {
-        rejoin();
-        roomFullDisableButton();
+        /*  rejoin();
+        roomFullDisableButton(); */
         createBox.style.display = "none";
         warningBox2.style.display = "none";
       })
@@ -680,6 +664,8 @@ function rejoin() {
     .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
+      console.log(doc.data());
+
       if (doc.data() && doc.data().rooms_joined.length > 1) {
         document.getElementById(doc.data().rooms_joined).innerHTML = "Rejoin";
       } else {
@@ -688,8 +674,117 @@ function rejoin() {
     });
 }
 
-document
-  .querySelector(".about-link")
-  .addEventListener("mouseover", function () {
-    console.log("ok");
-  });
+function singleMode() {
+  setRoom();
+}
+
+const createNewSoloRoom = (id) => {
+  db.collection("rooms")
+    .doc(id)
+    .set({
+      name: id,
+      total_count: 1,
+      active_count: 1,
+      users: [],
+      list_one: [],
+      list_two: [],
+      list_three: [],
+      list_four: [],
+    })
+    .then(() => {
+      console.log("hello");
+      let wordsRef = db.collection("words").doc("words");
+      let roomRef = db.collection("rooms").doc(auth.currentUser.uid);
+      var userRef = db.collection("users").doc(auth.currentUser.uid);
+      let roomCode = "";
+      let roomCount = "";
+      let roomOneArray = [];
+      let roomTwoArray = [];
+      let roomThreeArray = [];
+      let roomFourArray = [];
+
+      wordsRef
+        .get()
+        .then((doc) => {
+          console.log(doc.data().words);
+
+          for (let i = 0; i < 26; i++) {
+            let randomInt = Math.floor(Math.random() * 1200);
+
+            console.log(`random int`, randomInt);
+
+            let randomInt1 = Math.floor(Math.random() * 1200);
+            let randomInt2 = Math.floor(Math.random() * 1200);
+            let randomInt3 = Math.floor(Math.random() * 1200);
+            roomOneArray.push(doc.data().words[randomInt]);
+            roomTwoArray.push(doc.data().words[randomInt1]);
+            roomThreeArray.push(doc.data().words[randomInt2]);
+            roomFourArray.push(doc.data().words[randomInt3]);
+          }
+        })
+        .then(() => {
+          list_one = {
+            0: roomOneArray,
+          };
+
+          list_two = {
+            1: roomTwoArray,
+          };
+
+          list_three = {
+            1: roomThreeArray,
+          };
+
+          list_four = {
+            1: roomFourArray,
+          };
+
+          return roomRef.update({
+            list_one,
+            list_two,
+            list_three,
+            list_four,
+          });
+        })
+        .catch((err) => {
+          console.log("ere on line 76", err);
+        });
+    });
+};
+
+function setRoom() {
+  let uid = firebase.auth().currentUser.uid;
+
+  db.collection("users")
+    .doc(uid)
+    .set({
+      favorite_letter: "k",
+      uid: uid,
+      flag: parseInt(0),
+      /* ADDING USER ID AS ROOM NAME */
+      rooms_joined: uid,
+      list_one_input: [],
+      list_two_input: [],
+      list_three_input: [],
+      recipients: [],
+      list_four_input: [],
+      list_one_received: [],
+      list_two_received: [],
+      list_three_received: [],
+      list_four_received: [],
+    })
+    .then(() => {
+      let uid = firebase.auth().currentUser.uid;
+
+      createNewSoloRoom(uid);
+
+      console.log("user added");
+    })
+    .then(() => {})
+    .then(() => {
+      startCountdown(4);
+    })
+    .catch((err) => {
+      console.log(`Err on line 254`, err);
+    });
+}
