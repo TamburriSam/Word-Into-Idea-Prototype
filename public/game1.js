@@ -1,18 +1,17 @@
 //const { default: firebase } = require("firebase");
-const userName = document.querySelector("#userName");
+const userName = document.querySelector("#user");
+const userPic = document.querySelector("#photo");
+
 const db = firebase.firestore();
 
 const auth = firebase.auth();
 let inputContainer = document.getElementById("inputForm");
 let wordList = document.getElementById("word-list-container");
 auth.onAuthStateChanged((user) => {
-  /*  let firstName = user.displayName.split(" ")[0];
+  let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userName.innerHTML = `<a>Sign Out</a>`;
   } else {
     console.log(user.displayName.length);
 
@@ -21,7 +20,7 @@ auth.onAuthStateChanged((user) => {
       "  " +
       firstName +
       `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  } */
+  }
   showInstructions();
   startGame();
 });
