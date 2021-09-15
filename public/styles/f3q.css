@@ -1,0 +1,28 @@
+/* FINAL PAGE SMALLER SCREEN */
+@media screen and (min-width: 1000px) and (max-width: 1090px) {
+  #instruction-text {
+    font-size: 10px;
+  }
+
+  #roomNav {
+    height: 150px;
+  }
+}
+
+@media screen and (min-width: 300px) and (max-width: 999px) {
+  #instruction-text {
+    font-size: 8px;
+  }
+
+  #roomNav {
+    height: 170px;
+  }
+}
+
+/* BIGGER SCREENS */
+
+@media screen and (min-width: 1400px) and (max-width: 2000px) {
+  #tables {
+    height: 80vh;
+  }
+}
