@@ -1,0 +1,87 @@
+@media screen and (min-width: 100px) and (max-width: 812px) {
+  #roomNav {
+    width: unset;
+    justify-content: unset;
+  }
+
+  #nav-links {
+    display: none;
+  }
+
+  #main-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #list-container {
+    width: 90vw;
+    margin: auto;
+    top: 35px;
+    right: unset;
+  }
+
+  #timer {
+    top: 0px;
+    width: 45px;
+    text-align: center;
+    box-shadow: unset !important;
+    font-size: 16px;
+    /* height: 43px; */
+    height: 35px;
+    left: 0px;
+    line-height: 1;
+    position: unset;
+  }
+
+  #timer-container {
+    margin-top: 5px;
+    width: 100vw;
+    height: 7px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    box-shadow: unset;
+  }
+
+  #user-container {
+    display: none;
+  }
+
+  #bottom-logo {
+    width: 100px;
+  }
+
+  #instruction-text {
+    font-size: 12px;
+  }
+
+  #button-container {
+    text-align: center;
+    left: unset;
+  }
+}
+
+/* Bigger Screens */
+@media screen and (min-width: 1400px) and (max-width: 2000px) {
+  #word-list {
+    width: 400px;
+  }
+
+  #input-list {
+    padding: 10px;
+    width: 400px;
+  }
+
+  #inputForm {
+    width: 400px;
+  }
+
+  #button-container {
+    position: relative;
+    /* left: 47px; */
+    left: unset;
+    text-align: center;
+    width: 400px;
+    bottom: -12px;
+  }
+}
