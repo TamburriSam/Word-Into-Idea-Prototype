@@ -1,9 +1,11 @@
 const db = firebase.firestore();
-const userName = document.querySelector("#user");
+const userName = document.querySelector("#greetingBox");
+const signInStatus = document.querySelector("#user");
 const userPic = document.querySelector("#photo");
+let currentRoom = document.querySelector("#roomName");
 const auth = firebase.auth();
 
-let directionOne = `Here's another column`;
+let directionOne = `Here's another column.`;
 
 const directionTwo =
   "Do the same as you did in the previous step: create a column of words.";
@@ -17,17 +19,14 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    userName.innerHTML = `<a>Sign Out</a>`;
+    userName.innerHTML = `Hi ${firstName}`;
   } else {
     console.log(user.displayName.length);
+    userName.innerHTML = `<a>Sign Out ROOM NAME</a>`;
 
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="logos/user.png" alt=""/>`;
+    userName.innerHTML = "Hi," + "Student";
   }
+
   showInstructions();
   startGame();
 });
@@ -64,11 +63,14 @@ const showInstructionsTwo = () => {
       }
     }
     typeWriter();
-    showInstructionsThree();
   }, 2500);
+
+  setTimeout(() => {
+    startTimer();
+  }, 3000);
 };
 
-const showInstructionsThree = () => {
+/* const showInstructionsThree = () => {
   setTimeout(() => {
     var i = 0;
     var txt = directionThree;
@@ -85,9 +87,9 @@ const showInstructionsThree = () => {
     startTimer();
     showInstructionsFour();
   }, 3500);
-};
+}; */
 
-const showInstructionsFour = () => {
+/* const showInstructionsFour = () => {
   setTimeout(() => {
     var i = 0;
     var txt = directionFour;
@@ -103,7 +105,7 @@ const showInstructionsFour = () => {
     typeWriter();
     startTimer();
   }, 4500);
-};
+}; */
 
 function arraysEqual(a, b) {
   if (a === b) return true;
