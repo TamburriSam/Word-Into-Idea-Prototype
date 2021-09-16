@@ -1,14 +1,17 @@
 const db = firebase.firestore();
-const userName = document.querySelector("#user");
+const userName = document.querySelector("#greetingBox");
+const signInStatus = document.querySelector("#user");
 const userPic = document.querySelector("#photo");
+let currentRoom = document.querySelector("#roomName");
 
 const auth = firebase.auth();
 
 let directionOne = `You've received a paper with a random classmate's words.`;
 
 const directionTwo = "Here's someone else's list from the previous step.";
-const directionThree = `Look at the top word. Then, at the top of the blank column, write the first word that comes into your head. Don't question whether the connection makes sense. Trust your intial response!`;
-const directionFour = "Do the same for every word down the list.";
+const directionThree = `Look at the top word. Then, at the top of the blank column, write the first word that comes into your head.`;
+const directionFour = `Don't question whether the connection makes sense. Trust your intial response!`;
+const directionFive = "Do the same for every word down the list.";
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -18,19 +21,15 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    userName.innerHTML = `<a>Sign Out</a>`;
+    userName.innerHTML = `Hi ${firstName}`;
   } else {
     console.log(user.displayName.length);
+    userName.innerHTML = `<a>Sign Out ROOM NAME</a>`;
 
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="logos/user.png" alt=""/>`;
+    userName.innerHTML = "Hi," + "Student";
   }
+
   showInstructions();
-  console.log("wtf");
   startGame();
 });
 
@@ -103,8 +102,27 @@ const showInstructionsFour = () => {
       }
     }
     typeWriter();
+    showInstructionsFive();
     //startTimer();
   }, 4500);
+};
+
+const showInstructionsFive = () => {
+  setTimeout(() => {
+    var i = 0;
+    var txt = directionFive;
+    var speed = 25;
+
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("instruction-five").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+  }, 5500);
+  startTimer();
 };
 
 function arraysEqual(a, b) {
@@ -153,7 +171,7 @@ function getRoomCountForInput(room) {
     })
     .then(() => {});
 }
-
+const warningBox = document.querySelector("#warningBox");
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
   if (e.target.dataset.id === "next-2") {

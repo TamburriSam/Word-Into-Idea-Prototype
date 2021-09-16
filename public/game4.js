@@ -1,6 +1,8 @@
 const db = firebase.firestore();
-const userName = document.querySelector("#user");
+const userName = document.querySelector("#greetingBox");
+const signInStatus = document.querySelector("#user");
 const userPic = document.querySelector("#photo");
+let currentRoom = document.querySelector("#roomName");
 const auth = firebase.auth();
 let directionOne = `Now do the same thing one more time.`;
 function getRandomInt(min, max) {
@@ -12,19 +14,15 @@ function getRandomInt(min, max) {
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    userName.innerHTML = `<a>Sign Out</a>`;
+    userName.innerHTML = `Hi ${firstName}`;
   } else {
     console.log(user.displayName.length);
+    userName.innerHTML = `<a>Sign Out ROOM NAME</a>`;
 
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="logos/user.png" alt=""/>`;
+    userName.innerHTML = "Hi," + "Student";
   }
-  showInstructions();
 
+  showInstructions();
   startGame();
 });
 
@@ -42,63 +40,11 @@ const showInstructions = () => {
       }
     }
     typeWriter();
-    showInstructionsTwo();
   }, 1000);
-};
 
-const showInstructionsTwo = () => {
   setTimeout(() => {
-    var i = 0;
-    var txt = directionTwo;
-    var speed = 25;
-
-    function typeWriter() {
-      if (i < txt.length) {
-        document.getElementById("instruction-two").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-    typeWriter();
-    showInstructionsThree();
-  }, 2500);
-};
-
-const showInstructionsThree = () => {
-  setTimeout(() => {
-    var i = 0;
-    var txt = directionThree;
-    var speed = 25;
-
-    function typeWriter() {
-      if (i < txt.length) {
-        document.getElementById("instruction-three").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-    typeWriter();
     startTimer();
-    showInstructionsFour();
-  }, 3500);
-};
-
-const showInstructionsFour = () => {
-  setTimeout(() => {
-    var i = 0;
-    var txt = directionFour;
-    var speed = 25;
-
-    function typeWriter() {
-      if (i < txt.length) {
-        document.getElementById("instruction-four").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-    typeWriter();
-    startTimer();
-  }, 4500);
+  }, 2000);
 };
 
 function startGame(room) {

@@ -1,6 +1,8 @@
 //const { default: firebase } = require("firebase");
-const userName = document.querySelector("#user");
+const userName = document.querySelector("#greetingBox");
+const signInStatus = document.querySelector("#user");
 const userPic = document.querySelector("#photo");
+let currentRoom = document.querySelector("#roomName");
 
 const db = firebase.firestore();
 
@@ -10,20 +12,38 @@ let wordList = document.getElementById("word-list-container");
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userPic.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-    userName.innerHTML = `<a>Sign Out</a>`;
+    userName.innerHTML = `Hi ${firstName}`;
   } else {
     console.log(user.displayName.length);
+    userName.innerHTML = `<a>Sign Out ROOM NAME</a>`;
 
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="logos/user.png" alt=""/>`;
+    userName.innerHTML = "Hi," + "Student";
   }
+
   showInstructions();
   startGame();
 });
+
+const getCurrentRoom = () => {
+  let roomName = "";
+  db.collection("users")
+    .doc(auth.currentUser.uid)
+    .get()
+    .then((doc) => {
+      if (doc.data().rooms_joined.length > 15) {
+        let room = doc.data().rooms_joined.substr(0, 4);
+
+        roomName = `Room ` + room;
+      } else {
+        roomName = doc.data().rooms_joined;
+      }
+    })
+    .then(() => {
+      console.log(roomName.substr(0, 4));
+
+      currentRoom.innerHTML = roomName;
+    });
+};
 
 let directionOne = `Here's a list of letters.`;
 
@@ -100,7 +120,7 @@ const showInstructionsFour = () => {
       }
     }
     typeWriter();
-    //startTimer();
+    startTimer();
   }, 4500);
 };
 
