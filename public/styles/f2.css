@@ -13,7 +13,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
   --nav-height: 30px;
   --nav-container-width-sm: 150px;
@@ -47,14 +47,17 @@ body {
 
 #roomNav {
   display: flex;
-  justify-content: space-between;
-  padding: 3px;
+  justify-content: center;
+  padding: 10px;
   position: relative;
   height: var(--nav-height);
-  background-color: white;
-  height: 150px;
+  height: 170px;
+  background-color: transparent;
   width: 100vw;
-  border-radius: 2px;
+  color: black;
+  border-radius: 5px;
+  font-weight: 300;
+
   z-index: 100 !important;
   font-family: "Bebas Neue", cursive !important;
 }
@@ -140,30 +143,24 @@ body {
 }
 
 /* INSTRUCTION CONTAINER */
-#instruction-container {
-  background-color: white;
-  top: 140px;
-  border: 2px solid #399e3c56;
-  left: 30px;
-  font-family: "Montserrat", sans-serif;
-  position: fixed;
-  font-size: 20px;
-  position: relative;
-  height: 300px;
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
-    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
-  padding: var(--padding-sm);
-}
-
-#instructions {
-  position: absolute;
-  width: 90%;
-}
-
 #instruction-text {
+  background-color: #ffffffb8;
+  padding: var(--padding-sm);
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.2;
+  font-size: 12px;
+  /* letter-spacing: 2px; */
+  font-weight: 400;
+  z-index: 100;
+  border-radius: 5px;
+  border: 2px solid white;
+  color: black;
+  margin: auto;
+  font-weight: 600;
+  width: 96vw;
+}
+
+/* #instruction-text {
   padding: var(--padding-sm);
   font-family: "Montserrat", sans-serif;
   line-height: 1;
@@ -174,7 +171,7 @@ body {
   position: absolute;
   left: 185px;
   margin: auto;
-}
+} */
 
 #timer-container {
   height: 100px;
@@ -382,9 +379,10 @@ th {
 /* Text box */
 
 #tryBox {
-  width: 40vw;
+  width: 35vw;
   height: 200px;
   position: sticky !important;
+  margin-right: 10px;
 }
 
 #textArea {
@@ -393,7 +391,7 @@ th {
 }
 
 #main-container {
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100vw;
   display: flex;
   justify-content: space-around;
