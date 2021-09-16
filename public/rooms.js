@@ -11,9 +11,9 @@ let roomCount = document.querySelector("#room-count");
 
 toggleSwitch.addEventListener("click", function () {
   if (!document.getElementById("check").checked) {
-    document.querySelector("#waiting").style.display = "block";
-    document.querySelector("#waiting").innerHTML = "Game Starting Soon";
-
+    /*     document.querySelector("#waiting").style.display = "block";
+     */ /*     document.querySelector("#waiting").innerHTML = "Game Starting Soon";
+     */
     singleMode();
   } else {
     document.getElementById("comingSoon").style.display = "none";
@@ -696,8 +696,6 @@ const createNewSoloRoom = (id) => {
       let wordsRef = db.collection("words").doc("words");
       let roomRef = db.collection("rooms").doc(auth.currentUser.uid);
       var userRef = db.collection("users").doc(auth.currentUser.uid);
-      let roomCode = "";
-      let roomCount = "";
       let roomOneArray = [];
       let roomTwoArray = [];
       let roomThreeArray = [];
@@ -782,9 +780,58 @@ function setRoom() {
     })
     .then(() => {})
     .then(() => {
-      startCountdown(4);
+      let liveRoomBox = document.querySelector(".liveRoom");
+      let fastfactBox = document.querySelector("#fast-facts");
+      let inputList = document.querySelector("#user-list");
+      let inputHolder = document.querySelector(".user-box");
+
+      liveRoomBox.style.display = "none";
+      fastfactBox.style.display = "block";
+      /*   inputHolder.style.display = "block";
+      inputList.style.display = "block"; */
+      makeItModal();
+    })
+    .then(() => {
+      /* startCountdown(9); */
+      setTimeout(() => {
+        mockUsers();
+      }, 2000);
+    })
+    .then(() => {
+      setTimeout(() => {
+        startCountdown(9);
+      }, 9000);
     })
     .catch((err) => {
       console.log(`Err on line 254`, err);
     });
+}
+
+function mockUsers() {
+  let inputList = document.querySelector("#user-list");
+
+  //display the usernames
+  //but we want to set up a listener
+
+  let i = 1;
+
+  setInterval(() => {
+    if (i < 11) {
+      let randomInt = Math.floor(Math.random() * 19) + 1;
+
+      inputList.innerHTML += `<li class="profile-holder"> <img
+      class="profilepic"
+      src="logos/icons/${randomInt}.png"
+      alt=""
+    />Live Student ${i}</li>`;
+      i++;
+      console.log(i);
+    } else {
+      return false;
+    }
+  }, 1000);
+
+  console.log(user);
+
+  //GOTTA TAKE OUT THE ZERO
 }
