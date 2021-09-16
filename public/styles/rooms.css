@@ -107,6 +107,7 @@ nav {
   margin-top: -2px;
   left: 67%;
   cursor: pointer;
+  display: flex;
 }
 
 .rooms-link {
