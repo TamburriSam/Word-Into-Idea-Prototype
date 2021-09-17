@@ -11,8 +11,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Shadows+Into+Light+Two&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 * {
+  font-family: 'IBM Plex Mono', monospace !important;
+
 }
 
 .btn,
@@ -26,7 +31,7 @@
   -webkit-transition: background-color 0.2s ease-out;
   transition: background-color 0.2s ease-out;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: 'IBM Plex Mono', monospace;  
   text-transform: lowercase !important;
   font-size: 12px !important;
 }
@@ -106,8 +111,31 @@ nav {
   font-size: 19px;
   margin-top: -2px;
   left: 67%;
+  font-family: 'IBM Plex Mono', monospace;  font-weight: 900;
   cursor: pointer;
   display: flex;
+}
+
+#letterSubmit {
+  background-color: #000000f5;
+  border: 3px solid white !important;
+  color: white;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* bottom: -95px; */
+  border-radius: 3px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#letterSubmit:hover {
+  color: black !important;
+  background-color: white;
+  border: 1px solid black;
 }
 
 .rooms-link {
@@ -144,29 +172,61 @@ nav {
   background-color: #399e3c9a !important;
 }
 #user-info {
-  /*   background-color: lightpink;
-   */
+  /* background-color: lightpink; */
+  border: 2px solid #399e3c9a;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   z-index: 20;
-  width: fit-content;
-  /* padding-right: 10px; */
-  padding: 10px;
-  /* padding-left: 10px; */
-  text-align: center !important;
-  height: 39px !important;
-  top: 7px;
-  font-size: 18px;
-  background-color: #399e3c9a !important;
-  height: 60px;
-  right: 8px;
+  width: 200px;
+  border-radius: 5px;
+  height: 51px;
+  padding: 5px;
+  top: 1px;
+  right: 1px;
   position: relative;
   color: black;
-  /*   clip-path: ellipse(130px 140px at 10% 20%);
-   */
+  /* clip-path: ellipse(130px 140px at 10% 20%); */
+}
+
+#photoContainer{
+  position: absolute;
+  background-color: #399e3c9a;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 47px;
+}
+
+.photoURL {
+  height: 40px;
+  position: relative;
+  width: 40px;
+  right: 5px;
+}
+
+#userStatus {
+  position: absolute;
+  right: 2px;
+  height: 41px;
+  text-align: center;
+  bottom: 2px;
+  width: 140px;
 }
 
 #user {
-  margin-top: -20px;
+  height: 10px;
+  position: relative;
+  bottom: 16px;
+  font-size: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+#status {
+  font-size: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+
+  position: relative;
+  bottom: 10px;
 }
 
 #select {
@@ -175,8 +235,12 @@ nav {
   text-align: center;
 }
 
+#blurb{
+
+}
+
 .photoURL {
-  top: 10px;
+  top: 12px;
   margin-left: 12px;
   position: relative;
   clip-path: circle(40%);
@@ -184,6 +248,7 @@ nav {
 
 .switch {
   position: relative;
+  left: 22px;
 }
 .switch label {
   font-size: 15px;
@@ -193,6 +258,17 @@ nav {
 
 .solo {
   color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #399e3c9a;
+}
+
+.switch label input[type=checkbox]{
+  background-color: #399e3c9a;
+
 }
 
 .lever {
@@ -201,6 +277,8 @@ nav {
 
 .collaborative {
   color: #399e3c9a !important;
+  font-size: 16px;
+  font-weight: 500;
 }
 #user-list {
   border: 1px solid #399e3c9a;
@@ -215,42 +293,43 @@ nav {
   line-height: 1;
 }
 
+
 #friend-title {
+  width: 125px;
   text-align: center;
-}
-#friend-title h4 {
-  text-align: center;
-  /* display: flex; */
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
+height: 33px;
+  display: flex;
   border: 1px solid #399e3c9a;
-  padding: 10px;
-  border-radius: 3px;
-  font-size: 12px;
-  font-family: "Montserrat", sans-serif !important;
+  
 }
 
+
 .friendlistlogo {
-  height: 40px;
+  height: 31px;
   position: relative;
-  top: 17px;
-  margin-right: 10px;
+  background-color: #399e3c9a;
+
 }
 
 .redBtn {
-  width: 15px !important;
+  width: 10px !important;
   position: relative;
   bottom: 5px;
   cursor: pointer;
 }
 
 .greenBtn {
-  width: 15px !important;
+  width: 10px !important;
   position: relative;
   bottom: 5px;
   cursor: pointer;
 }
 
 .yellowBtn {
-  width: 15px !important;
+  width: 10px !important;
   position: relative;
   bottom: 5px;
   cursor: pointer;
@@ -264,6 +343,10 @@ nav {
   font-size: 24px;
 }
 
+#status{
+  font-size: 8px;
+}
+
 #alphabetInput {
   font-size: 400px;
   height: 70vh;
@@ -272,14 +355,17 @@ nav {
 
 #inputContainer {
   font-size: 400px;
-  height: 70vh;
+  height: 65vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
 #alphabetInput::placeholder {
-  font-size: 120px;
+  font-size: 88px;
   position: relative;
-  bottom: 100px;
+  bottom: 126px;
 }
 #myModal {
   z-index: 4 !important;
@@ -297,20 +383,22 @@ nav {
   margin: auto;
   font-family: "Montserrat", sans-serif !important;
   background-color: rgb(240, 240, 240);
-  margin-top: 20px;
+  /* margin-top: 20px; */
   text-align: center;
   /* position: absolute; */
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   height: 80vh;
   /* left: 15px; */
-  top: 69px;
+  top: 29px;
   /* outline: solid 20px rgb(155, 155, 155); */
   display: none;
   z-index: 2;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
-    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  position: relative;
   padding: 10px;
+}dding: 10px;
 }
 
 #user-list {
@@ -497,13 +585,15 @@ div#rooms {
 }
 
 #friendsOnline {
-  display: flex;
   font-size: 10px;
   font-family: "Montserrat", sans-serif !important;
 }
 
 #friendsOnline h5 {
   font-size: 10px;
+  margin-left: 3px;
+  bottom: 4px;
+  position: relative;
   font-family: "Montserrat", sans-serif !important;
 }
 
@@ -532,7 +622,7 @@ div#rooms {
   left: 0;
   z-index: 10;
   padding-top: 1px;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: 'IBM Plex Mono', monospace;  
   font-size: 12px;
   overflow-y: scroll;
   background-size: contain;
@@ -578,20 +668,15 @@ div#rooms {
 .connected {
   font-size: 9px;
   color: #399e3c9a;
-  position: relative;
-  left: 5px;
-  bottom: 7px;
+
 }
 
 #connectedMockPic {
-  top: 17px;
-  position: relative;
 }
-
 .active-button {
-  width: 15px;
-  bottom: 2px;
-  height: 15px;
+  width: 10px;
+  bottom: -2px;
+  height: 10px;
   position: relative;
   left: 5px;
 }
@@ -616,6 +701,8 @@ div#rooms {
 #waiting {
   font-size: 32px;
   color: white;
+  font-family: 'IBM Plex Mono', monospace;  
+
 }
 
 #warningBox2 {
@@ -784,9 +871,15 @@ div#rooms {
   }
 
   #friend-title {
-    display: block;
+    width: 125px;
     text-align: center;
-  }
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+
+}
 
   #createNewRoom {
     height: 30px !important;
@@ -874,4 +967,14 @@ div#rooms {
     height: 100%;
     background-size: contain;
   }
+}
+
+
+@media screen and (min-width: 900px){
+
+
+#mainLogo{
+  max-height: 6vh;
+}
+
 }

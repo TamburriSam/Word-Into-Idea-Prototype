@@ -9,27 +9,30 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
     <link rel="stylesheet" href="styles/rooms.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-
-  
     <link
-    rel="shortcut icon"
-    type="image/jpg"
-    href="logos/logoStandalone.png"
-  />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="logos/logoStandalone.png"
+    />
 
     <title>Word Into Idea</title>
   </head>
   <body id="RoomBody">
     <nav id="roomNav">
-      <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
+      <a href="rooms.html">
+        <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
+      </a>
 
       <ul id="nav-links">
-        <li class="nav-link about-link">About</li>
+        <!-- <li class="nav-link about-link">About</li>
         <li>| &nbsp;</li>
         <li class="nav-link rooms-link">Rooms</li>
-        <li>| &nbsp;</li>
+        <li>| &nbsp;</li> -->
 
         <li>
           <div class="switch">
@@ -43,9 +46,15 @@
         </li>
       </ul>
 
-
       <div id="user-info">
-        <div id="user"></div>
+        <div id="photoContainer">
+          <div id="photoURL"></div>
+        </div>
+
+        <div id="userStatus">
+          <div id="user"></div>
+          <div id="status">Signed in</div>
+        </div>
       </div>
     </nav>
     <div id="overlay"></div>
@@ -61,11 +70,13 @@
 
       <div id="fast-facts">
         <div id="blurb"></div>
-        <div id="notification">What's your favorite letter of the alphabet? Type it in the box.</div>
-        <div id="inputContainer">
-        <input id="alphabetInput" type="text" placeholder="favorite letter">
+        <div id="notification">
+          What's your favorite letter of the alphabet? Type it in the box.
         </div>
- 
+        <div id="inputContainer">
+          <input id="alphabetInput" type="text" placeholder="favorite letter" />
+        </div>
+
         <button id="letterSubmit">submit</button>
       </div>
 
@@ -79,23 +90,14 @@
           <div id="friend-title">
             <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" />
 
-            <h4>Friend List</h4>
+            <div id="friendsOnline">
+              <h5>Friends Online</h5>
+            </div>
           </div>
-
-          <div id="friendsOnline">
-          <h5>
-            Friends Online
-          </h5>
-            <div id="connectedMockPic">
+          <div id="connectedMockPic">
             <img class="active-button" src="logos/GPCX4030.webp" alt="" />
             <span class="connected">connected</span>
-            </div>
-
-
           </div>
-
-
-     
           <ul id="user-list"></ul>
         </div>
       </div>
@@ -104,12 +106,10 @@
         <p></p>
       </div>
 
-
       <!--       <div id="select">
         <h3>Select a room to start</h1>
           <br>
       </div> -->
-
 
       <div class="liveRoom">
         <div id="active-container">
@@ -157,29 +157,14 @@
       Room must be equal to or greater than six. Name must have a name.
     </div>
 
-    <!--     <button id="btn">test</button>
-
-      <button id="myBtn">Open Modal</button> -->
-
-    <!-- The Modal -->
-   <!--  <div id="myModal" class="modal">
-      <div class="modal-content">
-        <p>What is your favorite letter of the alphabet?</p>
-        <input type="text" id="alphabetInput" placeholder="Favorite Letter" required/>
-        <button id="modalSubmit">Submit</button>
-      </div>
-    </div> -->
-
     <div id="logoBox">
       <img src="logos/whiteTextLogoOnly.png" alt="" />
     </div>
 
     <a class="footer-link" href="https://github.com/TamburriSam">
       <footer>
-   
-          <img class="gitHub" src="logos/ghicon.png" alt=""
-        />
-        <span class="footer-text"></span>Created by Sam Tamburri </span>
+        <img class="gitHub" src="logos/ghicon.png" alt="" />
+        <span class="footer-text">Created by Sam Tamburri </span>
       </footer>
     </a>
 

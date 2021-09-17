@@ -14,10 +14,11 @@ toggleSwitch.addEventListener("click", function () {
     /*     document.querySelector("#waiting").style.display = "block";
      */ /*     document.querySelector("#waiting").innerHTML = "Game Starting Soon";
      */
+    document.querySelector(".switch").innerHTML = "SOLO MODE";
+
     singleMode();
   } else {
-    document.getElementById("comingSoon").style.display = "none";
-    document.getElementById("container").style.display = "block";
+    return false;
   }
 });
 
@@ -236,22 +237,19 @@ function addIndexToUserProfile(indice) {
     });
 }
 
+let photoBox = document.querySelector("#photoURL");
+
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
+    userName.innerHTML = firstName;
+
+    photoBox.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
     console.log(user.displayName.length);
 
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="logos/user.png" alt=""/>`;
+    userName.innerHTML = firstName;
+    photoBox.innerHTML = `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
 
   db.collection("rooms").onSnapshot((snapshot) => {
@@ -541,6 +539,7 @@ function makeItModal() {
   /*   modal.style.display = "block";
    */ console.log("clicked");
   fastfactBox.style.display = "inline-block";
+  document.getElementById("container").style.textAlign = "center";
   let favoriteLetter = "";
 
   modalBtn.addEventListener("click", function () {
@@ -555,19 +554,21 @@ function makeItModal() {
           addLetterToRoomDb();
 
           console.log("fav letter successfully added");
-          blurb.innerHTML =
+          modalContent.innerHTML =
             "Thank You. The game will begin once all classmates have entered the room.";
           setTimeout(() => {
-            blurb.style.display = "none";
-          }, 2000);
+            modalContent.innerHTML = "Your Favorite Letter";
+          }, 5000);
 
-          modalContent.innerHTML = "Your Favorite Letter";
+          document.getElementById("container").style.textAlign = "unset";
+          /*     modalContent.innerHTML = "Your Favorite Letter"; */
           document.querySelector("#waiting").style.display = "block";
           inputList.style.display = "block";
           inputHolder.style.display = "block";
-          inputContainer.innerHTML = favoriteLetter;
+          inputContainer.innerHTML = favoriteLetter.toUpperCase();
           fastfactBox.style.margin = "unset";
           fastfactBox.style.height = "74vh";
+          fastfactBox.style.top = "unset";
           letterSubmit.style.display = "none";
         })
         .catch((err) => {
@@ -800,7 +801,7 @@ function setRoom() {
     .then(() => {
       setTimeout(() => {
         startCountdown(9);
-      }, 9000);
+      }, 12000);
     })
     .catch((err) => {
       console.log(`Err on line 254`, err);

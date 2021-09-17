@@ -279,6 +279,10 @@ function startGame() {
   let list_one = "";
   let defaultList = "";
 
+  document.getElementById("instruction-four").style.marginTop = "7px";
+  document.getElementById("instruction-five").style.marginTop = "7px";
+  document.getElementById("instruction-text").style.height = "100px";
+
   return db
     .runTransaction((transaction) => {
       return transaction.get(user).then((doc) => {
