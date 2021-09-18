@@ -1,4 +1,5 @@
 const user = firebase.auth().currentUser;
+import React from "react";
 
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 

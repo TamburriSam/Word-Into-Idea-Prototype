@@ -11,11 +11,8 @@ let roomCount = document.querySelector("#room-count");
 
 toggleSwitch.addEventListener("click", function () {
   if (!document.getElementById("check").checked) {
-    /*     document.querySelector("#waiting").style.display = "block";
-     */ /*     document.querySelector("#waiting").innerHTML = "Game Starting Soon";
-     */
     document.querySelector(".switch").innerHTML = "SOLO MODE";
-
+    document.getElementById("switch-container").style.justifyContent = "center";
     singleMode();
   } else {
     return false;
@@ -303,6 +300,8 @@ document.body.addEventListener("click", function (e) {
   let email = firebase.auth().currentUser.email;
 
   if (e.target.dataset.id === "btn") {
+    document.querySelector(".switch").innerHTML = "COLLABORATIVE MODE";
+    document.getElementById("switch-container").style.justifyContent = "center";
     db.collection("users")
       .doc(uid)
       .set({

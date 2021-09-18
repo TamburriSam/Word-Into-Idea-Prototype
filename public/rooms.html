@@ -13,6 +13,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
 
     <link
       rel="shortcut icon"
@@ -21,12 +25,19 @@
     />
 
     <title>Word Into Idea</title>
+    <script src="https://use.fontawesome.com/ab57ee05a2.js"></script>
   </head>
   <body id="RoomBody">
     <nav id="roomNav">
-      <a href="rooms.html">
-        <img id="mainLogo" src="logos/logo_transparent_background.png" alt="" />
-      </a>
+      <div id="logo-container">
+        <a href="rooms.html">
+          <img
+            id="mainLogo"
+            src="logos/logo_transparent_background.png"
+            alt=""
+          />
+        </a>
+      </div>
 
       <ul id="nav-links">
         <!-- <li class="nav-link about-link">About</li>
@@ -34,7 +45,25 @@
         <li class="nav-link rooms-link">Rooms</li>
         <li>| &nbsp;</li> -->
 
+        <!--   <li>
+          <div id="solo-info">
+            <div id="icon-container">
+              <div id="solo-icon"><i class="fas fa-users"></i></div>
+            </div>
+            <div id="solo-word">Solo Mode</div>
+          </div>
+        </li>
+
         <li>
+          <div id="collab-info">
+            <div id="collab-icon-container">
+              <div id="collab-icon"><i class="fas fa-users"></i></div>
+            </div>
+            <div id="collab-word">Collaborative Mode</div>
+          </div>
+        </li> -->
+
+        <li id="switch-container">
           <div class="switch">
             <label>
               <span class="solo">Solo Mode</span>
@@ -133,9 +162,9 @@
             placeholder="Room Count"
             required
           />
-          <a class="creater waves-effect waves-light btn create-room"
-            >Create Room</a
-          >
+          <a class="creater-container waves-effect waves-light btn create-room">
+            <div class="creater">Create Room</div>
+          </a>
         </div>
         <table class="table1 centered">
           <thead>
@@ -170,6 +199,7 @@
 
     <script src="/firebase.js"></script>
     <script src="/rooms.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/combine/npm/random-word-generator@0.9.9,npm/random-words@1.1.1"></script>
   </body>
 </html>

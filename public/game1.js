@@ -258,8 +258,15 @@ let warningBox = document.querySelector("#warningBox");
 
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.dataset.id === "next-1") {
-    let targetId = e.target.id;
+  submitList(e);
+});
+
+document.body.addEventListener("keyup", (e) => {
+  e.preventDefault();
+  let targetId = document.querySelector(".next").getAttribute("id");
+
+  if (e.keyCode === 13) {
+    console.log(targetId);
     let inputList = document.querySelectorAll(".input-cell");
 
     let cells = [];
@@ -314,6 +321,62 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+function submitList(e) {
+  if (e.target.dataset.id === "next-1") {
+    let targetId = e.target.id;
+    let inputList = document.querySelectorAll(".input-cell");
+
+    let cells = [];
+
+    let docRef = db.collection("rooms").doc(targetId);
+    updateUserInputList();
+
+    console.log(`INPUT LIST`, inputList);
+
+    const validInputs = Array.from(inputList).filter(
+      (input) => input.value !== ""
+    );
+
+    console.log(`INPUT LENGTH`, inputList.length);
+    console.log(`VALID INPUT`, validInputs);
+
+    if (validInputs.length < inputList.length) {
+      let list_one = {};
+      console.log("need all cells");
+      warningBox.style.display = "block";
+      warningBox.style.height = "fit-content";
+      warningBox.innerHTML = "All cells must be filled before continuing";
+      setTimeout(() => {
+        warningBox.style.display = "none";
+      }, 4000);
+      return false;
+    } else {
+      //here is the problem
+      //the return was getting included in the for each
+      inputList.forEach((cell) => {
+        cells.push(cell.value);
+        console.log(cells);
+        let randomInt = Math.floor(Math.random() * 200);
+
+        list_one = {
+          [randomInt]: cells,
+        };
+      });
+
+      return docRef
+        .set(
+          {
+            list_one,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          window.location = "game2.html";
+          inputForm.reset();
+        });
+    }
+  }
+}
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
 
