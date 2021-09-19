@@ -5,25 +5,22 @@ const userPic = document.querySelector("#photo");
 let currentRoom = document.querySelector("#roomName");
 const auth = firebase.auth();
 
-let directionOne = `Here's another column.`;
-
+const directionOne = `Here's another column.`;
 const directionTwo =
   "Do the same as you did in the previous step: create a column of words.";
 
-function getRandomInt(min, max) {
+const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
     userName.innerHTML = `Hi ${firstName}`;
   } else {
-    console.log(user.displayName.length);
     userName.innerHTML = `<a>Sign Out ROOM NAME</a>`;
-
     userName.innerHTML = "Hi," + "Student";
   }
 
@@ -70,43 +67,6 @@ const showInstructionsTwo = () => {
   }, 3000);
 };
 
-/* const showInstructionsThree = () => {
-  setTimeout(() => {
-    var i = 0;
-    var txt = directionThree;
-    var speed = 25;
-
-    function typeWriter() {
-      if (i < txt.length) {
-        document.getElementById("instruction-three").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-    typeWriter();
-    startTimer();
-    showInstructionsFour();
-  }, 3500);
-}; */
-
-/* const showInstructionsFour = () => {
-  setTimeout(() => {
-    var i = 0;
-    var txt = directionFour;
-    var speed = 25;
-
-    function typeWriter() {
-      if (i < txt.length) {
-        document.getElementById("instruction-four").innerHTML += txt.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-    typeWriter();
-    startTimer();
-  }, 4500);
-}; */
-
 function arraysEqual(a, b) {
   if (a === b) return true;
   if (a == null || b == null) return false;
@@ -123,12 +83,6 @@ function startGame(room) {
   let docRef = "";
   let id = "";
   let wantedList = "";
-  let myCode = "";
-  var usersReference = db.collection("users");
-  let user_name = "";
-  let myIndex = "";
-  let recipients = "";
-  let thirdList = "";
   let list_two = "";
   let defaultList = "";
 
@@ -151,9 +105,6 @@ function startGame(room) {
         .then((doc) => {
           let listTwoData = doc.data().list_two;
 
-          //get items from room
-          let usersRef = db.collection("rooms").doc(docRef);
-
           //all list one inputs from room values only
           const propertyValues = Object.values(listTwoData);
 
@@ -170,8 +121,6 @@ function startGame(room) {
 
           //random list one input that is not ours
           wantedList = allFiltered[randomInt];
-
-          console.log(wantedList);
         })
         .then(() => {
           if (wantedList) {
@@ -199,7 +148,6 @@ function getRoomCountForInput(room) {
     .doc(room)
     .get()
     .then((doc) => {
-      console.log(doc.data());
       let listofInp = document.querySelector("#input-list");
       let html = "";
       let count = 0;
@@ -235,15 +183,14 @@ const magnifyWords = (e) => {
   });
 };
 
-const magnifyWordsWithTab = (list, number) => {
+const magnifyWordsWithTab = (list) => {
   document.addEventListener("keydown", function (e) {
     if (e.keyCode == "9") {
-      console.log(e.target);
       let number = parseInt(e.target.dataset.id) + 1;
       if (e.target.className == "input-cell") {
         list[number].className = "passed-words selected-text";
         number;
-        list.forEach((word, index) => {
+        list.forEach((word) => {
           if (word !== list[number]) {
             word.classList.remove("selected-text");
           }
@@ -260,10 +207,7 @@ document.body.addEventListener("click", function (e) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
-    console.log("here");
-
     let cells = [];
-
     let docRef = db.collection("rooms").doc(targetId);
     updateUserInputList();
 
@@ -271,11 +215,7 @@ document.body.addEventListener("click", function (e) {
       (input) => input.value !== ""
     );
 
-    console.log(`INPUT LENGTH`, inputList.length);
-    console.log(`VALID INPUT`, validInputs);
-
     if (validInputs.length < inputList.length) {
-      let list_three = {};
       warningBox.style.display = "block";
       document.getElementById("inputForm").scrollTop = 0;
 
@@ -314,11 +254,9 @@ document.body.addEventListener("click", function (e) {
 
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
-
   let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
     if (cell.value === "") {
-      console.log("must enter all cells");
       return false;
     } else {
       userRef
@@ -371,7 +309,6 @@ function checkSecond(sec) {
 
 function checkToSeeIfAllHasBeenEntered() {
   let inputList = document.querySelectorAll(".input-cell");
-  let emptywords = [];
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   let wordsRef = db.collection("words").doc("words");
   let words = "";
@@ -383,7 +320,6 @@ function checkToSeeIfAllHasBeenEntered() {
     .then(() => {
       inputList.forEach((word) => {
         let randomInt = Math.floor(Math.random() * 1200);
-        let allWords = [];
 
         if (word.value == "") {
           word.value = words[randomInt];
@@ -405,109 +341,6 @@ function checkToSeeIfAllHasBeenEntered() {
     });
 }
 
-let words = [
-  "trouble",
-  "straight",
-  "improve",
-  "red",
-  "tide",
-  "dish",
-  "dried",
-  "police",
-  "prize",
-  "addition",
-  "tonight",
-  "quick",
-  "child",
-  "apartment",
-  "sister",
-  "could",
-  "feet",
-  "passage",
-  "tobacco",
-  "thou",
-  "leg",
-  "lady",
-  "excellent",
-  "fifth",
-  "lake",
-  "plural",
-  "influence",
-  "hurry",
-  "river",
-  "treated",
-  "slightly",
-  "else",
-  "create",
-  "live",
-  "cool",
-  "ought",
-  "observe",
-  "pass",
-  "attack",
-  "angle",
-  "battle",
-  "touch",
-  "goes",
-  "steady",
-  "discussion",
-  "cloth",
-  "corner",
-  "ordinary",
-  "dozen",
-  "soldier",
-  "pride",
-  "shells",
-  "remarkable",
-  "prevent",
-  "nearly",
-  "movie",
-  "usual",
-  "circle",
-  "cover",
-  "bottle",
-  "machinery",
-  "planet",
-  "product",
-  "nose",
-  "as",
-  "stopped",
-  "hang",
-  "time",
-  "fight",
-  "garden",
-  "bar",
-  "rapidly",
-  "none",
-  "question",
-  "paint",
-  "seven",
-  "language",
-  "dropped",
-  "excellent",
-  "porch",
-  "club",
-  "slip",
-  "powder",
-  "steam",
-  "which",
-  "before",
-  "island",
-  "deeply",
-  "board",
-  "notice",
-  "his",
-  "railroad",
-  "slabs",
-  "particular",
-  "bee",
-  "rule",
-  "sheet",
-  "determine",
-  "afraid",
-  "planned",
-];
-
 let inputContainer = document.getElementById("inputForm");
 let wordList = document.getElementById("word-list-container");
 function inputOnScroll() {
@@ -515,11 +348,7 @@ function inputOnScroll() {
 }
 
 inputContainer.addEventListener("scroll", function () {
-  console.log(`input`, inputContainer.scrollTop);
-  console.log(`word list`, wordList.scrollTop);
-
   if (inputContainer.scrollTop > 150) {
-    console.log("here");
     wordList.scrollTop = wordList.scrollHeight;
   } else {
     wordList.scrollTop = inputContainer.scrollTop;

@@ -4,7 +4,8 @@ const signInStatus = document.querySelector("#user");
 const userPic = document.querySelector("#photo");
 let currentRoom = document.querySelector("#roomName");
 const auth = firebase.auth();
-let directionOne = `Now do the same thing one more time.`;
+const directionOne = `Now do the same thing one more time.`;
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -16,9 +17,7 @@ auth.onAuthStateChanged((user) => {
   if (user && user.photoURL) {
     userName.innerHTML = `Hi ${firstName}`;
   } else {
-    console.log(user.displayName.length);
     userName.innerHTML = `<a>Sign Out ROOM NAME</a>`;
-
     userName.innerHTML = "Hi," + "Student";
   }
 
@@ -47,14 +46,12 @@ const showInstructions = () => {
   }, 2000);
 };
 
-function startGame(room) {
+const startGame = (room) => {
   room = db.collection("users").doc(auth.currentUser.uid);
   let docRef = "";
   let id = "";
-  let thirdList = "";
   let wantedList = "";
   let myCode = "";
-  var usersReference = db.collection("users");
   let user_name = "";
   let myIndex = "";
   let recipients = "";
@@ -73,8 +70,6 @@ function startGame(room) {
       });
     })
     .then(() => {
-      //get words first
-      //get words from this class' list_one only
       db.collection("rooms")
         .doc(docRef)
         .get()
@@ -82,7 +77,6 @@ function startGame(room) {
           let listThreeData = doc.data().list_three;
 
           //get items from room
-          let usersRef = db.collection("rooms").doc(docRef);
 
           //all list one inputs from room values only
           const propertyValues = Object.values(listThreeData);
@@ -100,8 +94,6 @@ function startGame(room) {
 
           //random list one input that is not ours
           wantedList = allFiltered[randomInt];
-
-          console.log(wantedList);
         })
         .then(() => {
           if (wantedList) {
@@ -112,9 +104,9 @@ function startGame(room) {
           }
         });
     });
-}
+};
 
-function listUp(list, secondList) {
+function listUp(list) {
   let inputList = document.querySelector("#word-list");
 
   let html = "";
@@ -129,7 +121,6 @@ function getRoomCountForInput(room) {
     .doc(room)
     .get()
     .then((doc) => {
-      console.log(doc.data());
       let listofInp = document.querySelector("#input-list");
       let html = "";
       let count = 0;
@@ -173,7 +164,7 @@ const magnifyWordsWithTab = (list, number) => {
       if (e.target.className == "input-cell") {
         list[number].className = "passed-words selected-text";
         number;
-        list.forEach((word, index) => {
+        list.forEach((word) => {
           if (word !== list[number]) {
             word.classList.remove("selected-text");
           }
@@ -200,8 +191,6 @@ document.body.addEventListener("click", function (e) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
-    console.log("here");
-
     let cells = [];
 
     let docRef = db.collection("rooms").doc(targetId);
@@ -211,11 +200,7 @@ document.body.addEventListener("click", function (e) {
       (input) => input.value !== ""
     );
 
-    console.log(`INPUT LENGTH`, inputList.length);
-    console.log(`VALID INPUT`, validInputs);
-
     if (validInputs.length < inputList.length) {
-      console.log("need all cells");
       warningBox.style.display = "block";
       document.getElementById("inputForm").scrollTop = 0;
 
@@ -230,7 +215,6 @@ document.body.addEventListener("click", function (e) {
       //the return was getting included in the for each
       inputList.forEach((cell) => {
         cells.push(cell.value);
-        console.log(cells);
         let randomInt = Math.floor(Math.random() * 200);
 
         list_four = {
@@ -259,7 +243,6 @@ function updateUserInputList() {
   let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
     if (cell.value === "") {
-      console.log("must enter all cells");
       return false;
     } else {
       userRef
@@ -310,7 +293,6 @@ function checkSecond(sec) {
 
 function checkToSeeIfAllHasBeenEntered() {
   let inputList = document.querySelectorAll(".input-cell");
-  let emptywords = [];
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   let wordsRef = db.collection("words").doc("words");
   let words = "";
@@ -322,7 +304,6 @@ function checkToSeeIfAllHasBeenEntered() {
     .then(() => {
       inputList.forEach((word) => {
         let randomInt = Math.floor(Math.random() * 1200);
-        let allWords = [];
 
         if (word.value == "") {
           word.value = words[randomInt];
@@ -351,11 +332,7 @@ function inputOnScroll() {
 }
 
 inputContainer.addEventListener("scroll", function () {
-  console.log(`input`, inputContainer.scrollTop);
-  console.log(`word list`, wordList.scrollTop);
-
   if (inputContainer.scrollTop > 150) {
-    console.log("here");
     wordList.scrollTop = wordList.scrollHeight;
   } else {
     wordList.scrollTop = inputContainer.scrollTop;

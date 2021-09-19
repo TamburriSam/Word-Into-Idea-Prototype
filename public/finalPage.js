@@ -5,22 +5,6 @@ const auth = firebase.auth();
 let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
 auth.onAuthStateChanged((user) => {
-  /*  let firstName = user.displayName.split(" ")[0];
-  if (user && user.photoURL) {
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
-  } else {
-    console.log(user.displayName.length);
-
-    userName.innerHTML =
-      "Hello," +
-      "  " +
-      firstName +
-      `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  } */
   loadColumns(auth.currentUser.uid);
   watchForZeroCount();
 });
@@ -51,8 +35,6 @@ const watchForZeroCount = (roomCode) => {
       console.log("Transaction failed: ", error);
     });
 };
-
-/* const li = `<tr><td>${room.name}</td> <td>${room.active_count}/${room.total_count} Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`; */
 
 let allInputs = [];
 let wordBox = document.querySelector("#wordBox");
@@ -121,23 +103,6 @@ function populate(htmlList, dbList) {
       console.log("Transaction failed: ", error);
     });
 }
-
-let symbols = [
-  ".",
-  ",",
-  "?",
-  "!",
-  ":",
-  ":",
-  "-",
-  "_",
-  "*",
-  "&",
-  "%",
-  "$",
-  "#",
-  "@",
-];
 
 /* textArea.addEventListener("keydown", tryit);
  */
@@ -271,10 +236,3 @@ function deleteOnTimeout() {
     });
   }, 7000);
 }
-
-//listener for cccongratulations and encouragement to print to PDF
-//actually maybe make a timout that when this thing is reached it prints the PDF automatically
-// we probably also need a way for users to see their words again so yes, might want to add a profilee addition to the nav where users can see their previous word associations as well as their story if it was completed as set by this listener
-
-//NEED TO ADD A TEST CASE IF USER WIPES ENTIRE BOX- RIGHT NOW EVERYTHING STAYS
-// or if user copys and pastes

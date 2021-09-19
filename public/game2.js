@@ -321,8 +321,6 @@ function startGame() {
 
           //random list one input that is not ours
           wantedList = allFiltered[randomInt];
-
-          console.log(wantedList);
         })
         .then(() => {
           if (wantedList) {
@@ -410,9 +408,6 @@ const magnifyWords = (e) => {
     let passedWords = document.querySelectorAll(".passed-words");
 
     if (e.target.className == "input-cell") {
-      console.log("ok");
-      console.log(e.target.dataset.id);
-      console.log(typeof parseInt(currentNumber));
       passedWords[currentNumber].className = "passed-words selected-text";
       for (i = 0; i < selected.length; i++) {
         selected[i].classList.remove("selected-text");
@@ -427,7 +422,6 @@ const magnifyWords = (e) => {
 const magnifyWordsWithTab = (list, number) => {
   document.addEventListener("keydown", function (e) {
     if (e.keyCode == "9") {
-      console.log(e.target);
       let number = parseInt(e.target.dataset.id) + 1;
       if (e.target.className == "input-cell") {
         list[number].className = "passed-words selected-text";
@@ -449,11 +443,7 @@ function inputOnScroll() {
 }
 
 inputContainer.addEventListener("scroll", function () {
-  console.log(`input`, inputContainer.scrollTop);
-  console.log(`word list`, wordList.scrollTop);
-
   if (inputContainer.scrollTop > 150) {
-    console.log("here");
     wordList.scrollTop = wordList.scrollHeight;
   } else {
     wordList.scrollTop = inputContainer.scrollTop;

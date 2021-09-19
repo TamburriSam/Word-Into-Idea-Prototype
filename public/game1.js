@@ -3,7 +3,11 @@ const userName = document.querySelector("#greetingBox");
 const signInStatus = document.querySelector("#user");
 const userPic = document.querySelector("#photo");
 let currentRoom = document.querySelector("#roomName");
-
+const directionOne = `Here's a list of letters.`;
+const directionTwo =
+  "Replace each letter with a word that you think you might like to write with.";
+const directionThree = `The word can begin with the letter or not.`;
+const directionFour = "Let your mind run free!";
 const db = firebase.firestore();
 
 const auth = firebase.auth();
@@ -39,18 +43,10 @@ const getCurrentRoom = () => {
       }
     })
     .then(() => {
-      console.log(roomName.substr(0, 4));
-
       currentRoom.innerHTML = roomName;
     });
 };
 
-let directionOne = `Here's a list of letters.`;
-
-const directionTwo =
-  "Replace each letter with a word that you think you might like to write with.";
-const directionThree = `The word can begin with the letter or not.`;
-const directionFour = "Let your mind run free!";
 const showInstructions = () => {
   setTimeout(() => {
     var i = 0;
@@ -101,7 +97,6 @@ const showInstructionsThree = () => {
       }
     }
     typeWriter();
-    //startTimer();
     showInstructionsFour();
   }, 3500);
 };
@@ -137,8 +132,6 @@ function startGame() {
     return transaction
       .get(room)
       .then((doc) => {
-        console.log(doc.data());
-
         docRef = doc.data().rooms_joined;
         id = doc.id;
       })
@@ -149,8 +142,6 @@ function startGame() {
           .then((doc) => {
             populateAlphabet(docRef);
             let usersRef = db.collection("rooms").doc(docRef);
-            /*             getUsers(usersRef);
-             */
             let listofInp = document.querySelector("#input-list");
             let html = "";
 
@@ -171,14 +162,10 @@ function shuffle(array) {
   var currentIndex = array.length,
     randomIndex;
 
-  console.log(array.length);
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],
@@ -193,8 +180,6 @@ function populateAlphabet() {
   let roomCode = "";
   let alphabetList = document.querySelector("#word-list");
   let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-
-  console.log(alphabet);
 
   return db
     .runTransaction((transaction) => {
@@ -212,7 +197,6 @@ function populateAlphabet() {
 
           let html = "";
           alphabet.forEach((letter) => {
-            console.log(letter);
             html += `<li class="passed-words">${letter}</li> <hr>`;
           });
           alphabetList.innerHTML = html;
@@ -222,36 +206,26 @@ function populateAlphabet() {
       console.log("Transaction failed: ", error);
     })
     .then((e) => {
-      console.log("here");
       magnifyWords(e);
     });
 }
 
-//MAYBE LETS SAVE THE DATA UNDER USER
 function getUsers(room) {
   let inputList = document.querySelector("#user-list");
   inputList.style.display = "block";
-  let html;
-  //display the usernames
-  //but we want to set up a listener
 
   room.onSnapshot((snapshot) => {
     let html = "";
     snapshot.data().users.forEach((user) => {
-      //GOTTA TAKE OUT THE ZERO
       let randomInt = Math.floor(Math.random() * 19) + 1;
-      console.log(randomInt);
       html += `<li class="profile-holder"> <img
       class="profilepic"
       src="logos/icons/${randomInt}.png"
       alt=""
     />${user}     </li>`;
-      console.log(user);
     });
     inputList.innerHTML = html;
   });
-
-  console.log(room);
 }
 
 let warningBox = document.querySelector("#warningBox");
@@ -266,7 +240,6 @@ document.body.addEventListener("keyup", (e) => {
   let targetId = document.querySelector(".next").getAttribute("id");
 
   if (e.keyCode === 13) {
-    console.log(targetId);
     let inputList = document.querySelectorAll(".input-cell");
 
     let cells = [];
@@ -274,18 +247,12 @@ document.body.addEventListener("keyup", (e) => {
     let docRef = db.collection("rooms").doc(targetId);
     updateUserInputList();
 
-    console.log(`INPUT LIST`, inputList);
-
     const validInputs = Array.from(inputList).filter(
       (input) => input.value !== ""
     );
 
-    console.log(`INPUT LENGTH`, inputList.length);
-    console.log(`VALID INPUT`, validInputs);
-
     if (validInputs.length < inputList.length) {
       let list_one = {};
-      console.log("need all cells");
       warningBox.style.display = "block";
       warningBox.style.height = "fit-content";
       warningBox.innerHTML = "All cells must be filled before continuing";
@@ -294,11 +261,8 @@ document.body.addEventListener("keyup", (e) => {
       }, 4000);
       return false;
     } else {
-      //here is the problem
-      //the return was getting included in the for each
       inputList.forEach((cell) => {
         cells.push(cell.value);
-        console.log(cells);
         let randomInt = Math.floor(Math.random() * 200);
 
         list_one = {
@@ -331,18 +295,11 @@ function submitList(e) {
     let docRef = db.collection("rooms").doc(targetId);
     updateUserInputList();
 
-    console.log(`INPUT LIST`, inputList);
-
     const validInputs = Array.from(inputList).filter(
       (input) => input.value !== ""
     );
 
-    console.log(`INPUT LENGTH`, inputList.length);
-    console.log(`VALID INPUT`, validInputs);
-
     if (validInputs.length < inputList.length) {
-      let list_one = {};
-      console.log("need all cells");
       warningBox.style.display = "block";
       warningBox.style.height = "fit-content";
       warningBox.innerHTML = "All cells must be filled before continuing";
@@ -355,7 +312,6 @@ function submitList(e) {
       //the return was getting included in the for each
       inputList.forEach((cell) => {
         cells.push(cell.value);
-        console.log(cells);
         let randomInt = Math.floor(Math.random() * 200);
 
         list_one = {
@@ -384,7 +340,6 @@ function updateUserInputList() {
   inputList.forEach((cell) => {
     if (cell.value === "") {
       //maybe red
-      console.log("must enter all cells");
       return false;
     } else {
       userRef
@@ -457,113 +412,7 @@ function checkToSeeIfAllHasBeenEntered() {
   });
 }
 
-let words = [
-  "trouble",
-  "straight",
-  "improve",
-  "red",
-  "tide",
-  "dish",
-  "dried",
-  "police",
-  "prize",
-  "addition",
-  "tonight",
-  "quick",
-  "child",
-  "apartment",
-  "sister",
-  "could",
-  "feet",
-  "passage",
-  "tobacco",
-  "thou",
-  "leg",
-  "lady",
-  "excellent",
-  "fifth",
-  "lake",
-  "plural",
-  "influence",
-  "hurry",
-  "river",
-  "treated",
-  "slightly",
-  "else",
-  "create",
-  "live",
-  "cool",
-  "ought",
-  "observe",
-  "pass",
-  "attack",
-  "angle",
-  "battle",
-  "touch",
-  "goes",
-  "steady",
-  "discussion",
-  "cloth",
-  "corner",
-  "ordinary",
-  "dozen",
-  "soldier",
-  "pride",
-  "shells",
-  "remarkable",
-  "prevent",
-  "nearly",
-  "movie",
-  "usual",
-  "circle",
-  "cover",
-  "bottle",
-  "machinery",
-  "planet",
-  "product",
-  "nose",
-  "as",
-  "stopped",
-  "hang",
-  "time",
-  "fight",
-  "garden",
-  "bar",
-  "rapidly",
-  "none",
-  "question",
-  "paint",
-  "seven",
-  "language",
-  "dropped",
-  "excellent",
-  "porch",
-  "club",
-  "slip",
-  "powder",
-  "steam",
-  "which",
-  "before",
-  "island",
-  "deeply",
-  "board",
-  "notice",
-  "his",
-  "railroad",
-  "slabs",
-  "particular",
-  "bee",
-  "rule",
-  "sheet",
-  "determine",
-  "afraid",
-  "planned",
-];
-
 inputContainer.addEventListener("scroll", function () {
-  console.log(`input`, inputContainer.scrollTop);
-  console.log(`word list`, wordList.scrollTop);
-
   if (inputContainer.scrollTop > 150) {
     console.log("here");
     wordList.scrollTop = wordList.scrollHeight;
@@ -587,7 +436,6 @@ const magnifyWords = (e) => {
     let passedWords = document.querySelectorAll(".passed-words");
 
     if (e.target.className == "input-cell") {
-      console.log("ok");
       passedWords[currentNumber].className = "passed-words selected-text";
       for (i = 0; i < selected.length; i++) {
         selected[i].classList.remove("selected-text");
@@ -602,7 +450,6 @@ const magnifyWords = (e) => {
 const magnifyWordsWithTab = (list, number) => {
   document.addEventListener("keydown", function (e) {
     if (e.keyCode == "9") {
-      console.log(e.target);
       let number = parseInt(e.target.dataset.id) + 1;
       if (e.target.className == "input-cell") {
         list[number].className = "passed-words selected-text";
