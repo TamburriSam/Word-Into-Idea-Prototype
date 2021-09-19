@@ -33,7 +33,6 @@ function populateListOneOnCreation() {
     return transaction
       .get(userRef)
       .then((doc) => {
-        console.log(`yoooo`, doc.data().rooms_joined);
         roomCode = doc.data().rooms_joined;
       })
       .catch((err) => {
@@ -44,10 +43,7 @@ function populateListOneOnCreation() {
           .doc(roomCode)
           .get()
           .then((doc) => {
-            console.log(`DATAAAAA`, doc.data());
             roomCount = doc.data().total_count;
-
-            console.log(`ROOM COUTN`, parseInt(roomCount));
           })
           .catch((err) => {
             console.log("err", err);
@@ -55,18 +51,13 @@ function populateListOneOnCreation() {
       })
       .then(() => {
         let roomRef = db.collection("rooms").doc(roomCode);
-        console.log("ROOMREF", roomCode);
         let wordsRef = db.collection("words").doc("words");
 
         wordsRef
           .get()
           .then((doc) => {
-            console.log(doc.data().words);
-
             for (let i = 0; i < 26; i++) {
               let randomInt = Math.floor(Math.random() * 1200);
-
-              console.log(`random int`, randomInt);
 
               let randomInt1 = Math.floor(Math.random() * 1200);
               let randomInt2 = Math.floor(Math.random() * 1200);
@@ -107,9 +98,7 @@ function populateListOneOnCreation() {
 
         console.log("fetched here first");
       })
-      .then(() => {
-        console.log("YEEHAH");
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(`err on line 69`, err);
       });
@@ -135,7 +124,6 @@ function algorithm(num, position) {
   }
 
   numArray[numArray.length - 5];
-  console.log(huhArray);
 
   huhArray[huhArray.length - 5][3] = 1;
   huhArray[huhArray.length - 4][2] = 1;
@@ -150,11 +138,7 @@ function algorithm(num, position) {
   huhArray[huhArray.length - 2][2] = 3;
   huhArray[huhArray.length - 2][3] = 4;
 
-  console.log(huhArray[huhArray.length - 4][3]);
   let wantedArr = huhArray[position];
-
-  console.log(`TARGET NUM`);
-  console.log(wantedArr);
 
   var userRef = db.collection("users").doc(auth.currentUser.uid);
 
@@ -178,8 +162,6 @@ function findIndex() {
   let roomCount = "";
   let position = "";
 
-  console.log(`doc`, auth.currentUser.uid);
-
   return db
     .runTransaction((transaction) => {
       return transaction.get(room).then((doc) => {
@@ -189,27 +171,19 @@ function findIndex() {
       });
     })
     .then(() => {
-      console.log("done", roomCode);
-
       db.collection("rooms")
         .doc(roomCode)
         .get()
         .then((doc) => {
           position = doc.data().users.length;
           roomCount = doc.data().total_count;
-          console.log(`POSITION`, position);
         });
     })
     .then(() => {
       db.collection("users")
         .doc(auth.currentUser.uid)
         .get()
-        .then((doc) => {
-          console.log(`DOC DOC `, doc.data());
-          console.log("POSITION", position);
-          console.log(roomCount, "roomcount");
-          console.log(typeof position);
-          //algorithm(roomCount, position);
+        .then(() => {
           addIndexToUserProfile(position);
         });
     })
@@ -243,8 +217,6 @@ auth.onAuthStateChanged((user) => {
 
     photoBox.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
-    console.log(user.displayName.length);
-
     userName.innerHTML = firstName;
     photoBox.innerHTML = `<img class="photoURL" src="logos/user.png" alt=""/>`;
   }
@@ -264,26 +236,17 @@ const setUpRooms = (data) => {
     let html = "";
     data.forEach((doc) => {
       if (doc.data().users.includes(auth.currentUser.displayName)) {
-        console.log("TRUEEEEE");
         rejoin();
       }
       roomFullDisableButton();
 
       const room = doc.data();
 
-      console.log(doc.id);
-      //console.log("Iterated snapshot", room);
-      /* const li = `<li class="room-info"><div>${room.name}</div> ${room.active_count}/${room.total_count} Active<a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </li> <br>
-      `; */
-
       if (room.name.length < 22) {
-        console.log(room.name);
         const li = `<tr><td>${room.name}</td> <td>${room.active_count}/${room.total_count} Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
-
         html += li;
       } else {
         const li = `<tr><td>Solo Room</td> <td>One Player Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
-
         html += li;
       }
       //add event listener that ties the room name with the name in database
@@ -322,7 +285,7 @@ document.body.addEventListener("click", function (e) {
       })
       .then(() => {
         console.log("user added");
-        console.log(id);
+
         watchForCount(id);
         findIndex();
       })
@@ -341,8 +304,6 @@ function roomFullDisableButton() {
           document.getElementById(doc.id).disabled = true;
           document.getElementById(doc.id).classList.add("disabled");
           document.getElementById(doc.id).innerHTML = "In Session";
-
-          console.log(document.getElementById(doc.id));
         } else {
           return false;
         }
@@ -351,7 +312,6 @@ function roomFullDisableButton() {
 }
 
 function watchForCount(room) {
-  console.log("IDIDIDIDIDID");
   let docref = db.collection("rooms").doc(room);
   let inputList = document.querySelector("#user-list");
   let fastfactBox = document.querySelector("#fast-facts");
@@ -364,13 +324,11 @@ function watchForCount(room) {
   return db
     .runTransaction((transaction) => {
       return transaction.get(docref).then((doc) => {
-        console.log(doc.data().users.includes(auth.currentUser.displayName));
         //right here we need to add something else that denies user another click if their username is found
         if (
           doc.data().active_count < doc.data().total_count &&
           !doc.data().users.includes(auth.currentUser.displayName)
         ) {
-          console.log("HUH232222222");
           let newCount = doc.data().active_count + 1;
           transaction.update(docref, { active_count: newCount });
           transaction.update(docref, {
@@ -378,16 +336,13 @@ function watchForCount(room) {
               firebase.auth().currentUser.displayName
             ),
           });
-          console.log("just checking ");
           checkForLetter();
         } else if (doc.data().users.includes(auth.currentUser.displayName)) {
-          console.log("didnt go up");
           checkForLetter();
         }
       });
     })
     .then((doc) => {
-      console.log("done HERE");
       getUsers(docref);
       isRoomFull(room);
     })
@@ -399,8 +354,6 @@ function watchForCount(room) {
 function getUsers(room) {
   let inputList = document.querySelector("#user-list");
 
-  let html;
-  console.log("HAR");
   //display the usernames
   //but we want to set up a listener
 
@@ -409,13 +362,11 @@ function getUsers(room) {
     snapshot.data().users.forEach((user) => {
       //GOTTA TAKE OUT THE ZERO
       let randomInt = Math.floor(Math.random() * 19) + 1;
-      console.log(randomInt);
       html += `<li class="profile-holder"> <img
       class="profilepic"
       src="logos/icons/${randomInt}.png"
       alt=""
     />${user}     </li>`;
-      console.log(user);
     });
     inputList.innerHTML = html;
   });
@@ -425,7 +376,6 @@ function startCountdown(seconds) {
   let counter = seconds;
 
   const interval = setInterval(() => {
-    console.log(counter);
     counter--;
 
     document.querySelector(
@@ -465,16 +415,9 @@ const checkForLetter = () => {
     .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
-      console.log(`HERE WE GO`, doc.data());
-
       if (doc.data().favorite_letter == "") {
         makeItModal();
-        console.log(`HERE WE GsO`, doc.data());
-
-        console.log(doc.data().favorite_letter);
       } else {
-        console.log(doc.data().favorite_letter);
-
         console.log("booyah");
         return false;
       }
@@ -491,7 +434,6 @@ function addLetterToRoomDb() {
       });
     })
     .then(() => {
-      console.log("done", roomCode);
       let docRef = db.collection("rooms").doc(roomCode);
 
       // Set the "capital" field of the city 'DC'
@@ -535,8 +477,7 @@ function makeItModal() {
   let letterSubmit = document.querySelector("#letterSubmit");
   let blurb = document.querySelector("#blurb");
   let inputContainer = document.querySelector("#inputContainer");
-  /*   modal.style.display = "block";
-   */ console.log("clicked");
+
   fastfactBox.style.display = "inline-block";
   document.getElementById("container").style.textAlign = "center";
   let favoriteLetter = "";
@@ -552,7 +493,6 @@ function makeItModal() {
         .then(() => {
           addLetterToRoomDb();
 
-          console.log("fav letter successfully added");
           modalContent.innerHTML =
             "Thank You. The game will begin once all classmates have entered the room.";
           setTimeout(() => {
@@ -579,22 +519,10 @@ function makeItModal() {
   });
 }
 
-// When the user clicks on <span> (x), close the modal
-
-// When the user clicks anywhere outside of the modal, close it
-/* window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}; */
-
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   var roomRef = db.collection("rooms");
   let roomCode = "";
-
-  // Uncomment to initialize the doc.
-  // sfDocRef.set({ population: 0 });
 
   return db
     .runTransaction((transaction) => {
@@ -607,9 +535,7 @@ function populateAlphabet() {
       db.collection("rooms")
         .doc(roomCode)
         .get()
-        .then((doc) => {
-          console.log(doc.data());
-        });
+        .then((doc) => {});
     })
     .catch((error) => {
       console.log("Transaction failed: ", error);
@@ -627,10 +553,7 @@ createNewRoom.addEventListener("click", function () {
 createForm.addEventListener("click", () => {
   console.log("booyah");
 
-  console.log(typeof parseInt(roomCount.value));
-
   if (roomCount.value < 1 || typeof parseInt(roomCount.value) !== "number") {
-    console.log(false);
     warningBox2.style.display = "block";
   } else {
     //create new record in firestore database
@@ -646,8 +569,6 @@ createForm.addEventListener("click", () => {
         list_four: [],
       })
       .then(() => {
-        /*  rejoin();
-        roomFullDisableButton(); */
         createBox.style.display = "none";
         warningBox2.style.display = "none";
       })
@@ -664,12 +585,10 @@ function rejoin() {
     .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
-      console.log(doc.data());
-
       if (doc.data() && doc.data().rooms_joined.length > 1) {
         document.getElementById(doc.data().rooms_joined).innerHTML = "Rejoin";
       } else {
-        console.log("do nothing");
+        console.log(".");
       }
     });
 }
@@ -692,7 +611,6 @@ const createNewSoloRoom = (id) => {
       list_four: [],
     })
     .then(() => {
-      console.log("hello");
       let wordsRef = db.collection("words").doc("words");
       let roomRef = db.collection("rooms").doc(auth.currentUser.uid);
       var userRef = db.collection("users").doc(auth.currentUser.uid);
@@ -704,13 +622,8 @@ const createNewSoloRoom = (id) => {
       wordsRef
         .get()
         .then((doc) => {
-          console.log(doc.data().words);
-
           for (let i = 0; i < 26; i++) {
             let randomInt = Math.floor(Math.random() * 1200);
-
-            console.log(`random int`, randomInt);
-
             let randomInt1 = Math.floor(Math.random() * 1200);
             let randomInt2 = Math.floor(Math.random() * 1200);
             let randomInt3 = Math.floor(Math.random() * 1200);
@@ -782,17 +695,12 @@ function setRoom() {
     .then(() => {
       let liveRoomBox = document.querySelector(".liveRoom");
       let fastfactBox = document.querySelector("#fast-facts");
-      let inputList = document.querySelector("#user-list");
-      let inputHolder = document.querySelector(".user-box");
 
       liveRoomBox.style.display = "none";
       fastfactBox.style.display = "block";
-      /*   inputHolder.style.display = "block";
-      inputList.style.display = "block"; */
       makeItModal();
     })
     .then(() => {
-      /* startCountdown(9); */
       setTimeout(() => {
         mockUsers();
       }, 2000);
@@ -825,13 +733,8 @@ function mockUsers() {
       alt=""
     />Live Student ${i}</li>`;
       i++;
-      console.log(i);
     } else {
       return false;
     }
   }, 1000);
-
-  console.log(user);
-
-  //GOTTA TAKE OUT THE ZERO
 }
