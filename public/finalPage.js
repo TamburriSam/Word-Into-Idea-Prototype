@@ -1,9 +1,11 @@
 const db = firebase.firestore();
 const userName = document.querySelector("#user");
-
 const auth = firebase.auth();
 let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
+let allInputs = [];
+let wordBox = document.querySelector("#wordBox");
+
 auth.onAuthStateChanged((user) => {
   loadColumns(auth.currentUser.uid);
   watchForZeroCount();
@@ -13,20 +15,15 @@ const watchForZeroCount = (roomCode) => {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   return db
     .runTransaction((transaction) => {
-      // This code may get re-run multiple times if there are conflicts.
       return transaction
         .get(userRef)
         .then((doc) => {
           roomCode = doc.data().rooms_joined;
-
-          console.log(doc.data());
         })
         .then(() => {
           let docRef = db.collection("rooms").doc(roomCode);
-
           docRef.onSnapshot((snapshot) => {
             if (snapshot.data().active_count < 1) {
-              console.log("here");
             }
           });
         });
@@ -36,8 +33,6 @@ const watchForZeroCount = (roomCode) => {
     });
 };
 
-let allInputs = [];
-let wordBox = document.querySelector("#wordBox");
 function loadColumns(id) {
   let firstCol = document.getElementById("tbody1");
   let secondCol = document.getElementById("tbody2");
@@ -52,8 +47,6 @@ function loadColumns(id) {
       let list2 = doc.data().list_two_input;
       let list3 = doc.data().list_three_input;
       let list4 = doc.data().list_four_input;
-
-      console.log(list1);
 
       allInputs = [list1, list2, list3, list4];
       allInputs = allInputs.flat();
@@ -78,9 +71,7 @@ function populate(htmlList, dbList) {
   return db
     .runTransaction((transaction) => {
       return transaction.get(userRef).then((doc) => {
-        console.log(doc.data());
         let html = "";
-        console.log(dbList);
         dbList.forEach((word) => {
           html += `<input class="word-check" type="checkbox"><tr><td class="listItems">${word}</td></tr>`;
         });
@@ -96,8 +87,6 @@ function populate(htmlList, dbList) {
           listItems[index].classList.add("listItemComplete");
         });
       });
-
-      console.log(listItems.length);
     })
     .catch((error) => {
       console.log("Transaction failed: ", error);

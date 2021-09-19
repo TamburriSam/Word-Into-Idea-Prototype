@@ -212,9 +212,9 @@ let photoBox = document.querySelector("#photoURL");
 
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
+
   if (user && user.photoURL) {
     userName.innerHTML = firstName;
-
     photoBox.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
     userName.innerHTML = firstName;
@@ -224,9 +224,6 @@ auth.onAuthStateChanged((user) => {
   db.collection("rooms").onSnapshot((snapshot) => {
     setUpRooms(snapshot.docs);
   });
-  /* roomFullDisableButton();
-
-  rejoin(); */
 });
 
 const setUpRooms = (data) => {
@@ -249,7 +246,6 @@ const setUpRooms = (data) => {
         const li = `<tr><td>Solo Room</td> <td>One Player Active </td> <td> <a data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</a> </td></tr><br>`;
         html += li;
       }
-      //add event listener that ties the room name with the name in database
     });
     r.innerHTML = html;
   } else {
@@ -355,12 +351,10 @@ function getUsers(room) {
   let inputList = document.querySelector("#user-list");
 
   //display the usernames
-  //but we want to set up a listener
 
   room.onSnapshot((snapshot) => {
     let html = "";
     snapshot.data().users.forEach((user) => {
-      //GOTTA TAKE OUT THE ZERO
       let randomInt = Math.floor(Math.random() * 19) + 1;
       html += `<li class="profile-holder"> <img
       class="profilepic"
@@ -726,7 +720,6 @@ function mockUsers() {
   setInterval(() => {
     if (i < 11) {
       let randomInt = Math.floor(Math.random() * 19) + 1;
-
       inputList.innerHTML += `<li class="profile-holder"> <img
       class="profilepic"
       src="logos/icons/${randomInt}.png"
