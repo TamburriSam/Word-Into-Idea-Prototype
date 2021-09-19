@@ -274,7 +274,7 @@ nav {
 
 .collaborative {
   color: #399e3c9a !important;
-  font-size: 16px;
+  font-size: 8px;
   font-weight: 500;
 }
 #user-list {
@@ -1101,4 +1101,9 @@ display: inline;
 
 .switch label input[type=checkbox]:checked+.lever:after {
   background-color: #399e3c !important;
+}
+
+
+#notification{
+  font-size: 10px;
 }
