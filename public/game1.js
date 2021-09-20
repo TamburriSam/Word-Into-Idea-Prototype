@@ -9,10 +9,10 @@ const directionTwo =
 const directionThree = `The word can begin with the letter or not.`;
 const directionFour = "Let your mind run free!";
 const db = firebase.firestore();
-
 const auth = firebase.auth();
 let inputContainer = document.getElementById("inputForm");
 let wordList = document.getElementById("word-list-container");
+
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
   if (user && user.photoURL) {
@@ -26,6 +26,10 @@ auth.onAuthStateChanged((user) => {
 
   showInstructions();
   startGame();
+});
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  document.getElementById("input-list").style.width = "29vw";
 });
 
 const getCurrentRoom = () => {
@@ -122,9 +126,8 @@ const showInstructionsFour = () => {
 //can use transaction here since we aren't changing anything
 //i actually think we can use transactions if we just take it slow
 
-function startGame() {
-  room = db.collection("users").doc(auth.currentUser.uid);
-  let count = 0;
+const startGame = () => {
+  let room = db.collection("users").doc(auth.currentUser.uid);
 
   let docRef = "";
   let id = "";
@@ -141,25 +144,13 @@ function startGame() {
           .get()
           .then((doc) => {
             populateAlphabet(docRef);
-            let usersRef = db.collection("rooms").doc(docRef);
-            let listofInp = document.querySelector("#input-list");
-            let html = "";
-
-            for (let i = 0; i < 26; i++) {
-              html += `<li><input type="text" data-id="${count}" placeholder="enter word" class="input-cell" </input> </li>`;
-              count++;
-            }
-
-            let buttonContainer = document.querySelector("#button-container");
-            buttonContainer.innerHTML = `<button data-id="next-1"class="next" id="${doc.id}">Continue</button>`;
-            listofInp.innerHTML = html;
           });
       });
   });
-}
+};
 
 function shuffle(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
     randomIndex;
 
   while (0 !== currentIndex) {
@@ -178,8 +169,9 @@ function shuffle(array) {
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
   let roomCode = "";
-  let alphabetList = document.querySelector("#word-list");
   let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  let listofInp = document.querySelector("#input-list");
+  let count = 0;
 
   return db
     .runTransaction((transaction) => {
@@ -194,19 +186,19 @@ function populateAlphabet() {
         .get()
         .then((doc) => {
           shuffle(alphabet);
-
+          console.log("dov", doc.id);
           let html = "";
           alphabet.forEach((letter) => {
-            html += `<li class="passed-words">${letter}</li> <hr>`;
+            html += `<li><input type="text" data-id="${count}" placeholder="${letter}" class="input-cell" </input> </li>`;
+            count++;
           });
-          alphabetList.innerHTML = html;
+          let buttonContainer = document.querySelector("#button-container");
+          buttonContainer.innerHTML = `<button data-id="next-1"class="next" id="${doc.id}">Continue</button>`;
+          listofInp.innerHTML = html;
         });
     })
     .catch((error) => {
       console.log("Transaction failed: ", error);
-    })
-    .then((e) => {
-      magnifyWords(e);
     });
 }
 
@@ -394,7 +386,6 @@ function checkToSeeIfAllHasBeenEntered() {
   inputList.forEach((word) => {
     let randomInt = Math.floor(Math.random() * 90);
 
-    console.log(`word count`, inputList.length);
     if (word.value === "") {
       word.value = words[randomInt];
       emptywords.push(word.value);
@@ -411,55 +402,3 @@ function checkToSeeIfAllHasBeenEntered() {
       });
   });
 }
-
-inputContainer.addEventListener("scroll", function () {
-  if (inputContainer.scrollTop > 150) {
-    console.log("here");
-    wordList.scrollTop = wordList.scrollHeight;
-  } else {
-    wordList.scrollTop = inputContainer.scrollTop;
-  }
-});
-
-wordList.addEventListener("scroll", function () {
-  if (wordList.scrollTop < 150) {
-    inputContainer.scrollTop = wordList.scrollTop;
-  } else {
-    inputContainer.scrollTop = inputContainer.scrollHeight;
-  }
-});
-
-const magnifyWords = (e) => {
-  document.body.addEventListener("click", function (e) {
-    let selected = document.querySelectorAll(".selected-text");
-    let currentNumber = e.target.dataset.id;
-    let passedWords = document.querySelectorAll(".passed-words");
-
-    if (e.target.className == "input-cell") {
-      passedWords[currentNumber].className = "passed-words selected-text";
-      for (i = 0; i < selected.length; i++) {
-        selected[i].classList.remove("selected-text");
-        selected[i].className = "passed-words";
-      }
-    }
-
-    magnifyWordsWithTab(passedWords, currentNumber);
-  });
-};
-
-const magnifyWordsWithTab = (list, number) => {
-  document.addEventListener("keydown", function (e) {
-    if (e.keyCode == "9") {
-      let number = parseInt(e.target.dataset.id) + 1;
-      if (e.target.className == "input-cell") {
-        list[number].className = "passed-words selected-text";
-        number;
-        list.forEach((word, index) => {
-          if (word !== list[number]) {
-            word.classList.remove("selected-text");
-          }
-        });
-      }
-    }
-  });
-};

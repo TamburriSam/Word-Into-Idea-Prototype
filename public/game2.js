@@ -457,3 +457,53 @@ wordList.addEventListener("scroll", function () {
     inputContainer.scrollTop = inputContainer.scrollHeight;
   }
 });
+
+document.body.addEventListener("keyup", (e) => {
+  e.preventDefault();
+  let targetId = document.querySelector(".next").getAttribute("id");
+
+  if (e.keyCode === 13) {
+    let inputList = document.querySelectorAll(".input-cell");
+
+    let cells = [];
+
+    let docRef = db.collection("rooms").doc(targetId);
+    updateUserInputList();
+
+    const validInputs = Array.from(inputList).filter(
+      (input) => input.value !== ""
+    );
+
+    if (validInputs.length < inputList.length) {
+      let list_one = {};
+      warningBox.style.display = "block";
+      warningBox.style.height = "fit-content";
+      warningBox.innerHTML = "All cells must be filled before continuing";
+      setTimeout(() => {
+        warningBox.style.display = "none";
+      }, 4000);
+      return false;
+    } else {
+      inputList.forEach((cell) => {
+        cells.push(cell.value);
+        let randomInt = Math.floor(Math.random() * 200);
+
+        list_one = {
+          [randomInt]: cells,
+        };
+      });
+
+      return docRef
+        .set(
+          {
+            list_one,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          window.location = "game2.html";
+          inputForm.reset();
+        });
+    }
+  }
+});
