@@ -392,7 +392,7 @@ body {
 /* Continue Button */
 #button-container {
   position: relative;
-  left: 47px;
+  left: 72px;
   width: 200px;
 
   bottom: -12px;
@@ -450,4 +450,177 @@ body {
   font-size: 16px;
   background-color: #399e3c9a;
   border-radius: 5px;
+}
+
+@media screen and (min-width: 100px) and (max-width: 812px) {
+  #roomNav {
+    width: unset;
+    justify-content: unset;
+  }
+
+  #nav-links {
+    display: none;
+  }
+
+  #main-content {
+    display: flex;
+    flex-direction: column;
+  }
+  #mainLogo {
+    position: relative;
+    border-radius: 10px;
+  }
+  #greetingBox {
+    display: none;
+  }
+
+  #input-list {
+    width: 100%;
+  }
+
+  #inputForm {
+    /* position: relative; */
+    position: absolute;
+    top: 25px;
+  }
+  .next {
+    color: white !important;
+    position: absolute;
+  }
+
+  #instruction-text {
+    background-color: #ffffffb8;
+    /* background-color: transparent; */
+    padding: 20px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1;
+    font-size: 13px;
+    text-align: center;
+    /* letter-spacing: 2px; */
+    height: 120px;
+    font-weight: 300;
+    z-index: 100;
+    border-radius: 5px;
+    color: black;
+    /* margin: auto; */
+    /* top: 10px; */
+    font-weight: 600;
+    width: 70vw;
+    margin: auto;
+    right: 3px;
+    top: 3px;
+  }
+
+  #logoAndNameContainer {
+    position: absolute;
+    left: 1px;
+    top: 3px;
+    border-radius: 5px;
+    /* border: 2px solid white; */
+    width: 50px;
+    height: 50px;
+  }
+
+  #roomName {
+    display: none;
+  }
+
+  #list-container {
+    width: 90vw;
+    margin: auto;
+    top: 35px;
+    right: unset;
+  }
+
+  #timer {
+    top: 0px;
+    width: 45px;
+    text-align: center;
+    box-shadow: unset !important;
+    font-size: 16px;
+    /* height: 43px; */
+    height: 35px;
+    left: -4px;
+    line-height: 1;
+    position: absolute;
+  }
+
+  #timer-container {
+    margin-top: 29px;
+    width: 54px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    box-shadow: unset;
+    right: 0;
+  }
+  #logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    /* position: relative; */
+    max-width: var(--nav-container-width-sm);
+    /* width: 173px; */
+    /* border-right: 1px solid green; */
+    /* background-color: #0000008c; */
+    /* border: 2px solid #399e3c9a; */
+  }
+
+  #user-container {
+    display: none;
+  }
+
+  #inputForm {
+    width: 150px;
+  }
+  #word-list {
+    width: unset;
+  }
+  #word-list li {
+    font-size: 10px;
+  }
+  #word-list-container {
+    width: 150px;
+  }
+  #bottom-logo {
+    width: 100px;
+  }
+
+  #instruction-text {
+    font-size: 12px;
+  }
+
+  #button-container {
+    text-align: center;
+    left: 29px;
+  }
+}
+
+/* Bigger Screens */
+@media screen and (min-width: 1400px) and (max-width: 2000px) {
+  #word-list {
+    width: 400px;
+  }
+
+  #input-list {
+    padding: 10px;
+    width: 400px;
+  }
+
+  #inputForm {
+    width: 400px;
+  }
+
+  #button-container {
+    position: relative;
+    /* left: 47px; */
+    left: unset;
+    text-align: center;
+    width: 400px;
+    bottom: -12px;
+  }
 }

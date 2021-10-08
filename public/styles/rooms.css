@@ -456,6 +456,11 @@ height: 33px;
   display: none;
 }
 
+#solobtn{
+  display: none;
+
+}
+
 .creater {
   border-radius: 5px !important;
   background-color: white !important;
@@ -776,6 +781,7 @@ div#rooms {
   #nav-links {
     display: none;
   }
+  
 
    #user-info {
     width:161px;}
@@ -795,6 +801,7 @@ div#rooms {
     display: block;
     padding: 10px;
   }
+  
 
   .input-cell {
     width: 100%;
@@ -819,6 +826,16 @@ div#rooms {
     top: 3px;
   }
 
+  #solobtn {
+    display: block;
+    background-color: #399e3ca9 !important;
+    border: 3px solid #fff7f7 !important;
+    color: black;
+    border-radius: 5px;
+    width: 110px !important;
+    line-height: 2.6;
+    cursor: pointer;
+}
   #fast-facts {
     width: 60vw;
     font-family: "Montserrat", sans-serif !important;
@@ -871,9 +888,6 @@ div#rooms {
     margin: auto;
   } 
 
-  #createNewRoom {
-    height: 30px !important;
-  }
 
   #friendsOnline {
     display: flex;

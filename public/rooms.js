@@ -19,6 +19,66 @@ toggleSwitch.addEventListener("click", function () {
   }
 });
 
+function getRandomWordsForDB(roomcode) {
+  let roomRef = db.collection("rooms").doc(roomcode);
+  let wordsRef = db.collection("words").doc("words");
+  let roomOneArray = [];
+  let roomTwoArray = [];
+  let roomThreeArray = [];
+  let roomFourArray = [];
+  let numbers = [];
+  let wordsForRoom = [];
+
+  for (let i = 0; i < 130; i++) {
+    randomInt = Math.floor(Math.random() * 1200);
+
+    if (!numbers.includes(randomInt)) {
+      numbers.push(randomInt);
+    }
+
+    if (numbers.length >= 104) break;
+  }
+
+  wordsRef
+    .get()
+    .then((doc) => {
+      let wordBank = doc.data().words;
+
+      numbers.forEach((number, index) => {
+        wordsForRoom.push(wordBank[number]);
+      });
+
+      roomOneArray = wordsForRoom.slice(0, 26);
+      roomTwoArray = wordsForRoom.slice(26, 52);
+      roomThreeArray = wordsForRoom.slice(52, 78);
+      roomFourArray = wordsForRoom.slice(78, 104);
+    })
+    .then(() => {
+      list_one = {
+        0: roomOneArray,
+      };
+
+      list_two = {
+        1: roomTwoArray,
+      };
+
+      list_three = {
+        1: roomThreeArray,
+      };
+
+      list_four = {
+        1: roomFourArray,
+      };
+
+      return roomRef.update({
+        list_one,
+        list_two,
+        list_three,
+        list_four,
+      });
+    });
+}
+
 function populateListOneOnCreation() {
   // Create a reference to the SF doc.
   var userRef = db.collection("users").doc(auth.currentUser.uid);
@@ -71,24 +131,6 @@ function populateListOneOnCreation() {
             }
           })
           .then(() => {
-            let test = roomOneArray.reduce((acc, item) => {
-              if (acc[item]) {
-                acc[item]++;
-              } else {
-                acc[item] = 1;
-              }
-              return acc;
-            }, {});
-
-            console.log(Object.values(test));
-
-            for (const [key, value] of Object.entries(test)) {
-              if (value > 1) {
-                console.log(key, value);
-              }
-            }
-
-            console.log(roomOneArray);
             list_one = {
               0: roomOneArray,
             };
@@ -208,7 +250,9 @@ function findIndex() {
         });
     })
     .then(() => {
-      populateListOneOnCreation();
+      console.log("OKOKOK works");
+      /*  populateListOneOnCreation(); */
+      randomWordLists();
     });
 }
 
@@ -301,6 +345,8 @@ document.body.addEventListener("click", function (e) {
       })
       .then(() => {
         console.log("user added");
+
+        console.log("YES WE R HERE");
 
         watchForCount(id);
         findIndex();
@@ -747,79 +793,24 @@ function mockUsers() {
   }, 1000);
 }
 
-document.getElementById("testbtn").addEventListener("click", randomWordLists);
+function randomWordLists() {
+  let roomCode;
 
-function randomWordLists(randomInt) {
-  //CHANGE THIS
-  //CHANGE THIS
-  //CHANGE THIS
-  //CHANGE THIS
-  //CHANGE THIS
-  let roomRef = db.collection("rooms").doc(`nwbKiXypmiUga977t4hhR3Ihtm03`);
-  //
-  //
-  //
-  //
-  //
+  const userRef = db.collection("users").doc(auth.currentUser.uid);
 
-  let wordsRef = db.collection("words").doc("words");
-  let roomOneArray = [];
-  let roomTwoArray = [];
-  let roomThreeArray = [];
-  let roomFourArray = [];
-  let numbers = [];
-  let wordsForRoom = [];
-
-  for (let i = 0; i < 130; i++) {
-    randomInt = Math.floor(Math.random() * 1200);
-
-    if (!numbers.includes(randomInt)) {
-      numbers.push(randomInt);
-    }
-
-    if (numbers.length >= 104) break;
-  }
-
-  wordsRef
+  userRef
     .get()
     .then((doc) => {
-      let wordBank = doc.data().words;
-
-      numbers.forEach((number, index) => {
-        wordsForRoom.push(wordBank[number]);
-      });
-
-      roomOneArray = wordsForRoom.slice(0, 26);
-      roomTwoArray = wordsForRoom.slice(26, 52);
-      roomThreeArray = wordsForRoom.slice(52, 78);
-      roomFourArray = wordsForRoom.slice(78, 104);
+      roomCode = doc.data().rooms_joined;
     })
     .then(() => {
-      list_one = {
-        0: roomOneArray,
-      };
-
-      list_two = {
-        1: roomTwoArray,
-      };
-
-      list_three = {
-        1: roomThreeArray,
-      };
-
-      list_four = {
-        1: roomFourArray,
-      };
-
-      return roomRef.update({
-        list_one,
-        list_two,
-        list_three,
-        list_four,
-      });
+      getRandomWordsForDB(roomCode);
     });
 }
+
 let randomInt = Math.floor(Math.random() * 1200);
 let randomInt1 = Math.floor(Math.random() * 1200);
 let randomInt2 = Math.floor(Math.random() * 1200);
 let randomInt3 = Math.floor(Math.random() * 1200);
+
+document.getElementById("solobtn").addEventListener("click", singleMode);

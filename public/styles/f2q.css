@@ -24,6 +24,12 @@
     width: 100%;
   }
 
+  .next {
+    color: white !important;
+    position: absolute;
+    left: -4px;
+  }
+
   #instruction-text {
     background-color: #ffffffb8;
     /* background-color: transparent; */

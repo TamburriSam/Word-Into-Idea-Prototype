@@ -73,6 +73,7 @@
   color: white;
 }
 
+/* GOOGLE BTN */
 #firebaseui-auth-container
   > div
   > div.firebaseui-card-content
@@ -86,12 +87,25 @@
   border: 2px solid white;
   bottom: 65px;
 }
+#firebaseui-auth-container
+  > div
+  > div.firebaseui-card-content
+  > form
+  > ul
+  > li:nth-child(1)
+  > button:hover {
+  background-color: #1c352c !important;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid black;
+}
 
 #construction {
   background-color: white;
   z-index: 1000;
 }
 
+/* EMAIL BTN */
 #firebaseui-auth-container
   > div
   > div.firebaseui-card-content
@@ -118,7 +132,7 @@
   > ul
   > li:nth-child(2)
   > button:hover {
-  background-color: #00680393 !important;
+  background-color: #1c352c !important;
   color: white;
   border-radius: 10px;
   border: 2px solid black;
