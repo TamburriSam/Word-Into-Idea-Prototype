@@ -388,6 +388,7 @@ th {
 #textArea {
   background-color: white;
   height: 350px;
+  border-radius: 3px;
 }
 
 #main-container {

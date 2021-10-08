@@ -5,7 +5,7 @@ let textArea = document.getElementById("textArea");
 let testBox = document.getElementById("testbox");
 let allInputs = [];
 let wordBox = document.querySelector("#wordBox");
-
+let list1, list2, list3, list4;
 auth.onAuthStateChanged((user) => {
   loadColumns(auth.currentUser.uid);
   watchForZeroCount();
@@ -43,10 +43,10 @@ function loadColumns(id) {
     .doc(id)
     .get()
     .then((doc) => {
-      let list1 = doc.data().list_one_input;
-      let list2 = doc.data().list_two_input;
-      let list3 = doc.data().list_three_input;
-      let list4 = doc.data().list_four_input;
+      list1 = doc.data().list_one_input;
+      list2 = doc.data().list_two_input;
+      list3 = doc.data().list_three_input;
+      list4 = doc.data().list_four_input;
 
       allInputs = [list1, list2, list3, list4];
       allInputs = allInputs.flat();
@@ -184,8 +184,13 @@ function populate(htmlList, dbList) {
 } */
 
 document.getElementById("wordsPdf").addEventListener("click", function () {
-  const doc = new jsPDF();
-  doc.text(allInputs, 10, 10);
+  let doc = new jsPDF();
+  doc.text("Word Into Idea - Your Words", 70, 20);
+  doc.text(list1, 20, 50);
+  doc.text(list2, 70, 50);
+  doc.text(list3, 120, 50);
+  doc.text(list4, 170, 50);
+
   doc.save("wordIntoIdeaWords.pdf");
   //deleteOnTimeout();
 });

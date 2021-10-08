@@ -63,12 +63,32 @@ function populateListOneOnCreation() {
               let randomInt2 = Math.floor(Math.random() * 1200);
               let randomInt3 = Math.floor(Math.random() * 1200);
               roomOneArray.push(doc.data().words[randomInt]);
+
+              console.log(`ROOM ONE ARRAY`, roomOneArray);
               roomTwoArray.push(doc.data().words[randomInt1]);
               roomThreeArray.push(doc.data().words[randomInt2]);
               roomFourArray.push(doc.data().words[randomInt3]);
             }
           })
           .then(() => {
+            let test = roomOneArray.reduce((acc, item) => {
+              if (acc[item]) {
+                acc[item]++;
+              } else {
+                acc[item] = 1;
+              }
+              return acc;
+            }, {});
+
+            console.log(Object.values(test));
+
+            for (const [key, value] of Object.entries(test)) {
+              if (value > 1) {
+                console.log(key, value);
+              }
+            }
+
+            console.log(roomOneArray);
             list_one = {
               0: roomOneArray,
             };
@@ -309,12 +329,7 @@ function roomFullDisableButton() {
 
 function watchForCount(room) {
   let docref = db.collection("rooms").doc(room);
-  let inputList = document.querySelector("#user-list");
-  let fastfactBox = document.querySelector("#fast-facts");
-  let logoW = document.querySelector(".logo-white");
-  let inputHolder = document.querySelector(".user-box");
   let liveRoomBox = document.querySelector(".liveRoom");
-  let facts = document.querySelector(".facts");
   liveRoomBox.style.display = "none";
 
   return db
@@ -466,15 +481,12 @@ function makeItModal() {
   let modalContent = document.querySelector("#notification");
   let inputList = document.querySelector("#user-list");
   let fastfactBox = document.querySelector("#fast-facts");
-  let logoW = document.querySelector(".logo-white");
   let inputHolder = document.querySelector(".user-box");
   let letterSubmit = document.querySelector("#letterSubmit");
-  let blurb = document.querySelector("#blurb");
   let inputContainer = document.querySelector("#inputContainer");
 
   fastfactBox.style.display = "inline-block";
   document.getElementById("container").style.textAlign = "center";
-  let favoriteLetter = "";
 
   modalBtn.addEventListener("click", function () {
     if (typeof modalInput.value != "") {
@@ -494,8 +506,8 @@ function makeItModal() {
           }, 5000);
 
           document.getElementById("container").style.textAlign = "unset";
-          /*     modalContent.innerHTML = "Your Favorite Letter"; */
-          document.querySelector("#waiting").style.display = "block";
+          modalContent.innerHTML = "Your Favorite Letter";
+          showWaitingStatus();
           inputList.style.display = "block";
           inputHolder.style.display = "block";
           inputContainer.innerHTML = favoriteLetter.toUpperCase();
@@ -512,6 +524,10 @@ function makeItModal() {
     }
   });
 }
+
+const showWaitingStatus = () => {
+  document.querySelector("#waiting").style.display = "block";
+};
 
 function populateAlphabet() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
@@ -685,7 +701,6 @@ function setRoom() {
 
       console.log("user added");
     })
-    .then(() => {})
     .then(() => {
       let liveRoomBox = document.querySelector(".liveRoom");
       let fastfactBox = document.querySelector("#fast-facts");
@@ -713,7 +728,7 @@ function mockUsers() {
   let inputList = document.querySelector("#user-list");
 
   //display the usernames
-  //but we want to set up a listener
+  //set up a listener
 
   let i = 1;
 
@@ -731,3 +746,80 @@ function mockUsers() {
     }
   }, 1000);
 }
+
+document.getElementById("testbtn").addEventListener("click", randomWordLists);
+
+function randomWordLists(randomInt) {
+  //CHANGE THIS
+  //CHANGE THIS
+  //CHANGE THIS
+  //CHANGE THIS
+  //CHANGE THIS
+  let roomRef = db.collection("rooms").doc(`nwbKiXypmiUga977t4hhR3Ihtm03`);
+  //
+  //
+  //
+  //
+  //
+
+  let wordsRef = db.collection("words").doc("words");
+  let roomOneArray = [];
+  let roomTwoArray = [];
+  let roomThreeArray = [];
+  let roomFourArray = [];
+  let numbers = [];
+  let wordsForRoom = [];
+
+  for (let i = 0; i < 130; i++) {
+    randomInt = Math.floor(Math.random() * 1200);
+
+    if (!numbers.includes(randomInt)) {
+      numbers.push(randomInt);
+    }
+
+    if (numbers.length >= 104) break;
+  }
+
+  wordsRef
+    .get()
+    .then((doc) => {
+      let wordBank = doc.data().words;
+
+      numbers.forEach((number, index) => {
+        wordsForRoom.push(wordBank[number]);
+      });
+
+      roomOneArray = wordsForRoom.slice(0, 26);
+      roomTwoArray = wordsForRoom.slice(26, 52);
+      roomThreeArray = wordsForRoom.slice(52, 78);
+      roomFourArray = wordsForRoom.slice(78, 104);
+    })
+    .then(() => {
+      list_one = {
+        0: roomOneArray,
+      };
+
+      list_two = {
+        1: roomTwoArray,
+      };
+
+      list_three = {
+        1: roomThreeArray,
+      };
+
+      list_four = {
+        1: roomFourArray,
+      };
+
+      return roomRef.update({
+        list_one,
+        list_two,
+        list_three,
+        list_four,
+      });
+    });
+}
+let randomInt = Math.floor(Math.random() * 1200);
+let randomInt1 = Math.floor(Math.random() * 1200);
+let randomInt2 = Math.floor(Math.random() * 1200);
+let randomInt3 = Math.floor(Math.random() * 1200);

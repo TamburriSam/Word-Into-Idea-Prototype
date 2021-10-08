@@ -12,6 +12,54 @@
     display: flex;
     flex-direction: column;
   }
+  #mainLogo {
+    position: relative;
+    border-radius: 10px;
+  }
+  #greetingBox {
+    display: none;
+  }
+
+  #input-list {
+    width: 100%;
+  }
+
+  #instruction-text {
+    background-color: #ffffffb8;
+    /* background-color: transparent; */
+    padding: 20px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1;
+    font-size: 13px;
+    text-align: center;
+    /* letter-spacing: 2px; */
+    height: 120px;
+    font-weight: 300;
+    z-index: 100;
+    border-radius: 5px;
+    color: black;
+    /* margin: auto; */
+    /* top: 10px; */
+    font-weight: 600;
+    width: 70vw;
+    margin: auto;
+    right: 3px;
+    top: 3px;
+  }
+
+  #logoAndNameContainer {
+    position: absolute;
+    left: 1px;
+    top: 3px;
+    border-radius: 5px;
+    /* border: 2px solid white; */
+    width: 50px;
+    height: 50px;
+  }
+
+  #roomName {
+    display: none;
+  }
 
   #list-container {
     width: 90vw;
@@ -34,19 +82,46 @@
   }
 
   #timer-container {
-    margin-top: 5px;
-    width: 100vw;
-    height: 7px;
+    margin-top: 29px;
+    width: 54px;
+    height: 30px;
     display: flex;
     justify-content: center;
-    position: relative;
+    position: absolute;
     box-shadow: unset;
+    right: 0;
+  }
+  #logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    /* position: relative; */
+    max-width: var(--nav-container-width-sm);
+    /* width: 173px; */
+    /* border-right: 1px solid green; */
+    /* background-color: #0000008c; */
+    /* border: 2px solid #399e3c9a; */
   }
 
   #user-container {
     display: none;
   }
 
+  #inputForm {
+    width: 150px;
+  }
+  #word-list {
+    width: unset;
+  }
+  #word-list li {
+    font-size: 10px;
+  }
+  #word-list-container {
+    width: 150px;
+  }
   #bottom-logo {
     width: 100px;
   }
@@ -57,7 +132,7 @@
 
   #button-container {
     text-align: center;
-    left: unset;
+    left: 29px;
   }
 }
 

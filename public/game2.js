@@ -6,8 +6,7 @@ let currentRoom = document.querySelector("#roomName");
 
 const auth = firebase.auth();
 
-let directionOne = `You've received a paper with a random classmate's words.`;
-
+const directionOne = `You've received a paper with a random classmate's words.`;
 const directionTwo = "Here's someone else's list from the previous step.";
 const directionThree = `Look at the top word. Then, at the top of the blank column, write the first word that comes into your head.`;
 const directionFour = `Don't question whether the connection makes sense. Trust your intial response!`;

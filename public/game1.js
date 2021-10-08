@@ -29,7 +29,7 @@ auth.onAuthStateChanged((user) => {
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  document.getElementById("input-list").style.width = "29vw";
+  document.getElementById("input-list").style.width = "250px";
 });
 
 const getCurrentRoom = () => {
