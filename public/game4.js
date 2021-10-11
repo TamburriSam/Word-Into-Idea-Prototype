@@ -187,7 +187,7 @@ function arraysEqual(a, b) {
 
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.dataset.id === "next-4") {
+  if (e.target.dataset.id === "next-4" || e.keyCode == 13) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 

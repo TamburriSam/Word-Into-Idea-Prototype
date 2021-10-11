@@ -281,7 +281,7 @@ document.body.addEventListener("keyup", (e) => {
 });
 
 function submitList(e) {
-  if (e.target.dataset.id === "next-1") {
+  if (e.target.dataset.id === "next-1" || e.keyCode == 13) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 

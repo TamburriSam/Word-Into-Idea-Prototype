@@ -13,7 +13,7 @@ const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
@@ -67,7 +67,6 @@ const showInstructionsTwo = () => {
   }, 3000);
 };
 
-
 function arraysEqual(a, b) {
   if (a === b) return true;
   if (a == null || b == null) return false;
@@ -110,7 +109,6 @@ function startGame(room) {
         .then((doc) => {
           let listTwoData = doc.data().list_two;
 
-
           //all list one inputs from room values only
           const propertyValues = Object.values(listTwoData);
 
@@ -127,7 +125,6 @@ function startGame(room) {
 
           //random list one input that is not ours
           wantedList = allFiltered[randomInt];
-
         })
         .then(() => {
           if (wantedList) {
@@ -210,7 +207,7 @@ const magnifyWordsWithTab = (list) => {
 //event listener for next that stores input list three
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.dataset.id === "next-3") {
+  if (e.target.dataset.id === "next-3" || e.keyCode == 13) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
@@ -221,7 +218,6 @@ document.body.addEventListener("click", function (e) {
     const validInputs = Array.from(inputList).filter(
       (input) => input.value !== ""
     );
-
 
     if (validInputs.length < inputList.length) {
       warningBox.style.display = "block";
@@ -349,7 +345,6 @@ function checkToSeeIfAllHasBeenEntered() {
     });
 }
 
-
 let inputContainer = document.getElementById("inputForm");
 let wordList = document.getElementById("word-list-container");
 function inputOnScroll() {
@@ -357,8 +352,6 @@ function inputOnScroll() {
 }
 
 inputContainer.addEventListener("scroll", function () {
-
-
   if (inputContainer.scrollTop > 150) {
     wordList.scrollTop = wordList.scrollHeight;
   } else {

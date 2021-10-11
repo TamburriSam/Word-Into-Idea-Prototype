@@ -276,6 +276,20 @@ body {
   color: green;
 }
 
+.word-check {
+  position: unset !important;
+  opacity: unset !important;
+  pointer-events: unset !important;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: red;
+}
+
+.crossed-word {
+  color: green;
+  text-decoration: line-through;
+}
+
 /* WARNING BOX */
 #warningBox {
   color: white;

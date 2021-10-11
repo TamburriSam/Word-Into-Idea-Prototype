@@ -173,7 +173,7 @@ function getRoomCountForInput(room) {
 const warningBox = document.querySelector("#warningBox");
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.dataset.id === "next-2") {
+  if (e.target.dataset.id === "next-2" || e.keyCode == 13) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
@@ -273,10 +273,10 @@ function updateUserInputList() {
 function startGame() {
   let user = db.collection("users").doc(auth.currentUser.uid);
   let docRef = "";
-  let id = "";
   let wantedList = "";
   let list_one = "";
   let defaultList = "";
+  let user_name;
 
   document.getElementById("instruction-four").style.marginTop = "7px";
   document.getElementById("instruction-five").style.marginTop = "7px";

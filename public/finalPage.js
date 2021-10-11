@@ -73,25 +73,50 @@ function populate(htmlList, dbList) {
       return transaction.get(userRef).then((doc) => {
         let html = "";
         dbList.forEach((word) => {
-          html += `<input class="word-check" type="checkbox"><tr><td class="listItems">${word}</td></tr>`;
+          html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${word}</td></tr>`;
         });
         htmlList.innerHTML = html;
       });
     })
     .then(() => {
-      let listItems = document.querySelectorAll(".listItems");
-      let wordCheck = document.querySelectorAll(".word-check");
-
-      wordCheck.forEach((check, index) => {
-        check.addEventListener("change", function () {
-          listItems[index].classList.add("listItemComplete");
-        });
-      });
+      crossedOffWord();
     })
     .catch((error) => {
       console.log("Transaction failed: ", error);
     });
 }
+
+const wordCounter = () => {
+  let strikethroughs = document.querySelectorAll(".crossed-word");
+
+  let crossedWords = strikethroughs.length;
+
+  return (document.querySelector(
+    "#word-count-box"
+  ).innerHTML = `${crossedWords} /104 words used`);
+};
+
+const crossedOffWord = () => {
+  let counter = 0;
+  let listItems = document.querySelectorAll(".listItems");
+
+  let checkboxes = document.querySelectorAll(".word-check");
+
+  checkboxes.forEach((item, index) => {
+    item.addEventListener("change", () => {
+      console.log(counter++);
+      wordCounter();
+      if (item.className == "word-check" && item.checked) {
+        listItems[index].classList.remove("listItems");
+
+        listItems[index].classList.add("crossed-word");
+      } else {
+        listItems[index].classList.remove("crossed-word");
+        listItems[index].classList.add("listItems");
+      }
+    });
+  });
+};
 
 /* textArea.addEventListener("keydown", tryit);
  */
