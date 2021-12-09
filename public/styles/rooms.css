@@ -14,10 +14,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 * {
-  font-family: 'IBM Plex Mono', monospace !important;
-
+  font-family: "IBM Plex Mono", monospace !important;
 }
 
 .btn,
@@ -31,7 +30,7 @@
   -webkit-transition: background-color 0.2s ease-out;
   transition: background-color 0.2s ease-out;
   cursor: pointer;
-  font-family: 'IBM Plex Mono', monospace;  
+  font-family: "IBM Plex Mono", monospace;
   text-transform: lowercase !important;
   font-size: 12px !important;
 }
@@ -93,17 +92,22 @@ nav {
 }
 
 #roomNav {
-  background-color: white;
+  background-color: transparent;
+
   color: black;
   border-radius: 5px;
   font-family: "Bebas Neue", cursive !important;
   z-index: 10 !important;
   font-size: 20px;
-  width: 97vw;
+  width: 100vw;
   height: 53px;
   justify-content: space-between;
   margin: auto;
-  display: flex !important;
+  display: flex;
+}
+
+#testpic {
+  z-index: 100;
 }
 
 #nav-links {
@@ -111,9 +115,10 @@ nav {
   font-size: 19px;
   margin-top: -2px;
   left: 67%;
-  font-family: 'IBM Plex Mono', monospace;  font-weight: 900;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 900;
   cursor: pointer;
-  display: flex;
+  display: none;
 }
 
 #letterSubmit {
@@ -147,8 +152,6 @@ nav {
 .nav-link {
   margin-right: 15px;
 }
-
-
 
 #overlay3 {
   position: absolute; /* Sit on top of the page content */
@@ -184,7 +187,7 @@ nav {
   /* clip-path: ellipse(130px 140px at 10% 20%); */
 }
 
-#photoContainer{
+#photoContainer {
   position: absolute;
   background-color: #399e3c9a;
   justify-content: center;
@@ -216,11 +219,11 @@ nav {
   position: relative;
   bottom: 16px;
   font-size: 18px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
 }
 #status {
   font-size: 8px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
 
   position: relative;
   bottom: 10px;
@@ -232,8 +235,7 @@ nav {
   text-align: center;
 }
 
-#blurb{
-
+#blurb {
 }
 
 .photoURL {
@@ -259,13 +261,12 @@ nav {
   font-weight: 500;
 }
 
-.switch label input[type=checkbox]:checked+.lever:after {
+.switch label input[type="checkbox"]:checked + .lever:after {
   background-color: #399e3c9a;
 }
 
-.switch label input[type=checkbox]{
+.switch label input[type="checkbox"] {
   background-color: #399e3c9a;
-
 }
 
 .lever {
@@ -290,25 +291,21 @@ nav {
   line-height: 1;
 }
 
-
 #friend-title {
   width: 125px;
   text-align: center;
   display: flex;
   border: 1px solid black;
   border-radius: 5px;
-height: 33px;
+  height: 33px;
   display: flex;
   border: 1px solid #399e3c9a;
-  
 }
-
 
 .friendlistlogo {
   height: 31px;
   position: relative;
   background-color: #399e3c9a;
-
 }
 
 .redBtn {
@@ -340,7 +337,7 @@ height: 33px;
   font-size: 24px;
 }
 
-#status{
+#status {
   font-size: 8px;
 }
 
@@ -392,10 +389,9 @@ height: 33px;
   display: none;
   z-index: 2;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
-  4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   position: relative;
   padding: 10px;
-}dding: 10px;
 }
 
 #user-list {
@@ -436,7 +432,7 @@ height: 33px;
 
 #createNewRoom {
   right: 12px;
-  top: 10px;
+  top: 61px;
   background-color: white !important;
   border: 3px solid #399e3ca9 !important;
   color: black;
@@ -444,6 +440,21 @@ height: 33px;
   width: 200px !important;
   line-height: 2.6;
   position: absolute;
+}
+
+#single {
+  right: 12px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 100;
+  position: absolute;
+  background-color: white !important;
+  border: 3px solid #399e3ca9 !important;
+  color: black;
+  border-radius: 5px;
+  width: 200px !important;
+  height: 20px;
+  font-size: 12px;
 }
 
 #createNewRoom:hover {
@@ -456,9 +467,8 @@ height: 33px;
   display: none;
 }
 
-#solobtn{
+#solobtn {
   display: none;
-
 }
 
 .creater {
@@ -468,16 +478,14 @@ height: 33px;
   color: black !important;
   bottom: 3px;
 }
-.creater:hover{
+.creater:hover {
   color: white;
 }
 
-.creater-container{
+.creater-container {
   border: 3px solid #399e3ca9 !important;
 
   background-color: white !important;
-
-
 }
 
 .creater-container:hover {
@@ -605,7 +613,7 @@ div#rooms {
   margin-left: 3px;
   bottom: 10px;
   position: relative;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
 }
 
 #active-container {
@@ -628,12 +636,12 @@ div#rooms {
 }
 
 .liveRoom {
-  top: 20px;
+  top: -1px;
   overflow-y: scroll;
   left: 0;
   z-index: 10;
   padding-top: 1px;
-  font-family: 'IBM Plex Mono', monospace;  
+  font-family: "IBM Plex Mono", monospace;
   font-size: 12px;
   overflow-y: scroll;
   background-size: contain;
@@ -641,6 +649,7 @@ div#rooms {
   position: relative;
   border-radius: 5px;
   width: 100%;
+  bottom: 57px;
   max-height: 82vh;
   color: black;
   margin: auto;
@@ -679,7 +688,6 @@ div#rooms {
 .connected {
   font-size: 9px;
   color: #399e3c9a;
-
 }
 
 #connectedMockPic {
@@ -712,8 +720,7 @@ div#rooms {
 #waiting {
   font-size: 32px;
   color: white;
-  font-family: 'IBM Plex Mono', monospace;  
-
+  font-family: "IBM Plex Mono", monospace;
 }
 
 #warningBox2 {
@@ -749,8 +756,6 @@ div#rooms {
   height: 10px;
 }
 
-
-
 #logoBox {
   position: fixed;
   left: 0px;
@@ -781,10 +786,10 @@ div#rooms {
   #nav-links {
     display: none;
   }
-  
 
-   #user-info {
-    width:161px;}
+  #user-info {
+    width: 161px;
+  }
 
   .liveRoom {
     height: fit-content;
@@ -801,7 +806,6 @@ div#rooms {
     display: block;
     padding: 10px;
   }
-  
 
   .input-cell {
     width: 100%;
@@ -835,7 +839,7 @@ div#rooms {
     width: 110px !important;
     line-height: 2.6;
     cursor: pointer;
-}
+  }
   #fast-facts {
     width: 60vw;
     font-family: "Montserrat", sans-serif !important;
@@ -851,7 +855,8 @@ div#rooms {
     /* outline: solid 20px rgb(155, 155, 155); */
     display: none;
     z-index: 2;
-    box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999, 4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+    box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+      4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
     padding: 10px;
     margin: auto;
   }
@@ -886,8 +891,7 @@ div#rooms {
     border-radius: 5px;
     display: flex;
     margin: auto;
-  } 
-
+  }
 
   #friendsOnline {
     display: flex;
@@ -913,8 +917,6 @@ div#rooms {
   #friend-title h4 {
     font-size: 12px;
   }
-
- 
 
   .profile-holder {
     font-size: 9px;
@@ -956,14 +958,14 @@ div#rooms {
     bottom: 0px;
     left: 0px;
   }
-#user{
-  font-size:14px;
-}
-#alphabetInput::placeholder {
-  font-size: 44px;
-  position: relative;
-  bottom: 126px;
-}
+  #user {
+    font-size: 14px;
+  }
+  #alphabetInput::placeholder {
+    font-size: 44px;
+    position: relative;
+    bottom: 126px;
+  }
   #myModal {
     z-index: 200 !important;
   }
@@ -991,7 +993,6 @@ div#rooms {
   }
 }
 
-
 /* @media screen and (min-width: 900px){
 
 
@@ -1003,7 +1004,7 @@ div#rooms {
 
 /* SOLO */
 /* user-info */
-#solo-info{
+#solo-info {
   border: 2px solid #399e3c9a;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   z-index: 20;
@@ -1015,53 +1016,55 @@ div#rooms {
   right: 1px;
   position: relative;
   color: black;
-  
 }
 
-#icon-container{
-    position: absolute;
-    background-color: #399e3c9a;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    top: 0;
-    left: 0;
-    height: 47px;
-    width: 40px;
-
+#icon-container {
+  position: absolute;
+  background-color: #399e3c9a;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 47px;
+  width: 40px;
 }
 /* photoContainer */
-#soloContainer{
-border: 1px solid red;
+#soloContainer {
+  border: 1px solid red;
 }
 /* photourl */
-#solo-icon{
-display: inline;
+#solo-icon {
+  display: inline;
 }
 
-#solo-word{
-    position: absolute;
-    right: 2px;
-    height: 41px;
-    text-align: center;
-    bottom: 2px;
-    width: 140px;
-
+#solo-word {
+  position: absolute;
+  right: 2px;
+  height: 41px;
+  text-align: center;
+  bottom: 2px;
+  width: 140px;
 }
-
 
 /* LOGO CONTAINER */
-#logo-container{
-width: 200px;
+#logo-container {
+  width: 100vw;
+  align-items: center;
+  /* margin: auto; */
+  background-color: black;
+  display: flex;
+  margin: auto;
+  height: 60px;
+  justify-content: center;
 }
 
-#mainLogo{
-
+#mainLogo {
+  width: 400px;
 }
-
 
 /* collab */
-#collab-info{
+#collab-info {
   border: 2px solid #399e3c9a;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   z-index: 20;
@@ -1073,38 +1076,35 @@ width: 200px;
   right: 1px;
   position: relative;
   color: black;
-  
 }
 
-#collab-icon-container{
-    position: absolute;
-    background-color: #399e3c9a;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    top: 0;
-    left: 0;
-    height: 47px;
-    width: 40px;
-
+#collab-icon-container {
+  position: absolute;
+  background-color: #399e3c9a;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 47px;
+  width: 40px;
 }
 /* photoContainer */
-#soloContainer{
-border: 1px solid red;
+#soloContainer {
+  border: 1px solid red;
 }
 /* photourl */
-#collab-icon{
-display: inline;
+#collab-icon {
+  display: inline;
 }
 
-#collab-word{
-    position: absolute;
-    right: 2px;
-    height: 41px;
-    text-align: center;
-    bottom: 2px;
-    width: 140px;
-
+#collab-word {
+  position: absolute;
+  right: 2px;
+  height: 41px;
+  text-align: center;
+  bottom: 2px;
+  width: 140px;
 }
 
 #switch-container {
@@ -1119,11 +1119,10 @@ display: inline;
   top: 8px;
 }
 
-.switch label input[type=checkbox]:checked+.lever:after {
+.switch label input[type="checkbox"]:checked + .lever:after {
   background-color: #399e3c !important;
 }
 
-
-#notification{
+#notification {
   font-size: 24px;
 }

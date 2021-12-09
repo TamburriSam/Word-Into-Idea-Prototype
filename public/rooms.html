@@ -28,46 +28,41 @@
     <script src="https://use.fontawesome.com/ab57ee05a2.js"></script>
   </head>
   <body id="RoomBody">
-    <nav id="roomNav">
+    <div id="roomNav">
       <div id="logo-container">
         <a href="rooms.html">
-          <img
-            id="mainLogo"
-            src="logos/logo_transparent_background.png"
-            alt=""
-          />
+          <img id="mainLogo" src="logos/whiteTextLogoOnly.png" alt="" />
         </a>
       </div>
+    </div>
 
-      <ul id="nav-links">
-        <li id="switch-container">
-          <div class="switch">
-            <label>
-              <span class="solo">Solo Mode</span>
-              <input id="check" type="checkbox" checked />
-              <span class="lever"></span>
-              <span class="collaborative"
-                >Collaborative Mode (UNDER CONSTRUCTION)</span
-              >
-            </label>
-          </div>
-        </li>
-      </ul>
-
-      <button id="testbtn1">Test</button>
-
-      <div id="user-info">
-        <div id="photoContainer">
-          <div id="photoURL"></div>
-        </div>
-
-        <div id="userStatus">
-          <div id="user"></div>
-          <div id="status">Signed in</div>
-        </div>
-      </div>
-    </nav>
     <div id="overlay"></div>
+
+    <ul id="nav-links">
+      <li id="switch-container">
+        <div class="switch">
+          <label>
+            <span class="solo">Solo Mode</span>
+            <input id="check" type="checkbox" checked />
+            <span class="lever"></span>
+            <span class="collaborative"
+              >Collaborative Mode (UNDER CONSTRUCTION)</span
+            >
+          </label>
+        </div>
+      </li>
+    </ul>
+
+    <!--     <div id="user-info">
+      <div id="photoContainer">
+        <div id="photoURL"></div>
+      </div>
+
+      <div id="userStatus">
+        <div id="user"></div>
+        <div id="status">Signed in</div>
+      </div>
+    </div> -->
 
     <div id="comingSoon">
       <h1>Coming Soon...</h1>
@@ -126,6 +121,8 @@
           <a class="waves-effect waves-light btn" id="createNewRoom"
             >Create New Room</a
           ><br />
+
+          <button id="single">Single Mode</button>
 
           <br />
           <br />

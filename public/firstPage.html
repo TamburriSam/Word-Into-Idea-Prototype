@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+
+    <link rel="stylesheet" href="styles/f3q.css" />
+    <link rel="stylesheet" href="/styles/first.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="styles/f2.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="logos/logoStandalone.png"
+    />
+    <title>Word Into Idea</title>
+  </head>
+
+  <body>
+    <div id="fast-facts">
+      <div id="notification">There are two ways to play this game</div>
+      <div id="inputContainer">
+        <div id="alphabetInput">
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              top: 95px;
+            "
+            id="options-container"
+          >
+            <div class="option" id="solo">
+              <h1 style="text-decoration: underline">Solo</h1>
+              <p>
+                To play by yourself, <br />
+                at your own pace, <br />
+                select this button:
+              </p>
+              <button id="solobtn">Solo</button>
+              <p>
+                The game will set up as <br />
+                if there are others <br />playing, but it's just you <br />
+                and the AI.
+              </p>
+            </div>
+
+            <div class="option" id="group">
+              <h1 style="text-decoration: underline">Group</h1>
+              <p>
+                To play in a group, <br />
+                in real time, <br />
+                select this button:
+              </p>
+              <button id="groupbtn">Group</button>
+              <p>
+                Select or create a room <br />
+                and wait while the other <br />members join and you'll <br />
+                be shown a starting screen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="logo">
+        <img
+          style="top: 190px; position: relative"
+          src="logos/whiteLogoStandalone.png"
+          alt=""
+        />
+      </div>
+    </div>
+    <div id="overlay"></div>
+
+    <a class="footer-link" href="https://github.com/TamburriSam">
+      <footer>
+        <img class="gitHub" src="logos/ghicon.png" alt="" />
+        <span class="footer-text">Created by Sam Tamburri </span>
+      </footer>
+    </a>
+    <div id="bottom-logo">
+      <img id="bottom-logo-img" src="logos/whiteTextLogoOnly.png" alt="" />
+    </div>
+
+    <script src="/firebase.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.16/jspdf.plugin.autotable.js"></script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        if (localStorage.getItem("solo")) {
+          localStorage.removeItem("solo");
+        }
+      });
+
+      document.getElementById("fast-facts").style.display = "block";
+
+      document.getElementById("solobtn").addEventListener("click", () => {
+        window.location = "rooms.html";
+        localStorage.setItem("solo", true);
+      });
+
+      document.getElementById("groupbtn").addEventListener("click", () => {
+        window.location = "rooms.html";
+      });
+    </script>
+  </body>
+</html>

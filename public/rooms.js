@@ -19,6 +19,15 @@ toggleSwitch.addEventListener("click", function () {
   }
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    if (localStorage.getItem("solo")) {
+      singleMode();
+      localStorage.removeItem("solo");
+    }
+  }, 1000);
+});
+
 function getRandomWordsForDB(roomcode) {
   let roomRef = db.collection("rooms").doc(roomcode);
   let wordsRef = db.collection("words").doc("words");
@@ -227,13 +236,13 @@ let photoBox = document.querySelector("#photoURL");
 auth.onAuthStateChanged((user) => {
   let firstName = user.displayName.split(" ")[0];
 
-  if (user && user.photoURL) {
+  /* if (user && user.photoURL) {
     userName.innerHTML = firstName;
     photoBox.innerHTML = `<img class="photoURL" src="${user.photoURL}" alt=""/>`;
   } else {
     userName.innerHTML = firstName;
     photoBox.innerHTML = `<img class="photoURL" src="logos/user.png" alt=""/>`;
-  }
+  } */
 
   db.collection("rooms").onSnapshot((snapshot) => {
     setUpRooms(snapshot.docs);
@@ -766,14 +775,9 @@ let randomInt3 = Math.floor(Math.random() * 1200);
 
 document.getElementById("solobtn").addEventListener("click", singleMode);
 
-let testArr = [1, 2, 3, 4, 5, 5, 5, 5];
+/* console.log(auth.currentUser.uid);
+ */
 
-document.getElementById("testbtn1").addEventListener("click", function () {
-  console.log("ok");
-
-  db.collection("test").doc("e").set({
-    testArr,
-  });
+document.getElementById("single").addEventListener("click", () => {
+  singleMode();
 });
-
-console.log(auth.currentUser.uid);
