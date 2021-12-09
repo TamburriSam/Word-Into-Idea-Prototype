@@ -208,7 +208,7 @@ const crossedOffWord = () => {
   });
 } */
 
-document.getElementById("wordsPdf").addEventListener("click", function () {
+document.getElementById("essayPdf").addEventListener("click", function () {
   let doc = new jsPDF();
   doc.text("Word Into Idea - Your Words", 70, 20);
   doc.text(list1, 20, 50);
@@ -216,14 +216,14 @@ document.getElementById("wordsPdf").addEventListener("click", function () {
   doc.text(list3, 120, 50);
   doc.text(list4, 170, 50);
 
-  doc.save("wordIntoIdeaWords.pdf");
+  doc.save("Your List.pdf");
   //deleteOnTimeout();
 });
 
-document.getElementById("essayPdf").addEventListener("click", function () {
+document.getElementById("wordsPdf").addEventListener("click", function () {
   const doc = new jsPDF();
   doc.text(textArea.value, 10, 10);
-  doc.save("wordIntoIdeaEssay.pdf");
+  doc.save("Your Text.pdf");
   //deleteOnTimeout();
 });
 

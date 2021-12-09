@@ -239,23 +239,18 @@ document.body.addEventListener("click", function (e) {
 
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
+  let userWords = [];
 
   let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
     if (cell.value === "") {
       return false;
     } else {
-      userRef
-        .update({
-          list_four_input: firebase.firestore.FieldValue.arrayUnion(cell.value),
-        })
-        .then(() => {
-          console.log("User successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-          console.error("Error updating document: ", error);
-        });
+      userWords.push(cell.value);
+
+      userRef.update({
+        list_four_input: userWords,
+      });
     }
   });
 }

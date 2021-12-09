@@ -353,21 +353,31 @@ body {
   height: 22px !important;
   width: 97% !important;
   font-size: 12px !important;
-  text-align: center;
   letter-spacing: 2px;
   font-size: 17px !important;
   font-family: "Montserrat", sans-serif !important;
-
+  text-align: center;
   margin: unset !important;
 }
 
 #input-list {
   padding: 10px;
   width: 200px;
+  position: relative;
 }
 
 .input-cell::placeholder {
-  font-size: 10px;
+  text-align: left !important;
+  font-weight: bold;
+  color: black;
+  font-size: 14px;
+}
+
+.placeholder {
+  position: absolute;
+  left: 15px;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: bold;
 }
 
 .input-cell text {

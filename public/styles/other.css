@@ -127,7 +127,7 @@ body {
 #mainLogo {
   position: relative;
   border-radius: 10px;
-  width: 70px;
+  width: 124px;
 }
 
 #logo-text {
@@ -450,4 +450,20 @@ body {
   font-size: 16px;
   background-color: #399e3c9a;
   border-radius: 5px;
+}
+
+/* Duplicate BOx */
+
+#dupeContainer {
+  width: 100vw;
+  height: ;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+#duplicatesNotAllowed {
+  width: 10vw;
+  background-color: white;
 }

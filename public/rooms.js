@@ -80,7 +80,6 @@ function getRandomWordsForDB(roomcode) {
 }
 
 function populateListOneOnCreation() {
-  // Create a reference to the SF doc.
   var userRef = db.collection("users").doc(auth.currentUser.uid);
   let roomCode = "";
   let roomCount = "";
@@ -165,55 +164,6 @@ function populateListOneOnCreation() {
         console.log(`err on line 69`, err);
       });
   });
-}
-
-function algorithm(num, position) {
-  let numArray = [];
-
-  for (let i = 1; i < num; i++) {
-    numArray.push(i);
-  }
-
-  let huhArray = [];
-
-  for (let i = 0; i < numArray.length; i++) {
-    huhArray.push([
-      numArray[i + 1],
-      numArray[i + 2],
-      numArray[i + 3],
-      numArray[i + 4],
-    ]);
-  }
-
-  numArray[numArray.length - 5];
-
-  huhArray[huhArray.length - 5][3] = 1;
-  huhArray[huhArray.length - 4][2] = 1;
-
-  huhArray[huhArray.length - 4][3] = 2;
-  huhArray[huhArray.length - 3][1] = 1;
-  huhArray[huhArray.length - 3][2] = 2;
-  huhArray[huhArray.length - 3][3] = 3;
-
-  huhArray[huhArray.length - 2][0] = 1;
-  huhArray[huhArray.length - 2][1] = 2;
-  huhArray[huhArray.length - 2][2] = 3;
-  huhArray[huhArray.length - 2][3] = 4;
-
-  let wantedArr = huhArray[position];
-
-  var userRef = db.collection("users").doc(auth.currentUser.uid);
-
-  return userRef
-    .update({
-      recipients: wantedArr,
-    })
-    .then(() => {
-      console.log("doc success");
-    })
-    .catch((err) => {
-      console.error(`erroir line 125`, err);
-    });
 }
 
 function findIndex() {
@@ -346,8 +296,6 @@ document.body.addEventListener("click", function (e) {
       .then(() => {
         console.log("user added");
 
-        console.log("YES WE R HERE");
-
         watchForCount(id);
         findIndex();
       })
@@ -401,6 +349,9 @@ function watchForCount(room) {
     })
     .then((doc) => {
       getUsers(docref);
+
+      //set timeout?
+      //is it because we r using an arg as an arg
       isRoomFull(room);
     })
     .catch((err) => {
@@ -814,3 +765,15 @@ let randomInt2 = Math.floor(Math.random() * 1200);
 let randomInt3 = Math.floor(Math.random() * 1200);
 
 document.getElementById("solobtn").addEventListener("click", singleMode);
+
+let testArr = [1, 2, 3, 4, 5, 5, 5, 5];
+
+document.getElementById("testbtn1").addEventListener("click", function () {
+  console.log("ok");
+
+  db.collection("test").doc("e").set({
+    testArr,
+  });
+});
+
+console.log(auth.currentUser.uid);

@@ -293,6 +293,11 @@
     right: 6%;
   }
 
+  #main-container {
+    display: flex;
+    flex-direction: column;
+  }
+
   #mainLogo {
     width: unset;
 

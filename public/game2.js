@@ -11,6 +11,7 @@ const directionTwo = "Here's someone else's list from the previous step.";
 const directionThree = `Look at the top word. Then, at the top of the blank column, write the first word that comes into your head.`;
 const directionFour = `Don't question whether the connection makes sense. Trust your intial response!`;
 const directionFive = "Do the same for every word down the list.";
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -173,7 +174,7 @@ function getRoomCountForInput(room) {
 const warningBox = document.querySelector("#warningBox");
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.dataset.id === "next-2" || e.keyCode == 13) {
+  if (e.target.dataset.id === "next-2") {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
@@ -205,6 +206,20 @@ document.body.addEventListener("click", function (e) {
       inputList.forEach((cell) => {
         cells.push(cell.value);
         console.log(cells);
+
+        for (let i = 0; i < cells.length; i++) {}
+
+        let duplicates = cells.filter((item, pos) => {
+          return cells.indexOf(item) === pos;
+        });
+        console.log(duplicates);
+
+        if (duplicates.length !== cells.length) {
+          console.log("there are dupes");
+        } else if (duplicates.length === cells.length) {
+          console.log("no dupes");
+        }
+
         let randomInt = Math.floor(Math.random() * 200);
 
         list_two = {
@@ -229,45 +244,22 @@ document.body.addEventListener("click", function (e) {
 
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
+  let userWords = [];
 
   let inputList = document.querySelectorAll(".input-cell");
-  let completedWords = [];
 
   inputList.forEach((cell) => {
     if (cell.value === "") {
       console.log("must enter all cells");
       return false;
     } else {
-      completedWords.push(cell.value);
+      userWords.push(cell.value);
+
+      userRef.update({
+        list_two_input: userWords,
+      });
     }
   });
-
-  if (completedWords.length === inputList.length) {
-    completedWords.forEach((word) => {
-      userRef
-        .update({
-          list_two_input: firebase.firestore.FieldValue.arrayUnion(word),
-        })
-        .then(() => {
-          console.log("User updated");
-        })
-        .catch((error) => {
-          console.log(`Error ${error}`);
-        });
-    });
-
-    userRef
-      .update({
-        list_two_input: completedWords,
-      })
-      .then(() => {
-        console.log("User successfully updated!");
-      })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
-  }
 }
 
 function startGame() {
@@ -500,7 +492,7 @@ document.body.addEventListener("keyup", (e) => {
           { merge: true }
         )
         .then(() => {
-          window.location = "game2.html";
+          window.location = "game3.html";
           inputForm.reset();
         });
     }

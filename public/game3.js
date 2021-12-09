@@ -207,7 +207,7 @@ const magnifyWordsWithTab = (list) => {
 //event listener for next that stores input list three
 document.body.addEventListener("click", function (e) {
   e.preventDefault();
-  if (e.target.dataset.id === "next-3" || e.keyCode == 13) {
+  if (e.target.dataset.id === "next-3" || e.keyCode === 13) {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
@@ -258,24 +258,18 @@ document.body.addEventListener("click", function (e) {
 
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
+  let userWords = [];
+
   let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
     if (cell.value === "") {
       return false;
     } else {
-      userRef
-        .update({
-          list_three_input: firebase.firestore.FieldValue.arrayUnion(
-            cell.value
-          ),
-        })
-        .then(() => {
-          console.log("User successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-          console.error("Error updating document: ", error);
-        });
+      userWords.push(cell.value);
+
+      userRef.update({
+        list_three_input: userWords,
+      });
     }
   });
 }
@@ -364,5 +358,55 @@ wordList.addEventListener("scroll", function () {
     inputContainer.scrollTop = wordList.scrollTop;
   } else {
     inputContainer.scrollTop = inputContainer.scrollHeight;
+  }
+});
+
+document.body.addEventListener("keyup", (e) => {
+  e.preventDefault();
+  let targetId = document.querySelector(".next").getAttribute("id");
+
+  if (e.keyCode === 13) {
+    let inputList = document.querySelectorAll(".input-cell");
+
+    let cells = [];
+
+    let docRef = db.collection("rooms").doc(targetId);
+    updateUserInputList();
+
+    const validInputs = Array.from(inputList).filter(
+      (input) => input.value !== ""
+    );
+
+    if (validInputs.length < inputList.length) {
+      let list_one = {};
+      warningBox.style.display = "block";
+      warningBox.style.height = "fit-content";
+      warningBox.innerHTML = "All cells must be filled before continuing";
+      setTimeout(() => {
+        warningBox.style.display = "none";
+      }, 4000);
+      return false;
+    } else {
+      inputList.forEach((cell) => {
+        cells.push(cell.value);
+        let randomInt = Math.floor(Math.random() * 200);
+
+        list_three = {
+          [randomInt]: cells,
+        };
+      });
+
+      return docRef
+        .set(
+          {
+            list_three,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          window.location = "game4.html";
+          inputForm.reset();
+        });
+    }
   }
 });

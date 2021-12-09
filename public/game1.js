@@ -192,7 +192,7 @@ function populateAlphabet() {
           console.log("dov", doc.id);
           let html = "";
           alphabet.forEach((letter) => {
-            html += `<li><input type="text" data-id="${count}" placeholder="${letter}" class="input-cell" </input> </li>`;
+            html += `<li><input type="text" data-id="${count}" class="input-cell" </input><span class="placeholder">${letter}</span> </li>`;
             count++;
           });
           let buttonContainer = document.querySelector("#button-container");
@@ -281,7 +281,7 @@ document.body.addEventListener("keyup", (e) => {
 });
 
 function submitList(e) {
-  if (e.target.dataset.id === "next-1" || e.keyCode == 13) {
+  if (e.target.dataset.id === "next-1") {
     let targetId = e.target.id;
     let inputList = document.querySelectorAll(".input-cell");
 
@@ -330,6 +330,7 @@ function submitList(e) {
 }
 function updateUserInputList() {
   let userRef = db.collection("users").doc(auth.currentUser.uid);
+  let userWords = [];
 
   let inputList = document.querySelectorAll(".input-cell");
   inputList.forEach((cell) => {
@@ -337,17 +338,11 @@ function updateUserInputList() {
       //maybe red
       return false;
     } else {
-      userRef
-        .update({
-          list_one_input: firebase.firestore.FieldValue.arrayUnion(cell.value),
-        })
-        .then(() => {
-          console.log("User successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-          console.error("Error updating document: ", error);
-        });
+      userWords.push(cell.value);
+
+      userRef.update({
+        list_one_input: userWords,
+      });
     }
   });
 }

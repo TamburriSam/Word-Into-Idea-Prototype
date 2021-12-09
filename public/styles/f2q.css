@@ -28,27 +28,28 @@
     color: white !important;
     position: absolute;
     left: -4px;
+    z-index: 100;
   }
 
   #instruction-text {
-    background-color: #ffffffb8;
+    /* background-color: #ffffffb8; */
     /* background-color: transparent; */
-    padding: 20px;
+    padding: 9px;
     font-family: "Montserrat", sans-serif;
     line-height: 1;
     font-size: 13px;
     text-align: center;
     /* letter-spacing: 2px; */
-    height: 120px;
-    font-weight: 300;
+    height: 145px !important;
+    /* font-weight: 300; */
     z-index: 100;
     border-radius: 5px;
     color: black;
-    /* margin: auto; */
+    margin: auto;
     /* top: 10px; */
     font-weight: 600;
-    width: 70vw;
-    margin: auto;
+    width: 74vw;
+    /* margin: auto; */
     right: 3px;
     top: 3px;
   }
@@ -59,8 +60,8 @@
     top: 3px;
     border-radius: 5px;
     /* border: 2px solid white; */
-    width: 50px;
-    height: 50px;
+    width: 36px;
+    height: 36px;
   }
 
   #roomName {
@@ -76,20 +77,22 @@
 
   #timer {
     top: 0px;
-    width: 45px;
+    width: unset;
     text-align: center;
     box-shadow: unset !important;
     font-size: 16px;
     /* height: 43px; */
-    height: 35px;
+    padding: unset !important;
+
+    height: unset;
     left: 0px;
-    line-height: 1;
+    line-height: unset;
     position: unset;
   }
 
   #timer-container {
     margin-top: 29px;
-    width: 54px;
+    width: 50px;
     height: 30px;
     display: flex;
     justify-content: center;
@@ -102,7 +105,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 4px;
     position: relative;
     /* position: relative; */
     max-width: var(--nav-container-width-sm);
@@ -139,6 +142,10 @@
   #button-container {
     text-align: center;
     left: 29px;
+  }
+
+  .footer-text {
+    display: none;
   }
 }
 
