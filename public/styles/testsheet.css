@@ -1,0 +1,88 @@
+/* Logo */
+
+#logoAndNameContainer {
+}
+
+#logo-container {
+  height: fit-content;
+  border: 1px solid pink;
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: center;
+  position: relative;
+}
+#greetingBox {
+  border: 1px solid cyan;
+  width: 100px;
+  position: absolute;
+  right: 200px;
+}
+
+#mainLogo {
+  width: 40%;
+}
+
+/* Lists*/
+
+#list-container {
+  display: flex;
+  border: 1px solid green;
+  justify-content: space-evenly;
+}
+
+#word-list-container {
+  border: 1px solid red;
+  width: 30vw;
+  height: 60vh;
+}
+
+#inputForm {
+  border: 1px solid black;
+  width: 30vw;
+  height: 60vh;
+}
+
+.input-cell {
+  height: 15px !important;
+}
+
+.passed-words {
+  height: 11px !important;
+}
+
+.footer-link {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+}
+
+#bottom-logo {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+}
+
+#roomName {
+  display: none;
+}
+
+.gitHub {
+  width: 200px;
+}
+
+#timer-container {
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+}
+
+#timer {
+  width: 100px;
+  border: 1px solid darkblue;
+  text-align: center;
+}
+
+#instruction-text {
+  border: 1px solid orange;
+}
