@@ -42,7 +42,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.616);
+  background-color: rgba(0, 0, 0, 75%);
 }
 
 /* NAV */
@@ -67,16 +67,7 @@ body {
 }
 
 #roomName {
-  position: absolute;
-  width: 100%;
-  top: 77px;
-  font-size: 10px;
-  border: 1px solid white;
-  text-align: center;
-  /* border-radius: 5px; */
-  font-family: "Montserrat", sans-serif;
-  color: white;
-  border-top: 1px solid white;
+  display: none;
 }
 
 #nav-links {
@@ -95,6 +86,7 @@ body {
   position: absolute;
   left: 10px;
   top: 10px;
+  display: none;
   border-radius: 5px;
   border: 2px solid white;
 }
@@ -218,20 +210,24 @@ body {
   font-family: "Montserrat", sans-serif;
   line-height: 1;
   font-size: 13px;
-  text-align: center;
   /* letter-spacing: 2px; */
   height: 94px;
   font-weight: 300;
   z-index: 100;
-  border-radius: 5px;
   color: black;
   margin: auto;
   position: relative;
   top: 10px;
+  display: flex;
+  justify-content: center;
   font-weight: 600;
   width: 70vw;
 }
 
+#instruction-box {
+  width: 78%;
+  /* position: absolute; */
+}
 /* #instruction-text { */
 /*   background-color: #ffffffb8;
  */
@@ -269,11 +265,15 @@ body {
 }
 
 #timer-container {
-  height: 98px;
+  height: 36px;
   position: absolute;
-  /* width: 100vw; */
+  width: 100vw;
   width: 96px;
+  text-align: center;
   letter-spacing: 2px;
+  /* FONT-VARIANT: JIS83; */
+  font-weight: 300;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -285,17 +285,9 @@ body {
 }
 
 #timer {
-  color: white;
-  text-align: center;
-  padding: 10px;
-  width: 100%;
-  bottom: 18px;
-  right: 2px;
-  font-weight: 600;
-  z-index: 900;
-  position: absolute;
+  font-weight: 600 !important;
   font-family: "Montserrat", sans-serif;
-  font-size: 34px;
+  font-size: 24px;
 }
 
 /* LIST CONTAINER */
@@ -342,6 +334,8 @@ body {
 
 /* Input Section */
 #inputForm {
+  width: 40vw !important;
+
   height: 620px;
   border: 2px solid #399e3c56;
   background: white;
@@ -402,8 +396,6 @@ body {
 /* Continue Button */
 #button-container {
   position: relative;
-  left: 72px;
-  width: 200px;
 
   bottom: -12px;
 }
@@ -474,6 +466,7 @@ body {
 
   .timer {
     top: -4px;
+    font-size: 14px;
   }
 
   #main-content {
@@ -547,16 +540,17 @@ body {
   }
 
   #timer {
-    width: 45px;
+    color: white;
     text-align: center;
-    box-shadow: unset !important;
-    font-size: 16px;
-    /* height: 43px; */
-    height: 35px;
-    top: -4px;
-    left: -4px;
-    line-height: 1;
+    /* padding: 10px; */
+    width: 100%;
+    /* bottom: 18px; */
+    /* right: 2px; */
+    font-weight: 600;
+    font-size: 24px;
+    z-index: 900;
     position: absolute;
+    font-family: "Montserrat", sans-serif;
   }
 
   #timer-container {
@@ -589,7 +583,6 @@ body {
   }
 
   #inputForm {
-    width: 150px;
   }
   #word-list {
     width: unset;
@@ -610,7 +603,9 @@ body {
 
   #button-container {
     text-align: center;
-    left: 29px;
+    display: flex;
+    justify-content: center;
+    /* left: 29px; */
   }
 }
 
@@ -630,11 +625,5 @@ body {
   }
 
   #button-container {
-    position: relative;
-    /* left: 47px; */
-    left: unset;
-    text-align: center;
-    width: 400px;
-    bottom: -12px;
   }
 }

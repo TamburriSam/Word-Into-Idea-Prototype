@@ -29,7 +29,6 @@ auth.onAuthStateChanged((user) => {
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  document.getElementById("inputForm").style.width = "350px";
   document.getElementById("inputForm").style.textAlign = "center";
   document.getElementById("input-list").style.width = "100%";
   document.querySelector(".next").style.left = "unset";

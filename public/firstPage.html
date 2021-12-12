@@ -21,8 +21,6 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="styles/f2.css" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -33,6 +31,15 @@
       href="logos/logoStandalone.png"
     />
     <title>Word Into Idea</title>
+    <style>
+      #solobtn:hover {
+        background-color: rgb(255, 65, 65) !important;
+      }
+
+      #groupbtn:hover {
+        background-color: rgb(65, 163, 255) !important;
+      }
+    </style>
   </head>
 
   <body>
@@ -50,7 +57,7 @@
             id="options-container"
           >
             <div class="option" id="solo">
-              <h1 style="text-decoration: underline">Solo</h1>
+              <h1 id="solo-heading" style="text-decoration: underline">Solo</h1>
               <p>
                 To play by yourself, <br />
                 at your own pace, <br />
@@ -75,7 +82,9 @@
             </div>
 
             <div class="option" id="group">
-              <h1 style="text-decoration: underline">Group</h1>
+              <h1 id="group-heading" style="text-decoration: underline">
+                Group
+              </h1>
               <p>
                 To play in a group, <br />
                 in real time, <br />

@@ -718,7 +718,7 @@ function setRoom() {
     .then(() => {
       setTimeout(() => {
         mockUsers();
-      }, 2000);
+      }, 3000);
     })
     .then(() => {
       setTimeout(() => {

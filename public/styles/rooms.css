@@ -433,12 +433,10 @@ nav {
 #createNewRoom {
   right: 12px;
   top: 61px;
-  background-color: white !important;
-  border: 3px solid #399e3ca9 !important;
-  color: black;
-  border-radius: 5px;
+  background-color: #101a19cf !important;
+  color: white;
+
   width: 200px !important;
-  line-height: 2.6;
   position: absolute;
 }
 
@@ -459,9 +457,9 @@ nav {
 }
 
 #createNewRoom:hover {
-  background-color: #399e3ca9 !important;
-  color: white;
-  border: #93ff97e8 3px solid;
+  background-color: white !important;
+  color: black;
+  border: black 3px solid;
 }
 
 #create-room {
@@ -471,13 +469,18 @@ nav {
 #solobtn {
   display: block;
   display: block;
-  background-color: #399e3ca9 !important;
-  border: 3px solid #fff7f7 !important;
-  color: black;
+  background-color: #101a19cf !important;
+  color: white;
+  border: 3px solid white;
   border-radius: 5px;
   width: 110px !important;
   line-height: 2.6;
   cursor: pointer;
+}
+#solobtn:hover {
+  background-color: white !important;
+  color: black;
+  border: black 3px solid;
 }
 
 .creater {
@@ -505,6 +508,15 @@ nav {
 .photoURL {
   height: 40px;
   width: 40px;
+}
+
+.liveRoom table {
+  width: 108%;
+  position: relative;
+  right: 10px;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* END room page */
@@ -1062,7 +1074,6 @@ div#rooms {
   align-items: center;
   /* margin: auto; */
   border-radius: 90px;
-  background-color: #101a19cf;
   display: flex;
   margin: auto;
   position: relative;

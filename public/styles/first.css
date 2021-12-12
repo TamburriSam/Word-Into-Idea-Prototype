@@ -65,3 +65,35 @@ body {
 #home_button {
   background-image: url("/logos/soloIcon/png");
 }
+@media screen and (min-width: 100px) and (max-width: 812px) {
+  #options-container {
+    justify-content: space-around !important;
+  }
+
+  #solo {
+    font-size: 12px;
+    height: 600px;
+  }
+
+  #group {
+    font-size: 12px;
+    height: 600px;
+  }
+
+  #solo-heading {
+    font-size: 26px;
+  }
+
+  #group-heading {
+    font-size: 26px;
+  }
+
+  .option {
+    font-size: 12px;
+    width: 40vw;
+  }
+
+  p:nth-of-type(4n) {
+    color: lime;
+  }
+}
