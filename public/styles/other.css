@@ -222,25 +222,6 @@ body {
   width: 80vw;
 }
 
-/* #instruction-text { */
-/*   background-color: #ffffffb8;
- */
-/*   background-color: transparent;
-  padding: var(--padding-sm);
-  font-family: "Montserrat", sans-serif;
-  line-height: 1;
-  font-size: 13px;
-  font-weight: 300;
-  z-index: 100;
-  border-radius: 5px;
-  color: black;
-  margin: auto;
-  position: relative;
-  top: 10px;
-  font-weight: 600;
-  width: 70vw;
-} */
-
 #instruction-one {
   display: inline;
 }

@@ -234,8 +234,7 @@ document.body.addEventListener("keyup", (e) => {
   let targetId = document.querySelector(".next").getAttribute("id");
 
   if (e.keyCode === 13) {
-    let inputList = document.querySelectorAll(".input-cell");
-
+    asd;
     let cells = [];
 
     let docRef = db.collection("rooms").doc(targetId);

@@ -781,3 +781,31 @@ document.getElementById("solobtn").addEventListener("click", singleMode);
 document.getElementById("single").addEventListener("click", () => {
   singleMode();
 });
+
+db.collection("words")
+  .doc("words")
+  .get()
+  .then((doc) => {
+    let objec = doc.data();
+
+    let myarr = [];
+
+    for (const prop in objec) {
+      myarr.push(objec[prop]);
+    }
+
+    console.log(myarr);
+
+    for (let i = 0; i < myarr.length; i++) {
+      let firstHalf = myarr[i][0].toLowerCase();
+      let secondHalf = myarr[i].substr(1, myarr[myarr.length]);
+
+      console.log(firstHalf + secondHalf);
+    }
+
+    /*  for (let i = 0; i < myarr.length; i++) {
+      for (let j = 0; i < myarr.length; j++) {
+        console.log(myarr[i][0]);
+      }
+    } */
+  });
